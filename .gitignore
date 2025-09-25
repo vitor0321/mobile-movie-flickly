@@ -19,13 +19,3 @@ captures
 
 # iOS Secrets
 iosApp/Configuration/Secrets.xcconfig
-/key/key_build.jks
-/composeApp/release/
-
-# Project exclude paths
-/app/
-/core/
-/features/
-/gradle/
-/images/
-/iosApp/
