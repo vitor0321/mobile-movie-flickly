@@ -1,0 +1,31 @@
+*.iml
+.kotlin
+.gradle
+**/build/
+xcuserdata
+!src/**/build/
+local.properties
+.idea
+.DS_Store
+captures
+.externalNativeBuild
+.cxx
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcodeproj/project.xcworkspace/
+!*.xcworkspace/contents.xcworkspacedata
+**/xcshareddata/WorkspaceSettings.xcsettings
+
+# iOS Secrets
+iosApp/Configuration/Secrets.xcconfig
+/key/key_build.jks
+/composeApp/release/
+
+# Project exclude paths
+/app/
+/core/
+/features/
+/gradle/
+/images/
+/iosApp/
