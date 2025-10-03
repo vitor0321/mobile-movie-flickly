@@ -28,21 +28,22 @@ kotlin {
     }
     sourceSets {
         androidMain.dependencies {
-            implementation(projects.features.movies)
-            implementation(projects.core)
+            implementation(projects.produto.movies)
 
+            implementation(libs.bundles.voyagerEcosystem)
             implementation(libs.bundles.koinEcosystem)
-            implementation(libs.koin.android)
+
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.kotlinx.coroutines.android)
             implementation(libs.androidx.foundation)
         }
         commonMain.dependencies {
-            implementation(projects.features.movies)
+            implementation(projects.produto.movies)
+            implementation(projects.core)
         }
         iosMain.dependencies {
-            implementation(projects.features.movies)
+            implementation(projects.produto.movies)
             implementation(libs.ktor.client.darwin)
         }
     }
