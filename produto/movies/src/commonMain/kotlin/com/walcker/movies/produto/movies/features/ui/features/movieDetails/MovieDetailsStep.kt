@@ -13,10 +13,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.walcker.movies.core.step.Step
 import com.walcker.movies.core.theme.MoviesAppTheme
 import com.walcker.movies.produto.movies.features.ui.components.MovieErrorContent
 import com.walcker.movies.produto.movies.features.ui.components.MovieLoadingContent
@@ -32,24 +32,24 @@ import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.ArrowLeft
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-internal class MovieDetailScreen(
+internal class MovieDetailStep(
     private val movieId: Int,
-) : Screen {
+) : Step() {
 
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
         val strings = LocalStrings.current
 
-        val screenModel = koinScreenModel<MovieDetailsViewModel>()
+        val screenModel = koinScreenModel<MovieDetailsStepModel>()
         val state by screenModel.state.collectAsState()
 
         LaunchedEffect(movieId) {
             screenModel.onEvent(MovieDetailsInternalRoute.OnMovieDetailsData(movieId = movieId))
         }
 
-        MovieDetailScreenContent(
-            uiState = state,
+        MovieDetailContent(
+            state = state,
             string = strings.movieDetailStrings,
             onNavigationBack = { navigator.pop() },
         )
@@ -58,8 +58,8 @@ internal class MovieDetailScreen(
 }
 
 @Composable
-private fun MovieDetailScreenContent(
-    uiState: MovieDetailsUiState,
+internal fun MovieDetailContent(
+    state: MovieDetailsState,
     string: MovieDetailString,
     onNavigationBack: () -> Unit,
 ) {
@@ -88,7 +88,7 @@ private fun MovieDetailScreenContent(
             contentAlignment = Alignment.Center,
         ) {
             UiStateCheck(
-                uiState = uiState,
+                state = state,
                 string = string,
                 onWatchClick = {
                     youtubeVideoKey = it
@@ -101,23 +101,23 @@ private fun MovieDetailScreenContent(
 
 @Composable
 private fun UiStateCheck(
-    uiState: MovieDetailsUiState,
+    state: MovieDetailsState,
     string: MovieDetailString,
     onWatchClick: (String) -> Unit,
 ) {
-    when (uiState) {
-        is MovieDetailsUiState.Loading ->
+    when (state) {
+        is MovieDetailsState.Loading ->
             MovieLoadingContent()
 
-        is MovieDetailsUiState.Success ->
+        is MovieDetailsState.Success ->
             MovieDetailSuccessContent(
-                movie = uiState.movie,
+                movie = state.movie,
                 string = string,
                 onWatchClick = { onWatchClick(it) },
             )
 
-        is MovieDetailsUiState.Error ->
-            MovieErrorContent(message = uiState.message)
+        is MovieDetailsState.Error ->
+            MovieErrorContent(message = state.message)
     }
 }
 
@@ -125,8 +125,8 @@ private fun UiStateCheck(
 @Composable
 private fun LightPreview() {
     MoviesAppTheme(isDarkTheme = false) {
-        MovieDetailScreenContent(
-            uiState = MovieDetailsUiState.Success(movieTestData),
+        MovieDetailContent(
+            state = MovieDetailsState.Success(movieTestData),
             string = movieDetailStringsPt,
             onNavigationBack = {},
         )
@@ -137,8 +137,8 @@ private fun LightPreview() {
 @Composable
 private fun DarkPreview() {
     MoviesAppTheme {
-        MovieDetailScreenContent(
-            uiState = MovieDetailsUiState.Success(movieTestData.copy(moviesTrailerYouTubeKey = null)),
+        MovieDetailContent(
+            state = MovieDetailsState.Success(movieTestData.copy(moviesTrailerYouTubeKey = null)),
             string = movieDetailStringsPt,
             onNavigationBack = {},
         )

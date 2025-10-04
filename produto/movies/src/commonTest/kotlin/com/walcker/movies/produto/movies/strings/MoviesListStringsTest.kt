@@ -1,4 +1,4 @@
-package com.walcker.movies.produto.movies.features
+package com.walcker.movies.produto.movies.strings
 
 import com.walcker.movies.produto.movies.strings.features.moviesListStringsEn
 import com.walcker.movies.produto.movies.strings.features.moviesListStringsPt
@@ -15,7 +15,7 @@ internal class MoviesListStringsTest {
 
         // Then
         assertNotNull(ptStrings)
-        assertEquals("Filmes", ptStrings.appName)
+        assertEquals("Flickly", ptStrings.appName)
         assertEquals("Populares", ptStrings.popularMovies)
         assertEquals("Mais Bem Avaliados", ptStrings.topRatedMovies)
         assertEquals("Em Breve", ptStrings.upcomingMovies)
@@ -28,7 +28,7 @@ internal class MoviesListStringsTest {
 
         // Then
         assertNotNull(enStrings)
-        assertEquals("Movies", enStrings.appName)
+        assertEquals("Flickly", enStrings.appName)
         assertEquals("Popular", enStrings.popularMovies)
         assertEquals("Top Rated", enStrings.topRatedMovies)
         assertEquals("Upcoming", enStrings.upcomingMovies)

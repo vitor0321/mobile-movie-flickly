@@ -1,9 +1,8 @@
 package com.walcker.movies.produto.movies.features.data.models
 
-import com.walcker.movies.mockData.data.movieListResponseTestData
-import com.walcker.movies.mockData.data.movieResponseJsonTestData
-import com.walcker.movies.mockData.data.movieResponseTestData
-import com.walcker.movies.produto.movies.features.data.models.MovieListResponse
+import com.walcker.movies.produto.movies.mockData.data.movieListResponseTestData
+import com.walcker.movies.produto.movies.mockData.data.movieResponseJsonTestData
+import com.walcker.movies.produto.movies.mockData.data.movieResponseTestData
 import kotlinx.datetime.LocalDate
 import kotlinx.serialization.json.Json
 import kotlin.test.Test

@@ -1,8 +1,7 @@
 package com.walcker.movies.produto.movies.features.data.models
 
-import com.walcker.movies.mockData.data.creditResponseJsonTestData
-import com.walcker.movies.mockData.data.creditsResponseTestData
-import com.walcker.movies.produto.movies.features.data.models.CreditsResponse
+import com.walcker.movies.produto.movies.mockData.data.creditResponseJsonTestData
+import com.walcker.movies.produto.movies.mockData.data.creditsResponseTestData
 import kotlinx.serialization.json.Json
 import kotlin.test.Test
 import kotlin.test.assertEquals

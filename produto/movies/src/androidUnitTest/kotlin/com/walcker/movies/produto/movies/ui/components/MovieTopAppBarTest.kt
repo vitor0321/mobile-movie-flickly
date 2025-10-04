@@ -1,7 +1,8 @@
 package com.walcker.movies.produto.movies.ui.components
 
-import com.walcker.movies.utils.DefaultPaparazzi
-import com.walcker.movies.utils.movieSnapshot
+import com.walcker.movies.produto.movies.features.ui.components.MovieTopAppBar
+import com.walcker.movies.produto.movies.utils.DefaultPaparazzi
+import com.walcker.movies.produto.movies.utils.movieSnapshot
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.ArrowLeft

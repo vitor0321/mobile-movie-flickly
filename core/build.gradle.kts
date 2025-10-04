@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 import java.util.Properties
 
 plugins {
@@ -12,7 +15,13 @@ plugins {
 }
 
 kotlin {
-    androidTarget()
+    jvmToolchain(21)
+    androidTarget {
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        compilerOptions { jvmTarget.set(JvmTarget.JVM_21) }
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
+    }
 
     listOf(iosX64(), iosArm64(), iosSimulatorArm64()).forEach { iosTarget ->
         iosTarget.binaries.framework {
@@ -30,6 +39,7 @@ kotlin {
         }
         commonMain.dependencies {
             implementation(libs.bundles.koinEcosystem)
+            implementation(libs.bundles.voyagerEcosystem)
 
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
@@ -41,7 +51,7 @@ kotlin {
             implementation(libs.kotlin.stdlib)
         }
         commonTest.dependencies {
-
+            implementation(libs.bundles.commonTestEcosystem)
         }
         iosMain.dependencies {
 

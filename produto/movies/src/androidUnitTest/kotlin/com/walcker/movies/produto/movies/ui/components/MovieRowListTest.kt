@@ -3,9 +3,11 @@ package com.walcker.movies.produto.movies.ui.components
 import androidx.compose.foundation.layout.width
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.walcker.movies.produto.movies.features.ui.components.MovieCastMemberItem
+import com.walcker.movies.produto.movies.features.ui.components.MovieRowList
 import com.walcker.movies.produto.movies.features.ui.preview.mockData.movieTestData
-import com.walcker.movies.utils.DefaultPaparazzi
-import com.walcker.movies.utils.movieSnapshot
+import com.walcker.movies.produto.movies.utils.DefaultPaparazzi
+import com.walcker.movies.produto.movies.utils.movieSnapshot
 import kotlinx.collections.immutable.persistentListOf
 import org.junit.Rule
 import kotlin.test.Test

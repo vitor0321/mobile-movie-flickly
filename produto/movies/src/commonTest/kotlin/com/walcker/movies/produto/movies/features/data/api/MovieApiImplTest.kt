@@ -1,14 +1,13 @@
 package com.walcker.movies.produto.movies.features.data.api
 
 import com.walcker.movies.produto.movies.features.domain.models.MovieSection
-import com.walcker.movies.mockData.data.creditResponseJsonTestData
-import com.walcker.movies.mockData.data.creditsResponseTestData
-import com.walcker.movies.mockData.data.movieResponse2TestData
-import com.walcker.movies.mockData.data.movieResponseJsonTestData
-import com.walcker.movies.mockData.data.movieResponseTestData
-import com.walcker.movies.mockFakes.FakeNetworkClient
-import com.walcker.movies.mockFakes.FakePlatform
-import com.walcker.movies.produto.movies.features.data.api.MovieApiImpl
+import com.walcker.movies.produto.movies.mockData.data.creditResponseJsonTestData
+import com.walcker.movies.produto.movies.mockData.data.creditsResponseTestData
+import com.walcker.movies.produto.movies.mockData.data.movieResponse2TestData
+import com.walcker.movies.produto.movies.mockData.data.movieResponseJsonTestData
+import com.walcker.movies.produto.movies.mockData.data.movieResponseTestData
+import com.walcker.movies.produto.movies.mockFakes.FakeNetworkClient
+import com.walcker.movies.produto.movies.mockFakes.FakePlatform
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals

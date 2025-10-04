@@ -2,10 +2,9 @@ package com.walcker.movies.produto.movies.features.data.repository
 
 import com.walcker.movies.produto.movies.features.domain.models.MovieSection
 import com.walcker.movies.produto.movies.features.domain.models.MoviesPagination
-import com.walcker.movies.mockFakes.FakeMovieApi.createMockMovieApi
-import com.walcker.movies.mockFakes.FakeMovieApi.createMockMovieApiWithError
-import com.walcker.movies.produto.movies.features.data.repository.MoviesRepositoryImpl
-import com.walcker.movies.utils.CoroutineMainDispatcherTestRule
+import com.walcker.movies.produto.movies.mockFakes.FakeMovieApi.createMockMovieApi
+import com.walcker.movies.produto.movies.mockFakes.FakeMovieApi.createMockMovieApiWithError
+import com.walcker.movies.produto.movies.utils.CoroutineMainDispatcherTestRule
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals

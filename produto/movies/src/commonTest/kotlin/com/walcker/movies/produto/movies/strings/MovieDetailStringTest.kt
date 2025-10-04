@@ -1,4 +1,4 @@
-package com.walcker.movies.produto.movies.features
+package com.walcker.movies.produto.movies.strings
 
 import com.walcker.movies.produto.movies.strings.features.movieDetailStringsEn
 import com.walcker.movies.produto.movies.strings.features.movieDetailStringsPt

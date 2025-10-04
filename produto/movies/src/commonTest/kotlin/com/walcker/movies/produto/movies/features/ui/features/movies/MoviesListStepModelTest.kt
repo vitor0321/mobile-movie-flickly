@@ -2,11 +2,8 @@ package com.walcker.movies.produto.movies.features.ui.features.movies
 
 import com.walcker.movies.produto.movies.features.domain.models.MovieSection
 import com.walcker.movies.produto.movies.features.domain.repository.MoviesRepository
-import com.walcker.movies.mockFakes.FakeMoviesRepository
-import com.walcker.movies.produto.movies.features.ui.features.movies.MoviesListInternalRoute
-import com.walcker.movies.produto.movies.features.ui.features.movies.MoviesListUiState
-import com.walcker.movies.produto.movies.features.ui.features.movies.MoviesListViewModel
-import com.walcker.movies.utils.CoroutineMainDispatcherTestRule
+import com.walcker.movies.produto.movies.mockFakes.FakeMoviesRepository
+import com.walcker.movies.produto.movies.utils.CoroutineMainDispatcherTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
@@ -16,24 +13,24 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 @ExperimentalCoroutinesApi
-internal class MoviesListViewModelTest : CoroutineMainDispatcherTestRule() {
+internal class MoviesListStepModelTest : CoroutineMainDispatcherTestRule() {
 
     private fun createViewModel(
         moviesRepository: MoviesRepository
-    ): MoviesListViewModel = MoviesListViewModel(moviesRepository)
+    ): MoviesListStepModel = MoviesListStepModel(moviesRepository)
 
     @Test
     fun `GIVEN a successful list fetch WHEN init THEN uiState should be Loading`() = runTest(dispatcher) {
-        val viewModel = createViewModel(FakeMoviesRepository.createSuccessRepository())
-        val uiState = viewModel.uiState.first()
-        assertTrue(uiState is MoviesListUiState.Loading)
+        val stepModel = createViewModel(FakeMoviesRepository.createSuccessRepository())
+        val uiState = stepModel.state.first()
+        assertTrue(uiState is MoviesListState.Loading)
     }
 
     @Test
     fun `GIVEN a successful list fetch WHEN init completes THEN uiState should be Success`() = runTest(dispatcher) {
-        val viewModel = createViewModel(FakeMoviesRepository.createSuccessRepository())
-        val uiState = viewModel.uiState.filter { it !is MoviesListUiState.Loading }.first()
-        assertTrue(uiState is MoviesListUiState.Success)
+        val stepModel = createViewModel(FakeMoviesRepository.createSuccessRepository())
+        val uiState = stepModel.state.filter { it !is MoviesListState.Loading }.first()
+        assertTrue(uiState is MoviesListState.Success)
         val movies = uiState.movies
         assertTrue(movies.isNotEmpty())
         assertTrue(movies.first().movies.first().title.isNotBlank())
@@ -41,22 +38,22 @@ internal class MoviesListViewModelTest : CoroutineMainDispatcherTestRule() {
 
     @Test
     fun `GIVEN next page load WHEN loadNextPage is called THEN movies list accumulates`() = runTest(dispatcher) {
-        val viewModel = createViewModel(FakeMoviesRepository.createSuccessRepository())
+        val stepModel = createViewModel(FakeMoviesRepository.createSuccessRepository())
         // First Call
-        val initialSuccess = viewModel.uiState.filter { it is MoviesListUiState.Success }
-            .first() as MoviesListUiState.Success
+        val initialSuccess = stepModel.state.filter { it is MoviesListState.Success }
+            .first() as MoviesListState.Success
 
         // Paging
         val popular = initialSuccess.movies.first { it.sectionType == MovieSection.SectionType.POPULAR }
         val initialCount = popular.movies.size
 
-        viewModel.onEvent(MoviesListInternalRoute.OnLoadNextPage(MovieSection.SectionType.POPULAR))
+        stepModel.onEvent(MoviesListInternalRoute.OnLoadNextPage(MovieSection.SectionType.POPULAR))
 
-        val nextSuccess = viewModel.uiState.filter { state ->
-            state is MoviesListUiState.Success &&
+        val nextSuccess = stepModel.state.filter { state ->
+            state is MoviesListState.Success &&
                     state.movies.first { it.sectionType == MovieSection.SectionType.POPULAR }
                         .movies.size > initialCount
-        }.first() as MoviesListUiState.Success
+        }.first() as MoviesListState.Success
 
         val newPopular = nextSuccess.movies.first { it.sectionType == MovieSection.SectionType.POPULAR }
         assertTrue(newPopular.movies.size > initialCount)
@@ -67,26 +64,26 @@ internal class MoviesListViewModelTest : CoroutineMainDispatcherTestRule() {
         // Given
         val errorMessage = "Algo deu errado. Tente novamente mais tarde."
         val moviesRepository = FakeMoviesRepository.createFailureRepository(RuntimeException("Repository error"))
-        val viewModel = createViewModel(moviesRepository = moviesRepository)
+        val stepModel = createViewModel(moviesRepository = moviesRepository)
 
         // Then
-        val uiState = viewModel.uiState.filter { it !is MoviesListUiState.Loading }.first()
-        assertTrue(uiState is MoviesListUiState.Error)
-        assertEquals(errorMessage, uiState.message)
+        val state = stepModel.state.filter { it !is MoviesListState.Loading }.first()
+        assertTrue(state is MoviesListState.Error)
+        assertEquals(errorMessage, state.message)
     }
 
     @Test
     fun `WHEN loadNextPage called THEN only that section is updated and Success state is emitted`() = runTest(dispatcher) {
         // Given
-        val viewModel = createViewModel(FakeMoviesRepository.createSuccessRepository())
-        viewModel.uiState.filter { it is MoviesListUiState.Success }.first()
+        val stepModel = createViewModel(FakeMoviesRepository.createSuccessRepository())
+        stepModel.state.filter { it is MoviesListState.Success }.first()
 
         // When
-        viewModel.onEvent(MoviesListInternalRoute.OnLoadNextPage(MovieSection.SectionType.POPULAR))
+        stepModel.onEvent(MoviesListInternalRoute.OnLoadNextPage(MovieSection.SectionType.POPULAR))
 
         // Then
-        val state = viewModel.uiState.filter { it is MoviesListUiState.Success }.first()
-        assertTrue(state is MoviesListUiState.Success)
+        val state = stepModel.state.filter { it is MoviesListState.Success }.first()
+        assertTrue(state is MoviesListState.Success)
 
         val sections = state.movies
         val updatedSection = sections.first { it.sectionType == MovieSection.SectionType.POPULAR }
@@ -96,13 +93,13 @@ internal class MoviesListViewModelTest : CoroutineMainDispatcherTestRule() {
     @Test
     fun `WHEN loadNextPage called with error THEN emits Error state`() = runTest(dispatcher) {
         // Given
-        val errorViewModel = MoviesListViewModel(FakeMoviesRepository.createFailureRepository())
+        val stepModel = MoviesListStepModel(FakeMoviesRepository.createFailureRepository())
 
         // When
-        errorViewModel.onEvent(MoviesListInternalRoute.OnLoadNextPage(MovieSection.SectionType.TOP_RATED))
+        stepModel.onEvent(MoviesListInternalRoute.OnLoadNextPage(MovieSection.SectionType.TOP_RATED))
 
         // Then
-        val state = errorViewModel.uiState.filter { it is MoviesListUiState.Error }.first()
-        assertTrue(state is MoviesListUiState.Error)
+        val state = stepModel.state.filter { it is MoviesListState.Error }.first()
+        assertTrue(state is MoviesListState.Error)
     }
 }

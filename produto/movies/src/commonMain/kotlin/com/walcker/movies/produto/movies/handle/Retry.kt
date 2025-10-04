@@ -4,7 +4,6 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -33,7 +32,6 @@ internal suspend fun <T> withRetry(
     shouldRetry: suspend (Throwable) -> Boolean = { it is RuntimeException },
     action: suspend () -> T,
 ): T = flow { emit(action()) }
-    .catch { cause -> throw cause }
     .retryWhen { cause, attempt ->
         if (shouldRetry(cause) && attempt < maxAttempts) {
             delay(strategy.getDelay(attempt.toInt()))

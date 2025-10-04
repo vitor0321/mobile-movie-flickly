@@ -26,5 +26,5 @@ internal val movieTestData1 = Movie(
     duration = "2h ",
     rating = "8.5",
     castMembers = castMemberListTestData,
-    moviesTrailerYouTubeKey = "vasdfOUBFKkaasdf2"
+    moviesTrailerYouTubeKey = null
 )

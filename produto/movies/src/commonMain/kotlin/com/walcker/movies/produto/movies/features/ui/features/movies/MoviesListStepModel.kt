@@ -1,19 +1,18 @@
 package com.walcker.movies.produto.movies.features.ui.features.movies
 
-import cafe.adriel.voyager.core.model.StateScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
+import com.walcker.movies.core.stepModel.StepModel
 import com.walcker.movies.produto.movies.features.domain.models.MovieSection
 import com.walcker.movies.produto.movies.features.domain.models.MoviesPagination
 import com.walcker.movies.produto.movies.features.domain.repository.MoviesRepository
 import com.walcker.movies.produto.movies.handle.handleMessageError
 import kotlinx.collections.immutable.toImmutableList
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-internal class MoviesListViewModel internal constructor(
+internal class MoviesListStepModel internal constructor(
     private val moviesRepository: MoviesRepository,
-) : StateScreenModel<MoviesListUiState>(MoviesListUiState.Loading) {
+) : StepModel<MoviesListState, MoviesListInternalRoute>(MoviesListState.Loading) {
 
     private var currentPagination = MoviesPagination()
     private val loadedSections = mutableMapOf<MovieSection.SectionType, MovieSection>()
@@ -22,9 +21,9 @@ internal class MoviesListViewModel internal constructor(
         getMovieSections()
     }
 
-    internal fun onEvent(onEvent: MoviesListInternalRoute) {
-        when (onEvent) {
-            is MoviesListInternalRoute.OnLoadNextPage -> loadNextPage(sectionType = onEvent.sectionType)
+    override fun onEvent(event: MoviesListInternalRoute) {
+        when (event) {
+            is MoviesListInternalRoute.OnLoadNextPage -> loadNextPage(sectionType = event.sectionType)
         }
     }
 
@@ -37,10 +36,10 @@ internal class MoviesListViewModel internal constructor(
                     val orderedSections = MovieSection.SectionType.entries
                         .mapNotNull { loadedSections[it] }
 
-                    mutableState.value = MoviesListUiState.Success(movies = orderedSections.toImmutableList())
+                    mutableState.update { MoviesListState.Success(movies = orderedSections.toImmutableList()) }
                 }
                 .onFailure { error ->
-                    mutableState.value = MoviesListUiState.Error(message = handleMessageError(exception = error))
+                    mutableState.update { MoviesListState.Error(message = handleMessageError(exception = error)) }
                 }
         }
     }
@@ -55,10 +54,10 @@ internal class MoviesListViewModel internal constructor(
                     val orderedSections = MovieSection.SectionType.entries
                         .mapNotNull { loadedSections[it] }
 
-                    mutableState.value = MoviesListUiState.Success(movies = orderedSections.toImmutableList())
+                    mutableState.update { MoviesListState.Success(movies = orderedSections.toImmutableList()) }
                 }
                 .onFailure { error ->
-                    mutableState.value = MoviesListUiState.Error(message = handleMessageError(exception = error))
+                    mutableState.update { MoviesListState.Error(message = handleMessageError(exception = error)) }
                 }
         }
     }

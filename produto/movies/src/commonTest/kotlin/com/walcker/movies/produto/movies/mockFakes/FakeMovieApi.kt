@@ -3,11 +3,11 @@ package com.walcker.movies.produto.movies.mockFakes
 import com.walcker.movies.produto.movies.features.data.models.VideoResponse
 import com.walcker.movies.produto.movies.features.domain.api.MovieApi
 import com.walcker.movies.produto.movies.features.domain.models.MovieSection
-import com.walcker.movies.mockData.data.creditsResponseTestData
-import com.walcker.movies.mockData.data.movieListResponseTestData
-import com.walcker.movies.mockData.data.movieResponse2TestData
-import com.walcker.movies.mockData.data.movieResponseTestData
-import com.walcker.movies.mockData.data.videoResponseTestData
+import com.walcker.movies.produto.movies.mockData.data.creditsResponseTestData
+import com.walcker.movies.produto.movies.mockData.data.movieListResponseTestData
+import com.walcker.movies.produto.movies.mockData.data.movieResponse2TestData
+import com.walcker.movies.produto.movies.mockData.data.movieResponseTestData
+import com.walcker.movies.produto.movies.mockData.data.videoResponseTestData
 
 internal object FakeMovieApi {
 
