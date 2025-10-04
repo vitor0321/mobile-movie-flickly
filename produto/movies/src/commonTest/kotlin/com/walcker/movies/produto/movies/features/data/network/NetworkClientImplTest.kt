@@ -1,7 +1,7 @@
 package com.walcker.movies.produto.movies.features.data.network
 
 import com.walcker.movies.produto.movies.features.data.models.CreditsResponse
-import com.walcker.movies.mockFakes.FakeNetworkClient
+import com.walcker.movies.produto.movies.mockFakes.FakeNetworkClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import kotlinx.coroutines.test.runTest

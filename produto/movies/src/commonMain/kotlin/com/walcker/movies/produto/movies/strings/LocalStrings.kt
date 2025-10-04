@@ -2,10 +2,7 @@ package com.walcker.movies.produto.movies.strings
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.staticCompositionLocalOf
 import cafe.adriel.lyricist.Lyricist
-
-//internal val LocalStrings = staticCompositionLocalOf<MoviesStrings> { error("LocalStrings not provided") }
 
 private fun createLyricist(
     defaultLanguageTag: String = Locales.EN,

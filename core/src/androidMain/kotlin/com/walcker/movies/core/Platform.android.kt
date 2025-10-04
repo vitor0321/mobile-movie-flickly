@@ -1,6 +1,5 @@
 package com.walcker.movies.core
 
-import com.walcker.movies.core.BuildConfig
 import java.util.Locale
 
 private const val LANG_EN = "en"

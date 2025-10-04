@@ -1,10 +1,10 @@
 package com.walcker.movies.produto.movies.features.data.mapper
 
 import com.walcker.movies.produto.movies.features.data.mapper.CastMemberResponseMapper.toDomain
-import com.walcker.movies.mockData.data.castMemberResponse1TestData
-import com.walcker.movies.mockData.data.castMemberResponse2TestData
-import com.walcker.movies.mockData.domain.castMember1TestData
-import com.walcker.movies.mockData.domain.castMember2TestData
+import com.walcker.movies.produto.movies.mockData.data.castMemberResponse1TestData
+import com.walcker.movies.produto.movies.mockData.data.castMemberResponse2TestData
+import com.walcker.movies.produto.movies.mockData.domain.castMember1TestData
+import com.walcker.movies.produto.movies.mockData.domain.castMember2TestData
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

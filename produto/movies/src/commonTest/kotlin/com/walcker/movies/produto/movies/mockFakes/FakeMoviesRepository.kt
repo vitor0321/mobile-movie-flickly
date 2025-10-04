@@ -5,10 +5,10 @@ import com.walcker.movies.produto.movies.features.domain.models.Movie
 import com.walcker.movies.produto.movies.features.domain.models.MovieSection
 import com.walcker.movies.produto.movies.features.domain.models.MoviesPagination
 import com.walcker.movies.produto.movies.features.domain.repository.MoviesRepository
-import com.walcker.movies.mockData.data.creditsResponseTestData
-import com.walcker.movies.mockData.data.movieListResponse2TestData
-import com.walcker.movies.mockData.data.movieResponse2TestData
-import com.walcker.movies.mockData.data.movieResponseTestData
+import com.walcker.movies.produto.movies.mockData.data.creditsResponseTestData
+import com.walcker.movies.produto.movies.mockData.data.movieListResponse2TestData
+import com.walcker.movies.produto.movies.mockData.data.movieResponse2TestData
+import com.walcker.movies.produto.movies.mockData.data.movieResponseTestData
 import kotlinx.collections.immutable.toImmutableList
 
 internal object FakeMoviesRepository {

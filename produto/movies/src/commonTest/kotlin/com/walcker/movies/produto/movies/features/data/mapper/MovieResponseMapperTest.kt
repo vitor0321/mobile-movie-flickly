@@ -3,10 +3,10 @@ package com.walcker.movies.produto.movies.features.data.mapper
 import com.walcker.movies.produto.movies.features.data.mapper.MovieResponseMapper.toDomain
 import com.walcker.movies.produto.movies.features.data.network.HttpConfig
 import com.walcker.movies.produto.movies.features.domain.models.ImageSize
-import com.walcker.movies.mockData.data.castMemberResponse1TestData
-import com.walcker.movies.mockData.data.movieResponse2TestData
-import com.walcker.movies.mockData.data.movieResponseTestData
-import com.walcker.movies.mockData.domain.movieTestData
+import com.walcker.movies.produto.movies.mockData.data.castMemberResponse1TestData
+import com.walcker.movies.produto.movies.mockData.data.movieResponse2TestData
+import com.walcker.movies.produto.movies.mockData.data.movieResponseTestData
+import com.walcker.movies.produto.movies.mockData.domain.movieTestData
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -17,7 +17,7 @@ internal class MovieResponseMapperTest {
     @Test
     fun `given movie response when mapping to domain then should map all fields correctly`() {
         // Given  // When
-        val result = movieResponseTestData.toDomain()
+        val result = movieResponseTestData.toDomain(moviesTrailerYouTubeKey = "vasdfOUBFKkaasdf")
 
         // Then
         assertEquals(movieTestData, result)

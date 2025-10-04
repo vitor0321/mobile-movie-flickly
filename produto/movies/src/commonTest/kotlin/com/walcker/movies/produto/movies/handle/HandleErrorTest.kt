@@ -1,6 +1,5 @@
 package com.walcker.movies.produto.movies.handle
 
-import com.walcker.movies.produto.movies.handle.handleMessageError
 import com.walcker.movies.produto.movies.features.domain.models.exception.NetworkException
 import kotlin.test.Test
 import kotlin.test.assertEquals

@@ -1,8 +1,6 @@
 package com.walcker.movies.produto.movies.handle
 
-import com.walcker.movies.produto.movies.handle.RetryStrategy
-import com.walcker.movies.produto.movies.handle.withRetry
-import com.walcker.movies.utils.CoroutineMainDispatcherTestRule
+import com.walcker.movies.produto.movies.utils.CoroutineMainDispatcherTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test

@@ -9,15 +9,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.walcker.movies.core.step.Step
 import com.walcker.movies.core.theme.MoviesAppTheme
 import com.walcker.movies.produto.movies.features.domain.models.MovieSection
 import com.walcker.movies.produto.movies.features.ui.components.MovieErrorContent
 import com.walcker.movies.produto.movies.features.ui.components.MovieTopAppBar
-import com.walcker.movies.produto.movies.features.ui.features.movieDetails.MovieDetailScreen
+import com.walcker.movies.produto.movies.features.ui.features.movieDetails.MovieDetailStep
 import com.walcker.movies.produto.movies.features.ui.features.movies.components.MovieSplashScreen
 import com.walcker.movies.produto.movies.features.ui.features.movies.components.MoviesListSuccessContent
 import com.walcker.movies.produto.movies.features.ui.preview.movies.MoviesListUiStateProvider
@@ -27,22 +27,22 @@ import com.walcker.movies.produto.movies.strings.features.moviesListStringsPt
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
 
-internal data object MoviesListScreen : Screen {
+internal data object MoviesListStep : Step() {
 
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
         val strings = LocalStrings.current
 
-        val screenModel = koinScreenModel<MoviesListViewModel>()
+        val screenModel = koinScreenModel<MoviesListStepModel>()
         val state by screenModel.state.collectAsState()
 
-        val onEvent: (MoviesListInternalRoute) -> Unit = remember { { screenModel.onEvent(onEvent = it) } }
+        val onEvent: (MoviesListInternalRoute) -> Unit = remember { { screenModel.onEvent(event = it) } }
 
-        MoviesListScreenContent(
-            uiState = state,
+        MoviesListContent(
+            state = state,
             onPosterClick = { movieId ->
-                navigator.push(MovieDetailScreen(movieId))
+                navigator.push(MovieDetailStep(movieId))
             },
             strings = strings.moviesListStrings,
             onEvent = onEvent,
@@ -51,8 +51,8 @@ internal data object MoviesListScreen : Screen {
 }
 
 @Composable
-private fun MoviesListScreenContent(
-    uiState: MoviesListUiState,
+internal fun MoviesListContent(
+    state: MoviesListState,
     strings: MoviesListStrings,
     onPosterClick: (movieId: Int) -> Unit,
     onEvent: (MoviesListInternalRoute) -> Unit
@@ -66,7 +66,7 @@ private fun MoviesListScreenContent(
                 .fillMaxSize()
         ) {
             UiStateCheck(
-                uiState = uiState,
+                state = state,
                 strings = strings,
                 onPosterClick = onPosterClick,
                 onLoadMore = { onEvent(MoviesListInternalRoute.OnLoadNextPage(sectionType = it)) }
@@ -77,36 +77,36 @@ private fun MoviesListScreenContent(
 
 @Composable
 private fun UiStateCheck(
-    uiState: MoviesListUiState,
+    state: MoviesListState,
     strings: MoviesListStrings,
     onPosterClick: (Int) -> Unit,
     onLoadMore: (MovieSection.SectionType) -> Unit,
 ) {
-    when (uiState) {
-        is MoviesListUiState.Loading ->
+    when (state) {
+        is MoviesListState.Loading ->
             MovieSplashScreen()
 
-        is MoviesListUiState.Success ->
+        is MoviesListState.Success ->
             MoviesListSuccessContent(
                 strings = strings,
-                movies = uiState.movies,
+                movies = state.movies,
                 onPosterClick = onPosterClick,
                 onLoadMore = onLoadMore
             )
 
-        is MoviesListUiState.Error ->
-            MovieErrorContent(message = uiState.message)
+        is MoviesListState.Error ->
+            MovieErrorContent(message = state.message)
     }
 }
 
 @Preview
 @Composable()
 private fun Preview(
-    @PreviewParameter(MoviesListUiStateProvider::class) uiState: MoviesListUiState,
+    @PreviewParameter(MoviesListUiStateProvider::class) state: MoviesListState,
 ) {
     MoviesAppTheme {
-        MoviesListScreenContent(
-            uiState = uiState,
+        MoviesListContent(
+            state = state,
             strings = moviesListStringsPt,
             onPosterClick = { },
             onEvent = {},

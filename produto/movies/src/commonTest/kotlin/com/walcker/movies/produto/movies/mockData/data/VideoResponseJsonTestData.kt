@@ -1,4 +1,4 @@
-package com.walcker.movies.mockData.data
+package com.walcker.movies.produto.movies.mockData.data
 
 internal val videoResponseJsonTestData = """
 {

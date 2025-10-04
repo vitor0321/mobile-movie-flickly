@@ -1,10 +1,10 @@
 package com.walcker.movies.produto.movies.features.data.mapper
 
-import com.walcker.movies.produto.movies.features.data.models.GenreResponse
 import com.walcker.movies.produto.movies.features.data.mapper.GenreResponseMapper.toDomain
-import com.walcker.movies.mockData.data.genreResponseTestData
-import com.walcker.movies.mockData.domain.genre1TestData
-import com.walcker.movies.mockData.domain.genre2TestData
+import com.walcker.movies.produto.movies.features.data.models.GenreResponse
+import com.walcker.movies.produto.movies.mockData.data.genreResponseTestData
+import com.walcker.movies.produto.movies.mockData.domain.genre1TestData
+import com.walcker.movies.produto.movies.mockData.domain.genre2TestData
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

@@ -1,8 +1,9 @@
 package com.walcker.movies.produto.movies.ui.features.movies.components
 
+import com.walcker.movies.produto.movies.features.ui.features.movies.components.HeaderSuccessContent
 import com.walcker.movies.produto.movies.features.ui.preview.mockData.movieTestData
-import com.walcker.movies.utils.DefaultPaparazzi
-import com.walcker.movies.utils.movieSnapshot
+import com.walcker.movies.produto.movies.utils.DefaultPaparazzi
+import com.walcker.movies.produto.movies.utils.movieSnapshot
 import kotlinx.collections.immutable.toImmutableList
 import org.junit.Rule
 import kotlin.test.Test

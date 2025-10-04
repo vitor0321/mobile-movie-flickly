@@ -13,7 +13,7 @@ import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.supervisorScope
 import kotlinx.coroutines.withContext
 
 private const val MAX_HIGHLIGHT_MOVIES = 5
@@ -26,15 +26,22 @@ internal class MoviesRepositoryImpl(
     override suspend fun getMoviesSections(pagination: MoviesPagination): Result<List<MovieSection>> =
         withContext(dispatcher) {
             runCatching {
-                val movieCategoriesWithPages = MovieSection.SectionType.entries.map { sectionType ->
-                    sectionType to pagination.pageFor(sectionType)
-                }
+                supervisorScope {
+                    val movieCategoriesWithPages = MovieSection.SectionType.entries.map { sectionType ->
+                        sectionType to pagination.pageFor(sectionType)
+                    }
+                    val deferredResults = movieCategoriesWithPages.map { (sectionType, page) ->
+                        async { runCatching { fetchMoviesByCategory(sectionType, page) } }
+                    }
+                    val results = deferredResults.awaitAll()
 
-                val moviesDeferred = movieCategoriesWithPages.map { (sectionType, page) ->
-                    async { fetchMoviesByCategory(sectionType, page) }
+                    val successes = results.filter { it.isSuccess }
+                    if (successes.isEmpty()) {
+                        val firstFailure = results.firstOrNull { it.isFailure }
+                        throw (firstFailure?.exceptionOrNull() ?: RuntimeException("Unknown fetch failure"))
+                    }
+                    successes.map { it.getOrThrow() }
                 }
-
-                moviesDeferred.awaitAll()
             }
         }
 
@@ -69,7 +76,7 @@ internal class MoviesRepositoryImpl(
     override suspend fun getMovieDetail(movieId: Int): Result<Movie> =
         withRetry(dispatcher = dispatcher) {
             runCatching {
-                coroutineScope {
+                kotlinx.coroutines.coroutineScope {
                     val movieDetailDeferred = async { movieApi.getMovieDetail(movieId = movieId) }
                     val creditsDeferred = async { movieApi.getCredits(movieId = movieId) }
                     val videosDeferred = async { movieApi.getMovieVideos(movieId = movieId) }
