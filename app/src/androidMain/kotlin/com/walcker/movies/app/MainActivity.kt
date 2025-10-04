@@ -8,7 +8,9 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowInsetsControllerCompat
-import com.walcker.movies.features.movies.App
+import cafe.adriel.voyager.navigator.Navigator
+import com.walcker.movies.core.theme.MoviesAppTheme
+import com.walcker.movies.produto.movies.features.ui.features.entrypoint.MoviesEntrypoint
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +24,11 @@ class MainActivity : ComponentActivity() {
                 WindowInsetsControllerCompat(window, view)
                     .isAppearanceLightStatusBars = !dark
             }
-            App()
+            MoviesAppTheme {
+                Navigator(
+                    screen = MoviesEntrypoint(isDarkTheme = dark)
+                )
+            }
         }
     }
 }

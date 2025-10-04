@@ -29,11 +29,19 @@ kotlin {
 
         }
         commonMain.dependencies {
-            implementation(libs.kotlin.stdlib)
             implementation(libs.bundles.koinEcosystem)
+
+            implementation(compose.components.resources)
+            implementation(compose.components.uiToolingPreview)
+            implementation(compose.foundation)
+            implementation(compose.material3)
+            implementation(compose.runtime)
+            implementation(compose.ui)
+
+            implementation(libs.kotlin.stdlib)
         }
         commonTest.dependencies {
-            implementation(libs.kotlin.test)
+
         }
         iosMain.dependencies {
 
