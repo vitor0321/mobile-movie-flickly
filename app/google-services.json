@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "497195171257",
+    "project_id": "flickly-99883",
+    "storage_bucket": "flickly-99883.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:497195171257:android:3d24248903c9c9cc358a68",
+        "android_client_info": {
+          "package_name": "com.walcker.app.app.debug"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLSCqiDeKU7R8Wlo_9djWyR8FKNpl6nns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:497195171257:android:614acf649dd7cb3f358a68",
+        "android_client_info": {
+          "package_name": "com.walcker.app.app.release"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLSCqiDeKU7R8Wlo_9djWyR8FKNpl6nns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

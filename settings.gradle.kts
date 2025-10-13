@@ -30,6 +30,7 @@ dependencyResolutionManagement {
 
 include(":app")
 include(":core")
-include(":produto")
-include(":produto:batSignal")
-include(":produto:movies")
+include(":products")
+include(":products:audio")
+include(":products:movies")
+include(":navigator")
