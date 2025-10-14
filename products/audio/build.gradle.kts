@@ -33,11 +33,13 @@ kotlin {
             implementation(libs.ktor.client.okhttp)
         }
         androidUnitTest.dependencies {
+            implementation(projects.core)
             implementation(libs.paparazzi)
             implementation(libs.parameter.injector)
         }
         commonMain.dependencies {
             implementation(projects.core)
+            implementation(projects.cedarDS)
             implementation(projects.navigator)
 
             implementation(libs.bundles.ktorEcosystem)

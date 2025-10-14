@@ -38,8 +38,8 @@ kotlin {
             implementation(libs.kotlinx.coroutines.android)
             implementation(libs.androidx.foundation)
 
-            implementation("com.google.firebase:firebase-analytics:22.1.2")
-            implementation("com.google.firebase:firebase-crashlytics-ndk:19.2.1")
+            implementation(libs.firebase.analytics)
+            implementation(libs.firebase.crashlytics.ndk)
 
         }
         commonMain.dependencies {
@@ -47,6 +47,7 @@ kotlin {
             implementation(projects.navigator)
             implementation(projects.products.movies)
             implementation(projects.products.audio)
+            implementation(projects.cedarDS)
         }
         iosMain.dependencies {
             implementation(projects.products.movies)

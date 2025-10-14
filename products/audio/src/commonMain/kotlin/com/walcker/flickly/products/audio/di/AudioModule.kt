@@ -1,0 +1,10 @@
+package com.walcker.flickly.products.audio.di
+
+import com.walcker.flickly.products.audio.navigation.navigationModule
+import org.koin.core.module.Module
+
+public val audioModule = listOf<Module>(
+
+    // Navigator
+    navigationModule,
+)

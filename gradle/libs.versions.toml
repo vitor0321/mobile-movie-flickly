@@ -15,6 +15,8 @@ coroutines = "1.10.2"
 datetime = "0.7.1"
 desugar_jdk_libs = "2.1.5"
 detekt = "1.23.8"
+firebaseAnalytics = "23.0.0"
+firebaseCrashlyticsNdk = "20.0.3"
 immutable = "0.4.0"
 junit = "4.13.2"
 paparazzi = "2.0.0-alpha02"
@@ -47,6 +49,8 @@ collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-im
 composeIcons-fontAwesome = { module = "br.com.devsrsouza.compose.icons:font-awesome", version.ref = "composeIcons" }
 compose-shimmer = { module = "com.valentinilk.shimmer:compose-shimmer", version.ref = "compose-shimmer" }
 desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics", version.ref = "firebaseAnalytics" }
+firebase-crashlytics-ndk = { module = "com.google.firebase:firebase-crashlytics-ndk", version.ref = "firebaseCrashlyticsNdk" }
 junit = { module = "junit:junit", version.ref = "junit" }
 paparazzi = { module = "app.cash.paparazzi:paparazzi", version.ref = "paparazzi" }
 parameter-injector = { module = "com.google.testparameterinjector:test-parameter-injector", version.ref = "parameter-injector" }

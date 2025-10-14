@@ -55,6 +55,6 @@ kotlin {
 }
 
 android {
-    namespace = "com.walcker.movies.navigator"
+    namespace = "com.walcker.flickly.navigator"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 }

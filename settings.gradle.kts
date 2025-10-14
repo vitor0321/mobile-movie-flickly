@@ -29,6 +29,7 @@ dependencyResolutionManagement {
 }
 
 include(":app")
+include(":cedarDS")
 include(":core")
 include(":products")
 include(":products:audio")

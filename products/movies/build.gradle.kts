@@ -42,11 +42,13 @@ kotlin {
             implementation(libs.ktor.client.okhttp)
         }
         androidUnitTest.dependencies {
+            implementation(projects.core)
             implementation(libs.paparazzi)
             implementation(libs.parameter.injector)
         }
         commonMain.dependencies {
             implementation(projects.core)
+            implementation(projects.cedarDS)
             implementation(projects.navigator)
 
             implementation(libs.bundles.ktorEcosystem)
@@ -84,7 +86,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.walcker.movies.products.movies"
+    namespace = "com.walcker.flickly.products.movies"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig { minSdk = libs.versions.android.minSdk.get().toInt() }
     buildFeatures { compose = true }

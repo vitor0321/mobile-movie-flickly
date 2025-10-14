@@ -30,9 +30,6 @@ kotlin {
         androidMain.dependencies {
 
         }
-        androidUnitTest.dependencies {
-
-        }
         commonMain.dependencies {
             implementation(libs.bundles.koinEcosystem)
             implementation(libs.bundles.voyagerEcosystem)
@@ -56,7 +53,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.walcker.movies.core"
+    namespace = "com.walcker.flickly.core"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
