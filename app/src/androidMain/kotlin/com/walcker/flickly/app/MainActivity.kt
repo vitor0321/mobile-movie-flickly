@@ -9,7 +9,7 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowInsetsControllerCompat
 import cafe.adriel.voyager.navigator.Navigator
-import com.walcker.flickly.core.theme.MoviesAppTheme
+import com.walcker.flickly.core.ui.theme.MoviesAppTheme
 import com.walcker.flickly.products.movies.features.ui.features.entrypoint.MoviesEntrypoint
 
 class MainActivity : ComponentActivity() {

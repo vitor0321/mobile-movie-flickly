@@ -7,7 +7,7 @@ public interface MoviesEntry {
     fun movieDetails(movieId: String): Screen
 }
 
-public interface BatSignalEntry {
-    fun batSignalEntryPoint(): Screen
-    fun batSignalHome(): Screen
+public interface AudioEntry {
+    fun audioEntryPoint(): Screen
+    fun audioHome(): Screen
 }

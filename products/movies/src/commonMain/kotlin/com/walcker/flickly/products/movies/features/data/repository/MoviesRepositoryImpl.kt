@@ -8,13 +8,15 @@ import com.walcker.flickly.products.movies.features.domain.models.Movie
 import com.walcker.flickly.products.movies.features.domain.models.MovieSection
 import com.walcker.flickly.products.movies.features.domain.models.MoviesPagination
 import com.walcker.flickly.products.movies.features.domain.repository.MoviesRepository
-import com.walcker.flickly.products.movies.handle.withRetry
+import com.walcker.flickly.core.data.handle.withRetry
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.supervisorScope
 import kotlinx.coroutines.withContext
+import kotlin.text.orEmpty
 
 private const val MAX_HIGHLIGHT_MOVIES = 5
 
@@ -76,24 +78,35 @@ internal class MoviesRepositoryImpl(
     override suspend fun getMovieDetail(movieId: Int): Result<Movie> =
         withRetry(dispatcher = dispatcher) {
             runCatching {
-                kotlinx.coroutines.coroutineScope {
-                    val movieDetailDeferred = async { movieApi.getMovieDetail(movieId = movieId) }
-                    val creditsDeferred = async { movieApi.getCredits(movieId = movieId) }
-                    val videosDeferred = async { movieApi.getMovieVideos(movieId = movieId) }
+                coroutineScope {
+                    val movieDetailDeferred = async { runCatching { movieApi.getMovieDetail(movieId = movieId) } }
+                    val creditsDeferred = async { runCatching { movieApi.getCredits(movieId = movieId) } }
+                    val videosDeferred = async { runCatching { movieApi.getMovieVideos(movieId = movieId) } }
 
-                    val movieDetailResponse = movieDetailDeferred.await()
-                    val creditsResponse = creditsDeferred.await()
-                    val videosResponse = videosDeferred.await()
+                    val movieDetailResult = movieDetailDeferred.await()
+                    val creditsResult = creditsDeferred.await()
+                    val videosResult = videosDeferred.await()
 
-                    val movieTrailerYoutubeKey = videosResponse.results.firstOrNull() { videoItemResponse ->
+                    if (listOf(movieDetailResult, creditsResult, videosResult).all { it.isFailure }) {
+                        throw movieDetailResult.exceptionOrNull()
+                            ?: creditsResult.exceptionOrNull()
+                            ?: videosResult.exceptionOrNull()
+                            ?: RuntimeException("Unknown error")
+                    }
+
+                    val movieDetailResponse = movieDetailResult.getOrNull()
+                    val creditsResponse = creditsResult.getOrNull()
+                    val videosResponse = videosResult.getOrNull()
+
+                    val movieTrailerYoutubeKey = videosResponse?.results?.firstOrNull { videoItemResponse ->
                         videoItemResponse.site == HttpConfig.YOUTUBE.value
                     }?.key?.let { HttpConfig.YOUTUBE_BASE_URL.value + it }
 
-                    movieDetailResponse.toDomain(
-                        castMembersResponse = creditsResponse.cast,
+                    movieDetailResponse?.toDomain(
+                        castMembersResponse = creditsResponse?.cast.orEmpty(),
                         moviesTrailerYouTubeKey = movieTrailerYoutubeKey,
                         imageSize = ImageSize.X_LARGE,
-                    )
+                    ) ?: throw RuntimeException("Movie detail not available")
                 }
             }
         }

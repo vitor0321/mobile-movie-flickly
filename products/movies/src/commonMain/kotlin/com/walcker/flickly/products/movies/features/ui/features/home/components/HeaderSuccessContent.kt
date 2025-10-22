@@ -21,9 +21,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.walcker.flickly.cedarDS.MovieAsyncImage
+import com.walcker.flickly.cedarDS.CedarAsyncImage
 import com.walcker.flickly.cedarDS.MovieDotsIndicator
-import com.walcker.flickly.core.theme.MoviesAppTheme
+import com.walcker.flickly.core.ui.theme.MoviesAppTheme
 import com.walcker.flickly.products.movies.features.domain.models.Movie
 import com.walcker.flickly.products.movies.features.ui.preview.mockData.movieTestData
 import com.walcker.flickly.products.movies.handle.getCenterItemIndex
@@ -59,7 +59,7 @@ internal fun HeaderSuccessContent(
                         .height(350.dp),
                     shape = RoundedCornerShape(12.dp),
                 ) {
-                    MovieAsyncImage(
+                    CedarAsyncImage(
                         imageUrl = movie.posterUrl,
                         modifier = Modifier
                             .clip(MaterialTheme.shapes.large)

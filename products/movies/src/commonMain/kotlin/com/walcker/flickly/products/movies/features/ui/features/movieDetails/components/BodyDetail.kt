@@ -23,7 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.walcker.flickly.cedarDS.MovieBadge
 import com.walcker.flickly.cedarDS.MovieInfoItem
-import com.walcker.flickly.core.theme.MoviesAppTheme
+import com.walcker.flickly.core.ui.theme.MoviesAppTheme
 import com.walcker.flickly.products.movies.features.domain.models.Movie
 import com.walcker.flickly.products.movies.features.ui.preview.mockData.movieTestData
 import com.walcker.flickly.products.movies.strings.features.MovieDetailString

@@ -1,18 +1,26 @@
 package com.walcker.flickly.products.movies.features.ui.features.home
 
 import cafe.adriel.voyager.core.model.screenModelScope
-import com.walcker.flickly.core.stepModel.StepModel
+import com.walcker.flickly.core.ui.stepModel.StepModel
+import com.walcker.flickly.navigator.AudioEntry
+import com.walcker.flickly.navigator.MoviesEntry
 import com.walcker.flickly.products.movies.features.domain.models.MovieSection
 import com.walcker.flickly.products.movies.features.domain.models.MoviesPagination
 import com.walcker.flickly.products.movies.features.domain.repository.MoviesRepository
 import com.walcker.flickly.products.movies.handle.handleMessageError
+import com.walcker.flickly.products.movies.strings.StringsHolder
+import com.walcker.movies.core.navigation.NavigatorHolder
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 internal class HomeMoviesStepModel internal constructor(
     private val moviesRepository: MoviesRepository,
-) : StepModel<HomeMoviesState, HomeMoviesInternalRoute>(HomeMoviesState.Loading) {
+    private val navigatorHolder: NavigatorHolder,
+    private val stringsHolder: StringsHolder,
+    private val moviesEntry: MoviesEntry,
+    private val audioEntry: AudioEntry,
+) : StepModel<HomeMoviesState, HomeMoviesInternalRoute>(HomeMoviesState()) {
 
     private var currentPagination = MoviesPagination()
     private val loadedSections = mutableMapOf<MovieSection.SectionType, MovieSection>()
@@ -24,11 +32,24 @@ internal class HomeMoviesStepModel internal constructor(
     override fun onEvent(event: HomeMoviesInternalRoute) {
         when (event) {
             is HomeMoviesInternalRoute.OnLoadNextPage -> loadNextPage(sectionType = event.sectionType)
-            is HomeMoviesInternalRoute.OnGoToBatSignal -> {}
-            is HomeMoviesInternalRoute.OnGoMovieDetails -> {
-
+            is HomeMoviesInternalRoute.OnGoToAudio -> {
+                navigatorHolder.navigator.push(audioEntry.audioEntryPoint())
             }
+            is HomeMoviesInternalRoute.OnGoMovieDetails -> {
+                navigatorHolder.navigator.push(moviesEntry.movieDetails(event.movieId.toString()))
+            }
+            is HomeMoviesInternalRoute.OnRetry -> onRetry()
         }
+    }
+
+    private fun onRetry() {
+        mutableState.update { currentData ->
+            currentData.copy(
+                errorMessage = null,
+                loading = true,
+            )
+        }
+        getMovieSections()
     }
 
     private fun getMovieSections() {
@@ -40,10 +61,22 @@ internal class HomeMoviesStepModel internal constructor(
                     val orderedSections = MovieSection.SectionType.entries
                         .mapNotNull { loadedSections[it] }
 
-                    mutableState.update { HomeMoviesState.Success(movies = orderedSections.toImmutableList()) }
+                    mutableState.update { currentData ->
+                        currentData.copy(
+                            string = stringsHolder.strings.moviesListStrings,
+                            movies = orderedSections.toImmutableList(),
+                            loading = false,
+                        )
+                    }
                 }
                 .onFailure { error ->
-                    mutableState.update { HomeMoviesState.Error(message = handleMessageError(exception = error)) }
+                    mutableState.update { currentData ->
+                        currentData.copy(
+                            string = stringsHolder.strings.moviesListStrings,
+                            errorMessage = handleMessageError(exception = error),
+                            loading = false,
+                        )
+                    }
                 }
         }
     }
@@ -57,11 +90,22 @@ internal class HomeMoviesStepModel internal constructor(
 
                     val orderedSections = MovieSection.SectionType.entries
                         .mapNotNull { loadedSections[it] }
-
-                    mutableState.update { HomeMoviesState.Success(movies = orderedSections.toImmutableList()) }
+                    mutableState.update { currentData ->
+                        currentData.copy(
+                            string = stringsHolder.strings.moviesListStrings,
+                            movies = orderedSections.toImmutableList(),
+                            loading = false,
+                        )
+                    }
                 }
                 .onFailure { error ->
-                    mutableState.update { HomeMoviesState.Error(message = handleMessageError(exception = error)) }
+                    mutableState.update { currentData ->
+                        currentData.copy(
+                            string = stringsHolder.strings.moviesListStrings,
+                            errorMessage = handleMessageError(exception = error),
+                            loading = false,
+                        )
+                    }
                 }
         }
     }

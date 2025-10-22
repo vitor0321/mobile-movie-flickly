@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.walcker.flickly.cedarDS.MovieCastMemberItem
 import com.walcker.flickly.cedarDS.MovieRowList
-import com.walcker.flickly.core.theme.MoviesAppTheme
+import com.walcker.flickly.core.ui.theme.MoviesAppTheme
 import com.walcker.flickly.products.movies.features.domain.models.Movie
 import com.walcker.flickly.products.movies.features.ui.preview.mockData.movieTestData
 import org.jetbrains.compose.ui.tooling.preview.Preview

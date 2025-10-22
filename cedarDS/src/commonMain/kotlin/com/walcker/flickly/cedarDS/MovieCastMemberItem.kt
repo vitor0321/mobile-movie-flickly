@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.walcker.flickly.core.theme.MoviesAppTheme
+import com.walcker.flickly.core.ui.theme.MoviesAppTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -34,7 +34,7 @@ public fun MovieCastMemberItem(
         Row(
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            MovieAsyncImage(
+            CedarAsyncImage(
                 modifier = Modifier
                     .widthIn(max = 68.dp)
                     .clip(

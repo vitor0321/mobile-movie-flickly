@@ -23,8 +23,6 @@ internal class MoviesListStepTest {
             HomeContent(
                 state = params.state,
                 strings = moviesListStringsPt,
-                onPosterClick = { },
-                onGoBatSignal = {},
                 onEvent = {},
             )
         }
@@ -34,13 +32,19 @@ internal class MoviesListStepTest {
         val state: HomeMoviesState,
     ) {
         StateSuccess(
-            state = HomeMoviesState.Success(movies = movieSectionTestData)
+            state = HomeMoviesState(
+                loading = false,
+                movies = movieSectionTestData
+            )
         ),
         StateLoading(
-            state = HomeMoviesState.Loading
+            state = HomeMoviesState(loading = true)
         ),
         StateError(
-            state = HomeMoviesState.Error("Erro interno do servidor. Por favor, tente novamente mais tarde.")
+            state = HomeMoviesState(
+                loading = false,
+                errorMessage = "Erro interno do servidor. Por favor, tente novamente mais tarde."
+            )
         ),
     }
 }

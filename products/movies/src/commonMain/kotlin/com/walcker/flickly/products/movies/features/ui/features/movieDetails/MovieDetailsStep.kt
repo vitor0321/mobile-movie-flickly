@@ -1,7 +1,7 @@
 package com.walcker.flickly.products.movies.features.ui.features.movieDetails
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -14,23 +14,21 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.koin.koinScreenModel
-import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.currentOrThrow
-import com.walcker.flickly.cedarDS.MovieErrorContent
-import com.walcker.flickly.cedarDS.MovieLoadingContent
-import com.walcker.flickly.cedarDS.MovieTopAppBar
-import com.walcker.flickly.core.step.Step
-import com.walcker.flickly.core.theme.MoviesAppTheme
+import com.walcker.flickly.cedarDS.CedarErrorContent
+import com.walcker.flickly.cedarDS.CedarLoadingContent
+import com.walcker.flickly.cedarDS.CedarTopAppBar
+import com.walcker.flickly.core.ui.step.Step
+import com.walcker.flickly.core.ui.theme.MoviesAppTheme
 import com.walcker.flickly.products.movies.features.ui.features.movieDetails.components.ModalBottomSheetDetail
 import com.walcker.flickly.products.movies.features.ui.features.movieDetails.components.MovieDetailSuccessContent
-import com.walcker.flickly.products.movies.features.ui.preview.mockData.movieTestData
-import com.walcker.flickly.products.movies.strings.LocalStrings
+import com.walcker.flickly.products.movies.features.ui.preview.movieDetails.MovieDetailsStateProvider
 import com.walcker.flickly.products.movies.strings.features.MovieDetailString
 import com.walcker.flickly.products.movies.strings.features.movieDetailStringsPt
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.ArrowLeft
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
 
 internal class MovieDetailStep(
     private val movieId: Int,
@@ -38,20 +36,16 @@ internal class MovieDetailStep(
 
     @Composable
     override fun Content() {
-        val navigator = LocalNavigator.currentOrThrow
-        val strings = LocalStrings.current
-
-        val screenModel = koinScreenModel<MovieDetailsStepModel>()
-        val state by screenModel.state.collectAsState()
+        val model = koinScreenModel<MovieDetailsStepModel>()
+        val state by model.state.collectAsState()
 
         LaunchedEffect(movieId) {
-            screenModel.onEvent(MovieDetailsInternalRoute.OnMovieDetailsData(movieId = movieId))
+            model.onEvent(MovieDetailsInternalRoute.OnMovieDetailsData(movieId = movieId))
         }
-
         MovieDetailContent(
             state = state,
-            string = strings.movieDetailStrings,
-            onNavigationBack = { navigator.pop() },
+            string = state.string,
+            onEvent = model::onEvent,
         )
     }
 
@@ -61,14 +55,14 @@ internal class MovieDetailStep(
 internal fun MovieDetailContent(
     state: MovieDetailsState,
     string: MovieDetailString,
-    onNavigationBack: () -> Unit,
+    onEvent: (MovieDetailsInternalRoute) -> Unit,
 ) {
     Scaffold(
         topBar = {
-            MovieTopAppBar(
+            CedarTopAppBar(
                 title = string.title,
                 icon = FontAwesomeIcons.Solid.ArrowLeft,
-                onNavigationBack = onNavigationBack,
+                onNavigationBack = { onEvent(MovieDetailsInternalRoute.OnPopBackStack) },
             )
         }
     ) { paddingValues ->
@@ -84,63 +78,56 @@ internal fun MovieDetailContent(
         Box(
             modifier = Modifier
                 .padding(paddingValues)
-                .fillMaxSize(),
+                .fillMaxWidth(),
             contentAlignment = Alignment.Center,
         ) {
-            UiStateCheck(
-                state = state,
-                string = string,
-                onWatchClick = {
-                    youtubeVideoKey = it
-                    showModal = !showModal
-                }
-            )
+            state.movie?.let {
+                MovieDetailSuccessContent(
+                    movie = state.movie,
+                    string = string,
+                    onWatchClick = {
+                        youtubeVideoKey = it
+                        showModal = !showModal
+                    },
+                )
+            }
+            state.errorMessage?.let {
+                CedarErrorContent(
+                    message = state.errorMessage,
+                    onRetry = { onEvent(MovieDetailsInternalRoute.OnRetry) }
+                )
+            }
+
+            if (state.loading)
+                CedarLoadingContent()
         }
     }
 }
 
-@Composable
-private fun UiStateCheck(
-    state: MovieDetailsState,
-    string: MovieDetailString,
-    onWatchClick: (String) -> Unit,
-) {
-    when (state) {
-        is MovieDetailsState.Loading ->
-            MovieLoadingContent()
-
-        is MovieDetailsState.Success ->
-            MovieDetailSuccessContent(
-                movie = state.movie,
-                string = string,
-                onWatchClick = { onWatchClick(it) },
-            )
-
-        is MovieDetailsState.Error ->
-            MovieErrorContent(message = state.message)
-    }
-}
-
 @Preview
-@Composable
-private fun LightPreview() {
-    MoviesAppTheme(isDarkTheme = false) {
+@Composable()
+private fun DarkPreview(
+    @PreviewParameter(MovieDetailsStateProvider::class) state: MovieDetailsState,
+) {
+    MoviesAppTheme(isDarkTheme = true) {
         MovieDetailContent(
-            state = MovieDetailsState.Success(movieTestData),
+            state = state,
             string = movieDetailStringsPt,
-            onNavigationBack = {},
+            onEvent = {},
         )
     }
 }
 
 @Preview
-@Composable
-private fun DarkPreview() {
-    MoviesAppTheme {
+@Composable()
+private fun LightPreview(
+    @PreviewParameter(MovieDetailsStateProvider::class) state: MovieDetailsState,
+) {
+    MoviesAppTheme(isDarkTheme = false) {
         MovieDetailContent(
-            state = MovieDetailsState.Success(movieTestData.copy(moviesTrailerYouTubeKey = null)),
+            state = state,
             string = movieDetailStringsPt,
-            onNavigationBack = {},
+            onEvent = {},
         )
     }
 }

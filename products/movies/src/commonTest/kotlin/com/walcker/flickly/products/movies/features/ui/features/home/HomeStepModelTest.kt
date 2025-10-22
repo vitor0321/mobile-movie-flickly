@@ -1,12 +1,18 @@
 package com.walcker.flickly.products.movies.features.ui.features.home
 
+import com.walcker.flickly.navigator.fakeNavigation.FakeAudioEntry
+import com.walcker.flickly.navigator.fakeNavigation.FakeMoviesEntry
 import com.walcker.flickly.products.movies.features.domain.models.MovieSection
 import com.walcker.flickly.products.movies.features.domain.repository.MoviesRepository
 import com.walcker.flickly.products.movies.mockFakes.FakeMoviesRepository
+import com.walcker.flickly.products.movies.strings.StringsHolder
+import com.walcker.flickly.products.movies.strings.EnStrings
 import com.walcker.flickly.products.movies.utils.CoroutineMainDispatcherTestRule
+import com.walcker.movies.core.navigation.NavigatorHolder
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -17,89 +23,82 @@ internal class HomeStepModelTest : CoroutineMainDispatcherTestRule() {
 
     private fun createViewModel(
         moviesRepository: MoviesRepository
-    ): HomeMoviesStepModel = HomeMoviesStepModel(moviesRepository)
+    ): HomeMoviesStepModel {
+        val stringsHolder = StringsHolder().apply { setStrings(EnStrings) }
+        return HomeMoviesStepModel(
+            moviesRepository,
+            navigatorHolder = NavigatorHolder(),
+            stringsHolder = stringsHolder,
+            moviesEntry = FakeMoviesEntry(),
+            audioEntry = FakeAudioEntry(),
+        )
+    }
 
     @Test
     fun `GIVEN a successful list fetch WHEN init THEN uiState should be Loading`() = runTest(dispatcher) {
         val stepModel = createViewModel(FakeMoviesRepository.createSuccessRepository())
-        val uiState = stepModel.state.first()
-        assertTrue(uiState is HomeMoviesState.Loading)
+        val initialState = stepModel.state.first()
+        assertTrue(initialState.loading)
     }
 
     @Test
     fun `GIVEN a successful list fetch WHEN init completes THEN uiState should be Success`() = runTest(dispatcher) {
         val stepModel = createViewModel(FakeMoviesRepository.createSuccessRepository())
-        val uiState = stepModel.state.filter { it !is HomeMoviesState.Loading }.first()
-        assertTrue(uiState is HomeMoviesState.Success)
-        val movies = uiState.movies
-        assertTrue(movies.isNotEmpty())
-        assertTrue(movies.first().movies.first().title.isNotBlank())
+
+        runCurrent()
+        val successState = stepModel.state.filter { !it.loading && it.movies != null }.first()
+        assertEquals(5, successState.movies?.first()?.movies?.size)
     }
 
     @Test
     fun `GIVEN next page load WHEN loadNextPage is called THEN movies list accumulates`() = runTest(dispatcher) {
         val stepModel = createViewModel(FakeMoviesRepository.createSuccessRepository())
-        // First Call
-        val initialSuccess = stepModel.state.filter { it is HomeMoviesState.Success }
-            .first() as HomeMoviesState.Success
-
-        // Paging
-        val popular = initialSuccess.movies.first { it.sectionType == MovieSection.SectionType.POPULAR }
-        val initialCount = popular.movies.size
+        runCurrent()
+        val initialSuccess = stepModel.state.filter { !it.loading && it.movies != null }.first()
+        val popularInitial = initialSuccess.movies!!.first { it.sectionType == MovieSection.SectionType.POPULAR }
+        val initialCount = popularInitial.movies.size
 
         stepModel.onEvent(HomeMoviesInternalRoute.OnLoadNextPage(MovieSection.SectionType.POPULAR))
-
-        val nextSuccess = stepModel.state.filter { state ->
-            state is HomeMoviesState.Success &&
-                    state.movies.first { it.sectionType == MovieSection.SectionType.POPULAR }
-                        .movies.size > initialCount
-        }.first() as HomeMoviesState.Success
-
-        val newPopular = nextSuccess.movies.first { it.sectionType == MovieSection.SectionType.POPULAR }
-        assertTrue(newPopular.movies.size > initialCount)
+        runCurrent()
+        val nextSuccess = stepModel.state.filter { !it.loading && it.movies != null }.first()
+        val popularAfter = nextSuccess.movies!!.first { it.sectionType == MovieSection.SectionType.POPULAR }
+        assertEquals(initialCount + 5, popularAfter.movies.size) // acumula +5
     }
 
     @Test
     fun `GIVEN a failed movies list fetch WHEN init THEN uiState should be Error`() = runTest(dispatcher) {
-        // Given
         val errorMessage = "Algo deu errado. Tente novamente mais tarde."
         val moviesRepository = FakeMoviesRepository.createFailureRepository(RuntimeException("Repository error"))
         val stepModel = createViewModel(moviesRepository = moviesRepository)
-
-        // Then
-        val state = stepModel.state.filter { it !is HomeMoviesState.Loading }.first()
-        assertTrue(state is HomeMoviesState.Error)
-        assertEquals(errorMessage, state.message)
+        runCurrent()
+        val errorState = stepModel.state.filter { !it.loading && it.errorMessage != null }.first()
+        assertEquals(errorMessage, errorState.errorMessage)
     }
 
     @Test
     fun `WHEN loadNextPage called THEN only that section is updated and Success state is emitted`() = runTest(dispatcher) {
-        // Given
         val stepModel = createViewModel(FakeMoviesRepository.createSuccessRepository())
-        stepModel.state.filter { it is HomeMoviesState.Success }.first()
+        runCurrent()
+        val initialSuccess = stepModel.state.filter { !it.loading && it.movies != null }.first()
+        val popularInitialSize = initialSuccess.movies!!.first { it.sectionType == MovieSection.SectionType.POPULAR }.movies.size
 
-        // When
         stepModel.onEvent(HomeMoviesInternalRoute.OnLoadNextPage(MovieSection.SectionType.POPULAR))
+        runCurrent()
+        val afterLoad = stepModel.state.filter { !it.loading && it.movies != null }.first()
+        val updatedPopularSize = afterLoad.movies!!.first { it.sectionType == MovieSection.SectionType.POPULAR }.movies.size
 
-        // Then
-        val state = stepModel.state.filter { it is HomeMoviesState.Success }.first()
-        assertTrue(state is HomeMoviesState.Success)
-
-        val sections = state.movies
-        val updatedSection = sections.first { it.sectionType == MovieSection.SectionType.POPULAR }
-        assertEquals(5, updatedSection.movies.size)
+        assertEquals(popularInitialSize + 5, updatedPopularSize)
     }
 
     @Test
     fun `WHEN loadNextPage called with error THEN emits Error state`() = runTest(dispatcher) {
-        // Given
-        val stepModel = HomeMoviesStepModel(FakeMoviesRepository.createFailureRepository())
+        val errorMessage = "Algo deu errado. Tente novamente mais tarde."
+        val stepModel = createViewModel(FakeMoviesRepository.createFailureRepository())
+        runCurrent()
 
-        // When
         stepModel.onEvent(HomeMoviesInternalRoute.OnLoadNextPage(MovieSection.SectionType.TOP_RATED))
-
-        // Then
-        val state = stepModel.state.filter { it is HomeMoviesState.Error }.first()
-        assertTrue(state is HomeMoviesState.Error)
+        runCurrent()
+        val errorState = stepModel.state.filter { !it.loading && it.errorMessage != null }.first()
+        assertEquals(errorMessage, errorState.errorMessage)
     }
 }

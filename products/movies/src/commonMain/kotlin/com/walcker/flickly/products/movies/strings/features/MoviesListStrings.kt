@@ -1,11 +1,11 @@
 package com.walcker.flickly.products.movies.strings.features
 
-internal data class MoviesListStrings(
-    val appName: String,
-    val popularMovies: String,
-    val highlight: String,
-    val topRatedMovies: String,
-    val upcomingMovies: String,
+public data class MoviesListStrings(
+    val appName: String = "",
+    val popularMovies: String = "",
+    val highlight: String = "",
+    val topRatedMovies: String = "",
+    val upcomingMovies: String = "",
 )
 
 internal val moviesListStringsPt = MoviesListStrings(

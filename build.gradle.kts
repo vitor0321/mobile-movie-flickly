@@ -9,7 +9,7 @@ plugins {
     alias(libs.plugins.paparazzi) apply false
     alias(libs.plugins.androidKotlinMultiplatformLibrary) apply false
     alias(libs.plugins.androidLint) apply false
-    id("com.google.gms.google-services") version "4.4.3" apply false
+    alias(libs.plugins.googleServices) apply false
     id("com.google.firebase.crashlytics") version "3.0.6" apply false
 }
 
@@ -19,6 +19,7 @@ repositories {
     gradlePluginPortal()
     mavenLocal()
     maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
+    maven(url = "https://gitlab.com/api/v4/projects/26794598/packages/maven")
 }
 
 configurations.all {

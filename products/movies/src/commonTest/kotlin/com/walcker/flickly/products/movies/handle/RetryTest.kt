@@ -1,5 +1,7 @@
 package com.walcker.flickly.products.movies.handle
 
+import com.walcker.flickly.core.data.handle.RetryStrategy
+import com.walcker.flickly.core.data.handle.withRetry
 import com.walcker.flickly.products.movies.utils.CoroutineMainDispatcherTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest

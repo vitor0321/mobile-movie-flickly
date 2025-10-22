@@ -1,8 +1,8 @@
 package com.walcker.flickly.products.movies.strings.features
 
-internal data class MovieDetailString(
-    val title: String,
-    val buttonText: String,
+public data class MovieDetailString(
+    val title: String = "",
+    val buttonText: String = "",
 )
 
 internal val movieDetailStringsPt = MovieDetailString(

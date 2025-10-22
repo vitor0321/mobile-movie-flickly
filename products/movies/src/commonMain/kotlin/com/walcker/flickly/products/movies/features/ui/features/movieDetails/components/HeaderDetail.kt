@@ -8,8 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.walcker.flickly.core.theme.MoviesAppTheme
-import com.walcker.flickly.cedarDS.MovieAsyncImage
+import com.walcker.flickly.core.ui.theme.MoviesAppTheme
+import com.walcker.flickly.cedarDS.CedarAsyncImage
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -23,7 +23,7 @@ internal fun HeaderDetail(
             .padding(16.dp),
         shape = MaterialTheme.shapes.large,
     ) {
-        MovieAsyncImage(
+        CedarAsyncImage(
             imageUrl = posterUrl,
             modifier = Modifier.clip(MaterialTheme.shapes.large),
         )

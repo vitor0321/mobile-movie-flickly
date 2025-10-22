@@ -23,7 +23,7 @@ internal class MovieDetailStepTest {
             MovieDetailContent(
                 state = params.state,
                 string = movieDetailStringsPt,
-                onNavigationBack = {},
+                onEvent = {},
             )
         }
     }
@@ -32,13 +32,19 @@ internal class MovieDetailStepTest {
         val state: MovieDetailsState,
     ) {
         StateSuccess(
-            state = MovieDetailsState.Success(movie = movieTestData)
+            state = MovieDetailsState(
+                loading = false,
+                movie = movieTestData
+            )
         ),
         StateLoading(
-            state = MovieDetailsState.Loading
+            state = MovieDetailsState(loading = true)
         ),
         StateError(
-            state = MovieDetailsState.Error("Erro interno do servidor. Por favor, tente novamente mais tarde.")
+            state = MovieDetailsState(
+                loading = false,
+                errorMessage = "Erro interno do servidor. Por favor, tente novamente mais tarde."
+            )
         ),
     }
 }

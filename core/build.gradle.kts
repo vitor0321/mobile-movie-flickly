@@ -28,7 +28,8 @@ kotlin {
 
     sourceSets {
         androidMain.dependencies {
-
+            implementation(libs.firebase.storage)
+            implementation(libs.kotlinx.coroutines.play.services)
         }
         commonMain.dependencies {
             implementation(libs.bundles.koinEcosystem)
@@ -42,6 +43,7 @@ kotlin {
             implementation(compose.ui)
 
             implementation(libs.kotlin.stdlib)
+            implementation(libs.kotlinx.datetime)
         }
         commonTest.dependencies {
             implementation(libs.bundles.commonTestEcosystem)

@@ -11,7 +11,7 @@ import com.walcker.flickly.products.movies.strings.features.moviesListStringsPt
 
 internal val LocalStrings = staticCompositionLocalOf { EnStrings }
 
-internal data class MoviesStrings(
+data class MoviesStrings(
     val appName: String,
     val moviesListStrings: MoviesListStrings,
     val movieDetailStrings: MovieDetailString,

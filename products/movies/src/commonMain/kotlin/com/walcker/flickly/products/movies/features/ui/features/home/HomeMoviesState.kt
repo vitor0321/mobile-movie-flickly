@@ -1,10 +1,13 @@
 package com.walcker.flickly.products.movies.features.ui.features.home
 
 import com.walcker.flickly.products.movies.features.domain.models.MovieSection
+import com.walcker.flickly.products.movies.strings.features.MovieDetailString
+import com.walcker.flickly.products.movies.strings.features.MoviesListStrings
 import kotlinx.collections.immutable.ImmutableList
 
-internal sealed interface HomeMoviesState {
-    data object Loading : HomeMoviesState
-    data class Success(val movies: ImmutableList<MovieSection>) : HomeMoviesState
-    data class Error(val message: String) : HomeMoviesState
-}
+internal data class HomeMoviesState(
+    val loading: Boolean = true,
+    val string: MoviesListStrings = MoviesListStrings(),
+    val movies: ImmutableList<MovieSection>? = null,
+    val errorMessage: String? = null,
+)

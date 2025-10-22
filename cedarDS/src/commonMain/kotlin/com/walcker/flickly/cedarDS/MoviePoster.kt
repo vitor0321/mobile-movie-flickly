@@ -14,7 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.walcker.flickly.core.theme.MoviesAppTheme
+import com.walcker.flickly.core.ui.theme.MoviesAppTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -42,7 +42,7 @@ public fun MoviePoster(
                     .height(210.dp),
                 shape = RoundedCornerShape(12.dp),
             ) {
-                MovieAsyncImage(imageUrl = imageUrl)
+                CedarAsyncImage(imageUrl = imageUrl)
             }
 
             Text(
