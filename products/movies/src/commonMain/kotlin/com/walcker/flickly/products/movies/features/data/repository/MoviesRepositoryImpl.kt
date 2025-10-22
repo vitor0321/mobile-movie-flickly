@@ -77,23 +77,34 @@ internal class MoviesRepositoryImpl(
         withRetry(dispatcher = dispatcher) {
             runCatching {
                 kotlinx.coroutines.coroutineScope {
-                    val movieDetailDeferred = async { movieApi.getMovieDetail(movieId = movieId) }
-                    val creditsDeferred = async { movieApi.getCredits(movieId = movieId) }
-                    val videosDeferred = async { movieApi.getMovieVideos(movieId = movieId) }
+                    val movieDetailDeferred = async { runCatching { movieApi.getMovieDetail(movieId = movieId) } }
+                    val creditsDeferred = async { runCatching { movieApi.getCredits(movieId = movieId) } }
+                    val videosDeferred = async { runCatching { movieApi.getMovieVideos(movieId = movieId) } }
 
-                    val movieDetailResponse = movieDetailDeferred.await()
-                    val creditsResponse = creditsDeferred.await()
-                    val videosResponse = videosDeferred.await()
+                    val movieDetailResult = movieDetailDeferred.await()
+                    val creditsResult = creditsDeferred.await()
+                    val videosResult = videosDeferred.await()
 
-                    val movieTrailerYoutubeKey = videosResponse.results.firstOrNull() { videoItemResponse ->
+                    if (listOf(movieDetailResult, creditsResult, videosResult).all { it.isFailure }) {
+                        throw movieDetailResult.exceptionOrNull()
+                            ?: creditsResult.exceptionOrNull()
+                            ?: videosResult.exceptionOrNull()
+                            ?: RuntimeException("Unknown error")
+                    }
+
+                    val movieDetailResponse = movieDetailResult.getOrNull()
+                    val creditsResponse = creditsResult.getOrNull()
+                    val videosResponse = videosResult.getOrNull()
+
+                    val movieTrailerYoutubeKey = videosResponse?.results?.firstOrNull { videoItemResponse ->
                         videoItemResponse.site == HttpConfig.YOUTUBE.value
                     }?.key?.let { HttpConfig.YOUTUBE_BASE_URL.value + it }
 
-                    movieDetailResponse.toDomain(
-                        castMembersResponse = creditsResponse.cast,
+                    movieDetailResponse?.toDomain(
+                        castMembersResponse = creditsResponse?.cast.orEmpty(),
                         moviesTrailerYouTubeKey = movieTrailerYoutubeKey,
                         imageSize = ImageSize.X_LARGE,
-                    )
+                    ) ?: throw RuntimeException("Movie detail not available")
                 }
             }
         }
