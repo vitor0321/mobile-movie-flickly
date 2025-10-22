@@ -85,6 +85,7 @@ internal class MoviesRepositoryImpl(
                     val creditsResult = creditsDeferred.await()
                     val videosResult = videosDeferred.await()
 
+                    // Only fail if all three calls failed
                     if (listOf(movieDetailResult, creditsResult, videosResult).all { it.isFailure }) {
                         throw movieDetailResult.exceptionOrNull()
                             ?: creditsResult.exceptionOrNull()
@@ -92,7 +93,10 @@ internal class MoviesRepositoryImpl(
                             ?: RuntimeException("Unknown error")
                     }
 
+                    // If movie detail failed but others succeeded, we still need movie detail to create a Movie
                     val movieDetailResponse = movieDetailResult.getOrNull()
+                        ?: throw (movieDetailResult.exceptionOrNull() ?: RuntimeException("Movie detail not available"))
+
                     val creditsResponse = creditsResult.getOrNull()
                     val videosResponse = videosResult.getOrNull()
 
@@ -100,11 +104,11 @@ internal class MoviesRepositoryImpl(
                         videoItemResponse.site == HttpConfig.YOUTUBE.value
                     }?.key?.let { HttpConfig.YOUTUBE_BASE_URL.value + it }
 
-                    movieDetailResponse?.toDomain(
+                    movieDetailResponse.toDomain(
                         castMembersResponse = creditsResponse?.cast.orEmpty(),
                         moviesTrailerYouTubeKey = movieTrailerYoutubeKey,
                         imageSize = ImageSize.X_LARGE,
-                    ) ?: throw RuntimeException("Movie detail not available")
+                    )
                 }
             }
         }
