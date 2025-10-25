@@ -1,7 +1,5 @@
 package com.walcker.flickly.products.movies.strings
 
-import com.walcker.flickly.products.movies.strings.features.movieDetailStringsEn
-import com.walcker.flickly.products.movies.strings.features.movieDetailStringsPt
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull

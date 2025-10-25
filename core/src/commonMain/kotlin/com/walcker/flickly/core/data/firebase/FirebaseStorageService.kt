@@ -14,6 +14,8 @@ interface FirebaseStorageService {
     suspend fun deleteFile(path: String): Result<Unit>
 
     suspend fun listFiles(path: String): Result<List<String>>
+
+    suspend fun listFolders(path: String): Result<List<String>>
 }
 
 // Platform-specific implementation using expect/actual pattern
@@ -23,6 +25,7 @@ expect class PlatformFirebaseStorageService() : FirebaseStorageService {
     override suspend fun getDownloadUrl(path: String): Result<String>
     override suspend fun deleteFile(path: String): Result<Unit>
     override suspend fun listFiles(path: String): Result<List<String>>
+    override suspend fun listFolders(path: String): Result<List<String>>
 }
 
 // Default implementation that delegates to platform-specific code
@@ -46,4 +49,7 @@ class DefaultFirebaseStorageService : FirebaseStorageService {
 
     override suspend fun listFiles(path: String): Result<List<String>> =
         platformService.listFiles(path)
+
+    override suspend fun listFolders(path: String): Result<List<String>> =
+        platformService.listFolders(path)
 }

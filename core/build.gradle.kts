@@ -41,6 +41,7 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.runtime)
             implementation(compose.ui)
+            implementation(libs.lyricist)
 
             implementation(libs.kotlin.stdlib)
             implementation(libs.kotlinx.datetime)

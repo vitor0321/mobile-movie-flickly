@@ -7,6 +7,7 @@ internal val stepModelModule = module {
     factory {
         HomeAudioStepModel(
             audioManager = get(),
+            stringsHolder = get(),
             navigatorHolder = get(),
         )
     }

@@ -4,7 +4,7 @@ import com.walcker.flickly.products.movies.features.data.di.networkModule
 import com.walcker.flickly.products.movies.features.data.di.repositoryModule
 import com.walcker.flickly.products.movies.features.ui.di.stepModelModule
 import com.walcker.flickly.products.movies.navigation.navigationModule
-import com.walcker.flickly.products.movies.strings.di.stringsModule
+import com.walcker.flickly.products.movies.strings.di.moviesStringsModule
 import org.koin.core.module.Module
 
 public val moviesModule = listOf<Module>(
@@ -19,5 +19,5 @@ public val moviesModule = listOf<Module>(
     navigationModule,
 
     // Strings
-    stringsModule,
+    moviesStringsModule,
 )

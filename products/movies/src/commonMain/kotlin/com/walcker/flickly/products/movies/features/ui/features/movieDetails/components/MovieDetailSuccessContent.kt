@@ -15,15 +15,15 @@ import androidx.compose.ui.unit.dp
 import com.walcker.flickly.core.ui.theme.MoviesAppTheme
 import com.walcker.flickly.products.movies.features.domain.models.Movie
 import com.walcker.flickly.products.movies.features.ui.preview.mockData.movieTestData
-import com.walcker.flickly.products.movies.strings.features.MovieDetailString
-import com.walcker.flickly.products.movies.strings.features.movieDetailStringsPt
+import com.walcker.flickly.products.movies.strings.MovieDetailStrings
+import com.walcker.flickly.products.movies.strings.movieDetailStringsPt
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 internal fun MovieDetailSuccessContent(
     modifier: Modifier = Modifier,
     movie: Movie,
-    string: MovieDetailString,
+    string: MovieDetailStrings,
     onWatchClick: (String) -> Unit,
 ) {
     Column(

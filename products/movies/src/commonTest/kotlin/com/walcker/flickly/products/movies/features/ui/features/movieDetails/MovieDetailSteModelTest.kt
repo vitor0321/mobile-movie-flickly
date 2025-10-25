@@ -3,10 +3,10 @@ package com.walcker.flickly.products.movies.features.ui.features.movieDetails
 import com.walcker.flickly.products.movies.features.domain.repository.MoviesRepository
 import com.walcker.flickly.products.movies.mockData.domain.movieTestData1
 import com.walcker.flickly.products.movies.mockFakes.FakeMoviesRepository
-import com.walcker.flickly.products.movies.strings.EnStrings
-import com.walcker.flickly.products.movies.strings.StringsHolder
+import com.walcker.flickly.products.movies.strings.EnMoviesStrings
+import com.walcker.flickly.products.movies.strings.MoviesStringsHolder
 import com.walcker.flickly.products.movies.utils.CoroutineMainDispatcherTestRule
-import com.walcker.movies.core.navigation.NavigatorHolder
+import com.walcker.flickly.core.navigation.NavigatorHolder
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
@@ -23,7 +23,7 @@ internal class MovieDetailSteModelTest : CoroutineMainDispatcherTestRule() {
     private fun createViewModel(
         moviesRepository: MoviesRepository,
     ): MovieDetailsStepModel {
-        val stringsHolder = StringsHolder().apply { setStrings(EnStrings) }
+        val stringsHolder = MoviesStringsHolder().apply { setStrings(EnMoviesStrings) }
         return MovieDetailsStepModel(
             moviesRepository = moviesRepository,
             stringsHolder = stringsHolder,

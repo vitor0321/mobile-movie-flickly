@@ -1,4 +1,4 @@
-package com.walcker.movies.core.navigation
+package com.walcker.flickly.core.navigation
 
 import cafe.adriel.voyager.navigator.Navigator
 
@@ -22,4 +22,3 @@ class NavigatorHolder {
 
     fun hasNavigator(): Boolean = _navigator != null
 }
-

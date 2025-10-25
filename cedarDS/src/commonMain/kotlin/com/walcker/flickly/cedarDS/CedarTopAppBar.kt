@@ -48,7 +48,6 @@ public fun CedarTopAppBar(
                 fontStyle = FontStyle.Italic,
                 fontFamily = FontFamily.Monospace,
                 fontWeight = FontWeight.Bold
-
             )
         },
         navigationIcon = {

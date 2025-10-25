@@ -5,7 +5,7 @@ import com.google.testing.junit.testparameterinjector.TestParameterInjector
 import com.walcker.flickly.products.movies.features.ui.features.home.HomeContent
 import com.walcker.flickly.products.movies.features.ui.features.home.HomeMoviesState
 import com.walcker.flickly.products.movies.features.ui.preview.mockData.movieSectionTestData
-import com.walcker.flickly.products.movies.strings.features.moviesListStringsPt
+import com.walcker.flickly.products.movies.strings.moviesListStringsPt
 import com.walcker.flickly.products.movies.ui.features.DefaultPaparazzi
 import com.walcker.flickly.products.movies.ui.features.movieSnapshot
 import org.junit.Rule

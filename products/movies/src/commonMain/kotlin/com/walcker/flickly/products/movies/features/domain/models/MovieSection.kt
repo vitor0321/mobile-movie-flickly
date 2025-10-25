@@ -1,6 +1,6 @@
 package com.walcker.flickly.products.movies.features.domain.models
 
-import com.walcker.flickly.products.movies.strings.features.MoviesListStrings
+import com.walcker.flickly.products.movies.strings.MoviesListStrings
 import kotlinx.collections.immutable.ImmutableList
 
 internal data class MovieSection(

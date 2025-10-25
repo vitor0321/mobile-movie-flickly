@@ -8,8 +8,8 @@ import androidx.compose.ui.unit.dp
 import com.walcker.flickly.core.ui.theme.MoviesAppTheme
 import com.walcker.flickly.products.movies.features.domain.models.MovieSection
 import com.walcker.flickly.products.movies.features.ui.preview.mockData.movieSectionTestData
-import com.walcker.flickly.products.movies.strings.features.MoviesListStrings
-import com.walcker.flickly.products.movies.strings.features.moviesListStringsPt
+import com.walcker.flickly.products.movies.strings.MoviesListStrings
+import com.walcker.flickly.products.movies.strings.moviesListStringsPt
 import kotlinx.collections.immutable.ImmutableList
 import org.jetbrains.compose.ui.tooling.preview.Preview
 

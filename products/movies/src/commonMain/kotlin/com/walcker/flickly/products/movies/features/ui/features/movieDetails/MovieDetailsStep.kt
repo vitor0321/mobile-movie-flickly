@@ -14,7 +14,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.koin.koinScreenModel
-import com.walcker.flickly.cedarDS.CedarErrorContent
 import com.walcker.flickly.cedarDS.CedarLoadingContent
 import com.walcker.flickly.cedarDS.CedarTopAppBar
 import com.walcker.flickly.core.ui.step.Step
@@ -22,8 +21,8 @@ import com.walcker.flickly.core.ui.theme.MoviesAppTheme
 import com.walcker.flickly.products.movies.features.ui.features.movieDetails.components.ModalBottomSheetDetail
 import com.walcker.flickly.products.movies.features.ui.features.movieDetails.components.MovieDetailSuccessContent
 import com.walcker.flickly.products.movies.features.ui.preview.movieDetails.MovieDetailsStateProvider
-import com.walcker.flickly.products.movies.strings.features.MovieDetailString
-import com.walcker.flickly.products.movies.strings.features.movieDetailStringsPt
+import com.walcker.flickly.products.movies.strings.MovieDetailStrings
+import com.walcker.flickly.products.movies.strings.movieDetailStringsPt
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.ArrowLeft
@@ -42,19 +41,25 @@ internal class MovieDetailStep(
         LaunchedEffect(movieId) {
             model.onEvent(MovieDetailsInternalRoute.OnMovieDetailsData(movieId = movieId))
         }
-        MovieDetailContent(
-            state = state,
-            string = state.string,
+
+        MovieDetailsStepEvents(
+            model = model,
             onEvent = model::onEvent,
+            content = {
+                MovieDetailContent(
+                    state = state,
+                    string = state.string,
+                    onEvent = model::onEvent,
+                )
+            }
         )
     }
-
 }
 
 @Composable
 internal fun MovieDetailContent(
     state: MovieDetailsState,
-    string: MovieDetailString,
+    string: MovieDetailStrings,
     onEvent: (MovieDetailsInternalRoute) -> Unit,
 ) {
     Scaffold(
@@ -89,12 +94,6 @@ internal fun MovieDetailContent(
                         youtubeVideoKey = it
                         showModal = !showModal
                     },
-                )
-            }
-            state.errorMessage?.let {
-                CedarErrorContent(
-                    message = state.errorMessage,
-                    onRetry = { onEvent(MovieDetailsInternalRoute.OnRetry) }
                 )
             }
 

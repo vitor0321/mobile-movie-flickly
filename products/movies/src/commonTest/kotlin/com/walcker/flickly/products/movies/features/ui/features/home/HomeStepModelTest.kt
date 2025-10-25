@@ -1,14 +1,14 @@
 package com.walcker.flickly.products.movies.features.ui.features.home
 
+import com.walcker.flickly.core.navigation.NavigatorHolder
 import com.walcker.flickly.navigator.fakeNavigation.FakeAudioEntry
 import com.walcker.flickly.navigator.fakeNavigation.FakeMoviesEntry
 import com.walcker.flickly.products.movies.features.domain.models.MovieSection
 import com.walcker.flickly.products.movies.features.domain.repository.MoviesRepository
 import com.walcker.flickly.products.movies.mockFakes.FakeMoviesRepository
-import com.walcker.flickly.products.movies.strings.StringsHolder
-import com.walcker.flickly.products.movies.strings.EnStrings
+import com.walcker.flickly.products.movies.strings.EnMoviesStrings
+import com.walcker.flickly.products.movies.strings.MoviesStringsHolder
 import com.walcker.flickly.products.movies.utils.CoroutineMainDispatcherTestRule
-import com.walcker.movies.core.navigation.NavigatorHolder
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
@@ -24,7 +24,7 @@ internal class HomeStepModelTest : CoroutineMainDispatcherTestRule() {
     private fun createViewModel(
         moviesRepository: MoviesRepository
     ): HomeMoviesStepModel {
-        val stringsHolder = StringsHolder().apply { setStrings(EnStrings) }
+        val stringsHolder = MoviesStringsHolder().apply { setStrings(EnMoviesStrings) }
         return HomeMoviesStepModel(
             moviesRepository,
             navigatorHolder = NavigatorHolder(),

@@ -71,4 +71,15 @@ actual class PlatformFirebaseStorageService : FirebaseStorageService {
             Result.failure(e)
         }
     }
+
+    actual override suspend fun listFolders(path: String): Result<List<String>> {
+        return try {
+            val reference = storage.reference.child(path)
+            val listResult = reference.listAll().await()
+            val folderNames = listResult.prefixes.map { it.name }
+            Result.success(folderNames)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
 }

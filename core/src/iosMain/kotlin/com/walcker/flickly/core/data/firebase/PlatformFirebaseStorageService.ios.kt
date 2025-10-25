@@ -33,4 +33,9 @@ actual class PlatformFirebaseStorageService : FirebaseStorageService {
         suspendCancellableCoroutine { continuation ->
 
         }
+
+    actual override suspend fun listFolders(path: String): Result<List<String>> =
+        suspendCancellableCoroutine { continuation ->
+
+        }
 }
