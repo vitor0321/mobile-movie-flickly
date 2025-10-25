@@ -1,6 +1,5 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 import java.util.Properties
 
 plugins {
@@ -10,6 +9,8 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinKsp)
     alias(libs.plugins.detekt)
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
     kotlin("plugin.serialization") version libs.versions.kotlin.get()
 }
 
@@ -18,8 +19,6 @@ kotlin {
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions { jvmTarget.set(JvmTarget.JVM_21) }
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
-        instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
     }
     listOf(iosX64(), iosArm64(), iosSimulatorArm64()).forEach { iosTarget ->
         iosTarget.binaries.framework {
@@ -29,7 +28,7 @@ kotlin {
     }
     sourceSets {
         androidMain.dependencies {
-            implementation(projects.produto.movies)
+            implementation(projects.products.movies)
 
             implementation(libs.bundles.voyagerEcosystem)
             implementation(libs.bundles.koinEcosystem)
@@ -38,13 +37,20 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.kotlinx.coroutines.android)
             implementation(libs.androidx.foundation)
+
+            implementation(libs.firebase.analytics)
+            implementation(libs.firebase.crashlytics.ndk)
+
         }
         commonMain.dependencies {
-            implementation(projects.produto.movies)
             implementation(projects.core)
+            implementation(projects.navigator)
+            implementation(projects.products.movies)
+            implementation(projects.products.audio)
+            implementation(projects.cedarDS)
         }
         iosMain.dependencies {
-            implementation(projects.produto.movies)
+            implementation(projects.products.movies)
             implementation(libs.ktor.client.darwin)
         }
     }

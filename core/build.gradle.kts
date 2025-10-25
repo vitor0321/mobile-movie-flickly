@@ -1,6 +1,5 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 import java.util.Properties
 
 plugins {
@@ -10,7 +9,6 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinKsp)
     alias(libs.plugins.detekt)
-    alias(libs.plugins.paparazzi)
     kotlin("plugin.serialization") version libs.versions.kotlin.get()
 }
 
@@ -19,8 +17,6 @@ kotlin {
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions { jvmTarget.set(JvmTarget.JVM_21) }
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
-        instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
     }
 
     listOf(iosX64(), iosArm64(), iosSimulatorArm64()).forEach { iosTarget ->
@@ -32,10 +28,8 @@ kotlin {
 
     sourceSets {
         androidMain.dependencies {
-
-        }
-        androidUnitTest.dependencies {
-
+            implementation(libs.firebase.storage)
+            implementation(libs.kotlinx.coroutines.play.services)
         }
         commonMain.dependencies {
             implementation(libs.bundles.koinEcosystem)
@@ -47,8 +41,10 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.runtime)
             implementation(compose.ui)
+            implementation(libs.lyricist)
 
             implementation(libs.kotlin.stdlib)
+            implementation(libs.kotlinx.datetime)
         }
         commonTest.dependencies {
             implementation(libs.bundles.commonTestEcosystem)
@@ -60,7 +56,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.walcker.movies.core"
+    namespace = "com.walcker.flickly.core"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
