@@ -39,7 +39,7 @@ internal class MovieDetailsStepModel internal constructor(
                 .onSuccess { movie ->
                     mutableState.update { currentData ->
                         currentData.copy(
-                            string = stringsHolder.strings.movieDetailStrings,
+                            strings = stringsHolder.strings.movieDetailStrings,
                             movie = movie,
                             loading = false,
                         )
@@ -48,7 +48,7 @@ internal class MovieDetailsStepModel internal constructor(
                 .onFailure { error ->
                     mutableState.update { currentData ->
                         currentData.copy(
-                            string = stringsHolder.strings.movieDetailStrings,
+                            strings = stringsHolder.strings.movieDetailStrings,
                             loading = false,
                         )
                     }

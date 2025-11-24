@@ -18,7 +18,6 @@ interface FirebaseStorageService {
     suspend fun listFolders(path: String): Result<List<String>>
 }
 
-// Platform-specific implementation using expect/actual pattern
 expect class PlatformFirebaseStorageService() : FirebaseStorageService {
     override suspend fun uploadFile(path: String, data: ByteArray, onProgress: ((Double) -> Unit)?): Result<String>
     override suspend fun downloadFile(path: String): Result<ByteArray>
@@ -28,7 +27,6 @@ expect class PlatformFirebaseStorageService() : FirebaseStorageService {
     override suspend fun listFolders(path: String): Result<List<String>>
 }
 
-// Default implementation that delegates to platform-specific code
 class DefaultFirebaseStorageService : FirebaseStorageService {
     private val platformService = PlatformFirebaseStorageService()
 

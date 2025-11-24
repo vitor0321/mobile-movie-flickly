@@ -92,7 +92,7 @@ voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voy
 ktorEcosystem = ["ktor-client-auth", "ktor-client-core", "ktor-client-logging", "ktor-content-negotiation", "ktor-serialization-json"]
 voyagerEcosystem = ["voyager-bottomSheetNavigator", "voyager-navigator", "voyager-screenmodel", "voyager-tabNavigator", "voyager-transitions", "voyager-koin"]
 koinEcosystem = ["koin-compose", "koin-compose-viewmodel", "koin-compose-viewmodel-navigation", "koin-core"]
-commonTestEcosystem = ["androidx-testExt-junit", "junit", "kotlin-testJunit", "kotlinx-coroutines-test", "ktor-client-mock" ]
+androidTestEcosystem = ["androidx-testExt-junit", "junit", "kotlin-testJunit", "ktor-client-mock", "paparazzi","parameter-injector"]
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -30,7 +30,7 @@ kotlin {
 
         }
         androidUnitTest.dependencies {
-
+            implementation(libs.bundles.androidTestEcosystem)
         }
         commonMain.dependencies {
             implementation(libs.bundles.koinEcosystem)
@@ -46,7 +46,8 @@ kotlin {
             implementation(libs.kotlin.stdlib)
         }
         commonTest.dependencies {
-            implementation(libs.bundles.commonTestEcosystem)
+            implementation(kotlin("test"))
+            implementation(libs.kotlinx.coroutines.test)
         }
         iosMain.dependencies {
 

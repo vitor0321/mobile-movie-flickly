@@ -10,7 +10,7 @@ internal class MovieDetailsStateProvider : PreviewParameterProvider<MovieDetails
         get() = sequenceOf(
             MovieDetailsState(
                 loading = false,
-                string = MovieDetailStrings(
+                strings = MovieDetailStrings(
                     title = "Detalhes",
                     buttonText = "Assistir trailer",
                 ),
@@ -18,7 +18,7 @@ internal class MovieDetailsStateProvider : PreviewParameterProvider<MovieDetails
             ),
             MovieDetailsState(
                 loading = false,
-                string = MovieDetailStrings(
+                strings = MovieDetailStrings(
                     title = "Detalhes",
                     buttonText = "Assistir trailer",
                 ),

@@ -64,8 +64,8 @@ android {
         applicationId = "com.walcker.app.app"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2502
+        versionName = "25.0.2"
 
         val localProperties = Properties()
         val localPropertiesFile = rootProject.file("local.properties")

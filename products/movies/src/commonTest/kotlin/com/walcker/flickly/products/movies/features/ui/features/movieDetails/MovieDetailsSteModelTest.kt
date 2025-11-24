@@ -13,12 +13,14 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.withTimeout
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertIs
 import kotlin.test.assertTrue
 
 @ExperimentalCoroutinesApi
-internal class MovieDetailSteModelTest : CoroutineMainDispatcherTestRule() {
+internal class MovieDetailsSteModelTest : CoroutineMainDispatcherTestRule() {
 
     private fun createViewModel(
         moviesRepository: MoviesRepository,
@@ -62,9 +64,10 @@ internal class MovieDetailSteModelTest : CoroutineMainDispatcherTestRule() {
         val stepModel = createViewModel(moviesRepository = moviesRepository)
         // When
         stepModel.onEvent(MovieDetailsInternalRoute.OnMovieDetailsData(123))
-        advanceUntilIdle()
         // Then
-        val errorState = stepModel.state.filter { !it.loading && it.errorMessage != null }.first()
-        assertEquals(errorMessage, errorState.errorMessage)
+        val event = stepModel.events.first { it is MovieDetailsInternalEvents.OnError }
+
+        assertIs<MovieDetailsInternalEvents.OnError>(event)
+        assertEquals(errorMessage, event.errorMessage)
     }
 }

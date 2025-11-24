@@ -31,6 +31,9 @@ kotlin {
             implementation(libs.firebase.storage)
             implementation(libs.kotlinx.coroutines.play.services)
         }
+        androidUnitTest.dependencies {
+            implementation(libs.bundles.androidTestEcosystem)
+        }
         commonMain.dependencies {
             implementation(libs.bundles.koinEcosystem)
             implementation(libs.bundles.voyagerEcosystem)
@@ -47,7 +50,8 @@ kotlin {
             implementation(libs.kotlinx.datetime)
         }
         commonTest.dependencies {
-            implementation(libs.bundles.commonTestEcosystem)
+            implementation(kotlin("test"))
+            implementation(libs.kotlinx.coroutines.test)
         }
         iosMain.dependencies {
 

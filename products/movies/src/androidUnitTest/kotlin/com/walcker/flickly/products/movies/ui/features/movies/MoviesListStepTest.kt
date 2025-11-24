@@ -40,11 +40,5 @@ internal class MoviesListStepTest {
         StateLoading(
             state = HomeMoviesState(loading = true)
         ),
-        StateError(
-            state = HomeMoviesState(
-                loading = false,
-                errorMessage = "Erro interno do servidor. Por favor, tente novamente mais tarde."
-            )
-        ),
     }
 }

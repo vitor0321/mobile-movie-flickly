@@ -34,8 +34,7 @@ kotlin {
         }
         androidUnitTest.dependencies {
             implementation(projects.core)
-            implementation(libs.paparazzi)
-            implementation(libs.parameter.injector)
+            implementation(libs.bundles.androidTestEcosystem)
         }
         commonMain.dependencies {
             implementation(projects.core)
@@ -68,7 +67,8 @@ kotlin {
             implementation(libs.lyricist)
         }
         commonTest.dependencies {
-            implementation(libs.bundles.commonTestEcosystem)
+            implementation(kotlin("test"))
+            implementation(libs.kotlinx.coroutines.test)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
