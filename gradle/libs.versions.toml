@@ -17,7 +17,7 @@ desugar_jdk_libs = "2.1.5"
 detekt = "1.23.8"
 firebaseAnalytics = "23.0.0"
 firebaseCrashlyticsNdk = "20.0.3"
-firebaseStorage = "22.0.1"
+firebaseGitlive = "2.4.0"
 googleServices = "4.4.4"
 immutable = "0.4.0"
 junit = "4.13.2"
@@ -49,7 +49,8 @@ compose-shimmer = { module = "com.valentinilk.shimmer:compose-shimmer", version.
 desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics", version.ref = "firebaseAnalytics" }
 firebase-crashlytics-ndk = { module = "com.google.firebase:firebase-crashlytics-ndk", version.ref = "firebaseCrashlyticsNdk" }
-firebase-storage = { module = "com.google.firebase:firebase-storage", version.ref = "firebaseStorage" }
+firebase-gitlive-app = { module = "dev.gitlive:firebase-app", version.ref = "firebaseGitlive" }
+firebase-gitlive-storage = { module = "dev.gitlive:firebase-storage", version.ref = "firebaseGitlive" }
 junit = { module = "junit:junit", version.ref = "junit" }
 kotlinx-coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "coroutines" }
 paparazzi = { module = "app.cash.paparazzi:paparazzi", version.ref = "paparazzi" }

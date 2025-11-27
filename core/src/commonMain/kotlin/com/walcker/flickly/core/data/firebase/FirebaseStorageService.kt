@@ -1,53 +1,21 @@
 package com.walcker.flickly.core.data.firebase
 
-interface FirebaseStorageService {
-    suspend fun uploadFile(
-        path: String,
-        data: ByteArray,
-        onProgress: ((progress: Double) -> Unit)? = null
-    ): Result<String>
+import com.walcker.flickly.core.domain.firebase.FirebaseStorageService
+import dev.gitlive.firebase.Firebase
+import dev.gitlive.firebase.storage.storage
 
-    suspend fun downloadFile(path: String): Result<ByteArray>
+internal class FirebaseStorageServiceImpl : FirebaseStorageService {
+    private val storage by lazy { Firebase.storage }
 
-    suspend fun getDownloadUrl(path: String): Result<String>
+    override suspend fun getDownloadUrl(path: String): Result<String> = runCatching {
+        storage.reference(path).getDownloadUrl()
+    }
 
-    suspend fun deleteFile(path: String): Result<Unit>
+    override suspend fun listFiles(path: String): Result<List<String>> = runCatching {
+        storage.reference(path).listAll().items.map { it.name }
+    }
 
-    suspend fun listFiles(path: String): Result<List<String>>
-
-    suspend fun listFolders(path: String): Result<List<String>>
-}
-
-expect class PlatformFirebaseStorageService() : FirebaseStorageService {
-    override suspend fun uploadFile(path: String, data: ByteArray, onProgress: ((Double) -> Unit)?): Result<String>
-    override suspend fun downloadFile(path: String): Result<ByteArray>
-    override suspend fun getDownloadUrl(path: String): Result<String>
-    override suspend fun deleteFile(path: String): Result<Unit>
-    override suspend fun listFiles(path: String): Result<List<String>>
-    override suspend fun listFolders(path: String): Result<List<String>>
-}
-
-class DefaultFirebaseStorageService : FirebaseStorageService {
-    private val platformService = PlatformFirebaseStorageService()
-
-    override suspend fun uploadFile(
-        path: String,
-        data: ByteArray,
-        onProgress: ((progress: Double) -> Unit)?
-    ): Result<String> = platformService.uploadFile(path, data, onProgress)
-
-    override suspend fun downloadFile(path: String): Result<ByteArray> =
-        platformService.downloadFile(path)
-
-    override suspend fun getDownloadUrl(path: String): Result<String> =
-        platformService.getDownloadUrl(path)
-
-    override suspend fun deleteFile(path: String): Result<Unit> =
-        platformService.deleteFile(path)
-
-    override suspend fun listFiles(path: String): Result<List<String>> =
-        platformService.listFiles(path)
-
-    override suspend fun listFolders(path: String): Result<List<String>> =
-        platformService.listFolders(path)
+    override suspend fun listFolders(path: String): Result<List<String>> = runCatching {
+        storage.reference(path).listAll().prefixes.map { it.name }
+    }
 }

@@ -20,10 +20,12 @@ kotlin {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions { jvmTarget.set(JvmTarget.JVM_21) }
     }
-    listOf(iosX64(), iosArm64(), iosSimulatorArm64()).forEach { iosTarget ->
+    listOf(iosArm64(), iosSimulatorArm64()).forEach { iosTarget ->
         iosTarget.binaries.framework {
             baseName = "AppMan"
             isStatic = true
+            // Exporta módulo core para que suas dependências (Firebase) sejam visíveis
+            export(projects.core)
         }
     }
     sourceSets {
@@ -40,7 +42,8 @@ kotlin {
 
             implementation(libs.firebase.analytics)
             implementation(libs.firebase.crashlytics.ndk)
-
+            implementation(libs.firebase.gitlive.app)
+            implementation(libs.firebase.gitlive.storage)
         }
         commonMain.dependencies {
             implementation(projects.core)
@@ -50,6 +53,7 @@ kotlin {
             implementation(projects.cedarDS)
         }
         iosMain.dependencies {
+            api(projects.core)
             implementation(projects.products.movies)
             implementation(libs.ktor.client.darwin)
         }

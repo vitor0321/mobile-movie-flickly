@@ -19,7 +19,7 @@ kotlin {
         compilerOptions { jvmTarget.set(JvmTarget.JVM_21) }
     }
 
-    listOf(iosX64(), iosArm64(), iosSimulatorArm64()).forEach { iosTarget ->
+    listOf( iosArm64(), iosSimulatorArm64()).forEach { iosTarget ->
         iosTarget.binaries.framework {
             baseName = "Core"
             isStatic = true
@@ -28,7 +28,6 @@ kotlin {
 
     sourceSets {
         androidMain.dependencies {
-            implementation(libs.firebase.storage)
             implementation(libs.kotlinx.coroutines.play.services)
         }
         androidUnitTest.dependencies {
@@ -48,6 +47,8 @@ kotlin {
 
             implementation(libs.kotlin.stdlib)
             implementation(libs.kotlinx.datetime)
+            implementation(libs.firebase.gitlive.app)
+            implementation(libs.firebase.gitlive.storage)
         }
         commonTest.dependencies {
             implementation(kotlin("test"))
