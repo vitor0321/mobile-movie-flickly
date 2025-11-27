@@ -19,7 +19,7 @@ kotlin {
         compilerOptions { jvmTarget.set(JvmTarget.JVM_21) }
     }
 
-    listOf( iosArm64(), iosSimulatorArm64()).forEach { iosTarget ->
+    listOf(iosArm64(), iosSimulatorArm64()).forEach { iosTarget ->
         iosTarget.binaries.framework {
             baseName = "Core"
             isStatic = true
@@ -28,6 +28,7 @@ kotlin {
 
     sourceSets {
         androidMain.dependencies {
+            implementation(libs.firebase.storage)
             implementation(libs.kotlinx.coroutines.play.services)
         }
         androidUnitTest.dependencies {
