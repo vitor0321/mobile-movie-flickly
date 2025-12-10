@@ -40,11 +40,5 @@ internal class MovieDetailStepTest {
         StateLoading(
             state = MovieDetailsState(loading = true)
         ),
-        StateError(
-            state = MovieDetailsState(
-                loading = false,
-                errorMessage = "Erro interno do servidor. Por favor, tente novamente mais tarde."
-            )
-        ),
     }
 }

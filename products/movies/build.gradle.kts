@@ -27,7 +27,7 @@ kotlin {
         buildUponDefaultConfig = true
     }
 
-    listOf(iosX64(), iosArm64(), iosSimulatorArm64()).forEach { iosTarget ->
+    listOf( iosArm64(), iosSimulatorArm64()).forEach { iosTarget ->
         iosTarget.binaries.framework {
             baseName = "Movies";
             isStatic = true
@@ -42,9 +42,8 @@ kotlin {
             implementation(libs.ktor.client.okhttp)
         }
         androidUnitTest.dependencies {
+            implementation(libs.bundles.androidTestEcosystem)
             implementation(projects.core)
-            implementation(libs.paparazzi)
-            implementation(libs.parameter.injector)
         }
         commonMain.dependencies {
             implementation(projects.core)
@@ -77,7 +76,8 @@ kotlin {
             implementation(libs.lyricist)
         }
         commonTest.dependencies {
-            implementation(libs.bundles.commonTestEcosystem)
+            implementation(kotlin("test"))
+            implementation(libs.kotlinx.coroutines.test)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)

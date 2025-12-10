@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:497195171257:android:3d24248903c9c9cc358a68",
+        "mobilesdk_app_id": "1:497195171257:android:2eb22edec5165605358a68",
         "android_client_info": {
-          "package_name": "com.walcker.app.app.debug"
+          "package_name": "com.walcker.flickly.app.debug"
         }
       },
       "oauth_client": [],
@@ -26,9 +26,9 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:497195171257:android:614acf649dd7cb3f358a68",
+        "mobilesdk_app_id": "1:497195171257:android:59840ceb93a4ce3a358a68",
         "android_client_info": {
-          "package_name": "com.walcker.app.app.release"
+          "package_name": "com.walcker.flickly.app.release"
         }
       },
       "oauth_client": [],

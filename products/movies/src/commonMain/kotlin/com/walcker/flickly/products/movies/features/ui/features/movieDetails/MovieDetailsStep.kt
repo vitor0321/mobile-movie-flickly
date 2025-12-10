@@ -48,7 +48,7 @@ internal class MovieDetailStep(
             content = {
                 MovieDetailContent(
                     state = state,
-                    string = state.string,
+                    string = state.strings,
                     onEvent = model::onEvent,
                 )
             }

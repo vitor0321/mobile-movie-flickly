@@ -9,13 +9,12 @@ plugins {
 
 kotlin {
     androidLibrary {
-        namespace = "com.walcker.movies.products.cedarDesignSystem"
+        namespace = "com.walcker.flickly.cedarDesignSystem"
         compileSdk = 36
         minSdk = 24
     }
 
     listOf(
-        iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach { iosTarget ->

@@ -5,6 +5,6 @@ import com.walcker.flickly.products.movies.strings.MovieDetailStrings
 
 internal data class MovieDetailsState(
     val loading: Boolean = true,
-    val string: MovieDetailStrings = MovieDetailStrings(),
+    val strings: MovieDetailStrings = MovieDetailStrings(),
     val movie: Movie? = null,
 )

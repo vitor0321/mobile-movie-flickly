@@ -5,6 +5,7 @@ import com.walcker.flickly.navigator.fakeNavigation.FakeAudioEntry
 import com.walcker.flickly.navigator.fakeNavigation.FakeMoviesEntry
 import com.walcker.flickly.products.movies.features.domain.models.MovieSection
 import com.walcker.flickly.products.movies.features.domain.repository.MoviesRepository
+import com.walcker.flickly.products.movies.features.ui.features.movieDetails.MovieDetailsInternalEvents
 import com.walcker.flickly.products.movies.mockFakes.FakeMoviesRepository
 import com.walcker.flickly.products.movies.strings.EnMoviesStrings
 import com.walcker.flickly.products.movies.strings.MoviesStringsHolder
@@ -16,6 +17,7 @@ import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertIs
 import kotlin.test.assertTrue
 
 @ExperimentalCoroutinesApi
@@ -70,9 +72,11 @@ internal class HomeStepModelTest : CoroutineMainDispatcherTestRule() {
         val errorMessage = "Algo deu errado. Tente novamente mais tarde."
         val moviesRepository = FakeMoviesRepository.createFailureRepository(RuntimeException("Repository error"))
         val stepModel = createViewModel(moviesRepository = moviesRepository)
-        runCurrent()
-        val errorState = stepModel.state.filter { !it.loading && it.errorMessage != null }.first()
-        assertEquals(errorMessage, errorState.errorMessage)
+
+        val event = stepModel.events.first { it is HomeMoviesInternalEvents.OnError }
+
+        assertIs<HomeMoviesInternalEvents.OnError>(event)
+        assertEquals(errorMessage, event.errorMessage)
     }
 
     @Test
@@ -97,8 +101,10 @@ internal class HomeStepModelTest : CoroutineMainDispatcherTestRule() {
         runCurrent()
 
         stepModel.onEvent(HomeMoviesInternalRoute.OnLoadNextPage(MovieSection.SectionType.TOP_RATED))
-        runCurrent()
-        val errorState = stepModel.state.filter { !it.loading && it.errorMessage != null }.first()
-        assertEquals(errorMessage, errorState.errorMessage)
+
+        val event = stepModel.events.first { it is HomeMoviesInternalEvents.OnError }
+
+        assertIs<HomeMoviesInternalEvents.OnError>(event)
+        assertEquals(errorMessage, event.errorMessage)
     }
 }

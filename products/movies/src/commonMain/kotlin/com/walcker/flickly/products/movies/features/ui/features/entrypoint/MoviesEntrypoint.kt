@@ -45,7 +45,6 @@ public data class MoviesEntrypoint(
             LaunchedEffect(navigator, strings) {
                 navigatorHolder.setNavigator(navigator)
                 stringsHolder.setStrings(strings)
-                println("📝 Strings updated: appName = ${strings.appName}")
             }
 
             MoviesAppTheme(isDarkTheme = isDarkTheme) {

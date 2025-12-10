@@ -9,18 +9,17 @@ plugins {
 
 kotlin {
     androidLibrary {
-        namespace = "com.walcker.movies.products.batSignal"
+        namespace = "com.walcker.flickly.products.audio"
         compileSdk = 36
         minSdk = 24
     }
 
     listOf(
-        iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "BatSignal"
+            baseName = "audio"
             isStatic = true
         }
     }
@@ -34,8 +33,7 @@ kotlin {
         }
         androidUnitTest.dependencies {
             implementation(projects.core)
-            implementation(libs.paparazzi)
-            implementation(libs.parameter.injector)
+            implementation(libs.bundles.androidTestEcosystem)
         }
         commonMain.dependencies {
             implementation(projects.core)
@@ -68,7 +66,8 @@ kotlin {
             implementation(libs.lyricist)
         }
         commonTest.dependencies {
-            implementation(libs.bundles.commonTestEcosystem)
+            implementation(kotlin("test"))
+            implementation(libs.kotlinx.coroutines.test)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
