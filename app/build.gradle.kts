@@ -24,7 +24,6 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "AppMan"
             isStatic = true
-            // Exporta módulo core para que suas dependências (Firebase) sejam visíveis
             export(projects.core)
         }
     }
@@ -61,25 +60,44 @@ kotlin {
 }
 
 android {
-    namespace = "com.walcker.movies.app"
+    namespace = "com.walcker.flickly.app"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
+    val localProps = Properties().apply {
+        val f = rootProject.file("local.properties")
+        if (f.exists()) load(f.inputStream())
+    }
+
     defaultConfig {
-        applicationId = "com.walcker.app.app"
+        applicationId = "com.walcker.flickly.app"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 2502
-        versionName = "25.0.2"
+        versionName = "26.0.1-alpha"
 
-        val localProperties = Properties()
-        val localPropertiesFile = rootProject.file("local.properties")
-        if (localPropertiesFile.exists()) localProperties.load(localPropertiesFile.inputStream())
         buildConfigField(
             "String",
             "TMDB_ACCESS_TOKEN",
-            "\"${localProperties.getProperty("TMDB_ACCESS_TOKEN", "")}\""
+            "\"${localProps.getProperty("TMDB_ACCESS_TOKEN", "")}\""
         )
     }
+
+    signingConfigs {
+        create("release") {
+            val storeFilePath = localProps.getProperty("release.storeFile") ?: "../keystore.jks"
+            val storePassword = localProps.getProperty("release.storePassword") ?: ""
+            val keyAlias = localProps.getProperty("release.keyAlias") ?: ""
+            val keyPassword = localProps.getProperty("release.keyPassword") ?: ""
+
+            if (storeFilePath.isNotBlank()) {
+                storeFile = file(storeFilePath)
+            }
+            this.storePassword = storePassword
+            this.keyAlias = keyAlias
+            this.keyPassword = keyPassword
+        }
+    }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -101,6 +119,7 @@ android {
             isShrinkResources = true
             applicationIdSuffix = ".release"
             versionNameSuffix = "-release"
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {

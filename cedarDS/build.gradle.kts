@@ -9,7 +9,7 @@ plugins {
 
 kotlin {
     androidLibrary {
-        namespace = "com.walcker.movies.products.cedarDesignSystem"
+        namespace = "com.walcker.flickly.cedarDesignSystem"
         compileSdk = 36
         minSdk = 24
     }

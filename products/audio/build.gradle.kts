@@ -9,7 +9,7 @@ plugins {
 
 kotlin {
     androidLibrary {
-        namespace = "com.walcker.movies.products.batSignal"
+        namespace = "com.walcker.flickly.products.audio"
         compileSdk = 36
         minSdk = 24
     }
@@ -19,7 +19,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "BatSignal"
+            baseName = "audio"
             isStatic = true
         }
     }
