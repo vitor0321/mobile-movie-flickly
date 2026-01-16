@@ -27,7 +27,7 @@ kotlin {
         buildUponDefaultConfig = true
     }
 
-    listOf(iosArm64(), iosSimulatorArm64()).forEach { iosTarget ->
+    listOf( iosArm64(), iosSimulatorArm64()).forEach { iosTarget ->
         iosTarget.binaries.framework {
             baseName = "Movies";
             isStatic = true
@@ -56,6 +56,7 @@ kotlin {
 
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+            implementation(compose.preview)
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.runtime)

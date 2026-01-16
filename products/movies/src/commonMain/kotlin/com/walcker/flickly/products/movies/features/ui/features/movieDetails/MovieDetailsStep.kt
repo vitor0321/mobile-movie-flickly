@@ -13,12 +13,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import cafe.adriel.voyager.koin.koinScreenModel
 import com.walcker.flickly.cedarDS.CedarLoadingContent
 import com.walcker.flickly.cedarDS.CedarTopAppBar
 import com.walcker.flickly.core.ui.step.Step
 import com.walcker.flickly.core.ui.theme.MoviesAppTheme
-import com.walcker.flickly.products.movies.features.ui.features.movieDetails.components.ModalBottomSheetDetail
+import com.walcker.flickly.core.utils.media.OpenVideo
 import com.walcker.flickly.products.movies.features.ui.features.movieDetails.components.MovieDetailSuccessContent
 import com.walcker.flickly.products.movies.features.ui.preview.movieDetails.MovieDetailsStateProvider
 import com.walcker.flickly.products.movies.strings.MovieDetailStrings
@@ -26,8 +29,7 @@ import com.walcker.flickly.products.movies.strings.movieDetailStringsPt
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.ArrowLeft
-import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
+import kotlin.reflect.KClass
 
 internal class MovieDetailStep(
     private val movieId: Int,
@@ -71,13 +73,13 @@ internal fun MovieDetailContent(
             )
         }
     ) { paddingValues ->
-        var youtubeVideoKey by remember { mutableStateOf<String?>(null) }
-        var showModal by remember { mutableStateOf(false) }
-        if (showModal && youtubeVideoKey != null) {
-            ModalBottomSheetDetail(
-                url = youtubeVideoKey.orEmpty(),
-                onDismissRequest = { showModal = false }
-            )
+        var videoUrlToOpen by remember { mutableStateOf<String?>(null) }
+
+        videoUrlToOpen?.let { url ->
+            OpenVideo(url = url)
+            LaunchedEffect(Unit) {
+                videoUrlToOpen = null
+            }
         }
 
         Box(
@@ -90,9 +92,8 @@ internal fun MovieDetailContent(
                 MovieDetailSuccessContent(
                     movie = state.movie,
                     string = string,
-                    onWatchClick = {
-                        youtubeVideoKey = it
-                        showModal = !showModal
+                    onWatchClick = { videoUrl ->
+                        videoUrlToOpen = videoUrl
                     },
                 )
             }
@@ -120,7 +121,7 @@ private fun DarkPreview(
 @Preview
 @Composable()
 private fun LightPreview(
-    @PreviewParameter(MovieDetailsStateProvider::class) state: MovieDetailsState,
+    @PreviewParameter(provider = MovieDetailsStateProvider::class) state: MovieDetailsState,
 ) {
     MoviesAppTheme(isDarkTheme = false) {
         MovieDetailContent(

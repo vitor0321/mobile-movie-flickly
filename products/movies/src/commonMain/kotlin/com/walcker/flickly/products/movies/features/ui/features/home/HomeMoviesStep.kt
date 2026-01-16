@@ -11,6 +11,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import cafe.adriel.voyager.koin.koinScreenModel
 import com.walcker.flickly.cedarDS.CedarTopAppBar
 import com.walcker.flickly.core.ui.step.Step
@@ -24,8 +26,6 @@ import com.walcker.flickly.products.movies.strings.moviesListStringsPt
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.Tree
-import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
 
 internal data object HomeMoviesStep : Step() {
 

@@ -6,10 +6,6 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		E1576DAC2ED8DE4D003B7A14 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = E1576DAB2ED8DE4D003B7A14 /* Algorithms */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
 		B9DA97B12DC1472C00A4DA20 /* Flickly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flickly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -47,7 +43,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1576DAC2ED8DE4D003B7A14 /* Algorithms in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,14 +406,6 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		E1576DAB2ED8DE4D003B7A14 /* Algorithms */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E1EFE9E82E9D2A5D00685D34 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
-			productName = Algorithms;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B9DA97A92DC1472C00A4DA20 /* Project object */;
 }

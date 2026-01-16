@@ -20,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.walcker.flickly.cedarDS.CedarAsyncImage
 import com.walcker.flickly.cedarDS.MovieDotsIndicator
@@ -29,7 +30,6 @@ import com.walcker.flickly.products.movies.features.ui.preview.mockData.movieTes
 import com.walcker.flickly.products.movies.handle.getCenterItemIndex
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 internal fun HeaderSuccessContent(

@@ -11,13 +11,13 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.walcker.flickly.core.ui.theme.MoviesAppTheme
 import com.walcker.flickly.products.movies.features.domain.models.Movie
 import com.walcker.flickly.products.movies.features.ui.preview.mockData.movieTestData
 import com.walcker.flickly.products.movies.strings.MovieDetailStrings
 import com.walcker.flickly.products.movies.strings.movieDetailStringsPt
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 internal fun MovieDetailSuccessContent(

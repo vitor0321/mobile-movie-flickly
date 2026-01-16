@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.walcker.flickly</string>
+	<string>com.walcker.flickly.app</string>
 	<key>PROJECT_ID</key>
 	<string>flickly-99883</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:497195171257:ios:c8ef818560400979358a68</string>
+	<string>1:497195171257:ios:807407367794167a358a68</string>
 </dict>
 </plist>
