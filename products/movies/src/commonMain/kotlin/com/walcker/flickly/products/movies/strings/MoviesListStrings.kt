@@ -6,8 +6,6 @@ internal data class MoviesListStrings(
     val highlight: String = "",
     val topRatedMovies: String = "",
     val upcomingMovies: String = "",
-    // ...existing code...
-    // Novos campos para fluxo de senha de acesso ao áudio
     val invalidPasswordMessage: String = "",
     val passwordDialogTitle: String = "",
     val passwordDialogSubtitle: String = "",
