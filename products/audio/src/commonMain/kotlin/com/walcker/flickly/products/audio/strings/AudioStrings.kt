@@ -14,21 +14,25 @@ import com.walcker.flickly.core.strings.createLyricist
 
 internal data class AudioStrings(
     val audioHomeStrings: AudioHomeStrings,
+    val bibleBooksStrings: BibleBooksStrings,
 )
 
 @LyricistStrings(languageTag = Locales.EN, default = true)
 internal val EnAudioStrings = AudioStrings(
     audioHomeStrings = audioHomeStringsEn,
+    bibleBooksStrings = bibleBooksStringsEn,
 )
 
 @LyricistStrings(languageTag = Locales.PT)
 internal val PtAudioStrings = AudioStrings(
     audioHomeStrings = audioHomeStringsPt,
+    bibleBooksStrings = bibleBooksStringsPt,
 )
 
 @LyricistStrings(languageTag = Locales.UR)
 internal val UrAudioStrings = AudioStrings(
     audioHomeStrings = audioHomeStringsUr,
+    bibleBooksStrings = bibleBooksStringsUr,
 )
 
 internal val LocalAudioStrings = staticCompositionLocalOf { EnAudioStrings }

@@ -17,7 +17,7 @@ internal class HomeAudioStepModel internal constructor(
     private val audioManager: AudioManager,
     private val stringsHolder: AudioStringsHolder,
     private val navigatorHolder: NavigatorHolder,
-) : StepModel<HomeAudioState, HomeAudioInternalRoute>(HomeAudioState()) {
+) : StepModel<HomeAudioState, HomeAudioInternalRoute>(HomeAudioState(loading = true)) {
 
     private val eventChannel = Channel<HomeAudioInternalEvents>()
     val events = eventChannel.receiveAsFlow()
@@ -33,6 +33,7 @@ internal class HomeAudioStepModel internal constructor(
             mutableState.update {
                 it.copy(
                     strings = stringsHolder.strings.audioHomeStrings,
+                    bibleBooksStrings = stringsHolder.strings.bibleBooksStrings,
                     availableBooks = books.toImmutableList(),
                     selectedBook = initialBook
                 )
@@ -58,7 +59,7 @@ internal class HomeAudioStepModel internal constructor(
     }
 
     private fun onSelectBook(book: AudioBook) {
-        mutableState.update { it.copy(selectedBook = book, selectedChapter = 1, loading = true, audioUrl = null) }
+        mutableState.update { it.copy(selectedBook = book, selectedChapter = 1, audioUrl = null) }
         screenModelScope.launch {
             loadChapters(book) { chapters ->
                 val firstChapter = chapters.firstOrNull() ?: 1
@@ -71,7 +72,7 @@ internal class HomeAudioStepModel internal constructor(
     private fun onSelectChapter(chapter: Int) {
         val current = state.value
         if (chapter !in current.availableChapters) return
-        mutableState.update { it.copy(selectedChapter = chapter, loading = true, audioUrl = null) }
+        mutableState.update { it.copy(selectedChapter = chapter, audioUrl = null) }
         fetchAudio(current.selectedBook, chapter)
     }
 
@@ -92,7 +93,6 @@ internal class HomeAudioStepModel internal constructor(
     private fun fetchAudio(book: AudioBook, chapter: Int, force: Boolean = false) {
         val current = state.value
         if (!force && current.audioUrl != null && current.selectedBook == book && current.selectedChapter == chapter) return
-        mutableState.update { it.copy(loading = true) }
         screenModelScope.launch {
             audioManager.getAudioUrl(
                 language = Language.URDU,
