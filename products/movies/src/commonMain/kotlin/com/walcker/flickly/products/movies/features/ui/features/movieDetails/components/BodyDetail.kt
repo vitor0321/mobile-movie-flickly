@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.walcker.flickly.cedarDS.MovieBadge
 import com.walcker.flickly.cedarDS.MovieInfoItem
@@ -34,7 +35,6 @@ import compose.icons.fontawesomeicons.solid.Calendar
 import compose.icons.fontawesomeicons.solid.Clock
 import compose.icons.fontawesomeicons.solid.Play
 import compose.icons.fontawesomeicons.solid.Star
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 internal fun BodyDetail(

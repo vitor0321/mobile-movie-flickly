@@ -1,21 +1,25 @@
 package com.walcker.flickly.products.audio.strings
 
 internal data class AudioHomeStrings(
-    val title: String = "",
-    val book: (String) -> String = { "" },
+    val chapter: (String) -> String = { "" },
+    val peace: String = "",
+    val books: String = "",
 )
 
 internal val audioHomeStringsPt = AudioHomeStrings(
-    title = "Bíblia em Áudio",
-    book = { "Livro $it" },
+    chapter = { "Capítulo $it" },
+    peace = "Paz seja convosco",
+    books = "Livros",
 )
 
 internal val audioHomeStringsEn = AudioHomeStrings(
-    title = "Audio Bible",
-    book = { "Book $it" },
+    chapter = { "Chapter $it" },
+    peace = "Peace be with you",
+    books = "Books",
 )
 
 internal val audioHomeStringsUr = AudioHomeStrings(
-    title = "آڈیو بائبل",
-    book = { "کتاب $it" },
+    chapter = { "باب $it" },
+    peace = "آپ پر سلامتی ہو",
+    books = "کتابیں",
 )

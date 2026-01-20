@@ -23,5 +23,5 @@ fun mainViewController(isDarkTheme: Boolean = false): UIViewController {
 
 fun updateTheme(controller: UIViewController, isDarkTheme: Boolean) {
     IsDarkThemeState.value = isDarkTheme
-    controller.view?.setNeedsDisplay()
+    controller.view.setNeedsDisplay()
 }

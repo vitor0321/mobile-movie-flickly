@@ -15,11 +15,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.valentinilk.shimmer.shimmer
-import com.walcker.flickly.core.ui.theme.MoviesAppTheme
 import com.walcker.flickly.cedarDS.MovieDotsIndicator
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import com.walcker.flickly.core.ui.theme.MoviesAppTheme
 
 @Composable
 internal fun MovieSplashScreen() {
@@ -31,27 +31,25 @@ internal fun MovieSplashScreen() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             Card(shape = RoundedCornerShape(12.dp)) {
                 Box(
                     modifier = Modifier
-                        .size(width = 300.dp, height = 350.dp)
+                        .size(width = 200.dp, height = 350.dp)
                         .background(Color.LightGray),
                 )
             }
-            Card(
-                shape = RoundedCornerShape(12.dp).copy(
-                    topEnd = CornerSize(0.dp),
-                    bottomEnd = CornerSize(0.dp),
-                )
-            ) {
-                Box(
-                    modifier = Modifier
-                        .size(width = 300.dp, height = 350.dp)
-                        .background(Color.LightGray),
-                )
-            }
+            Box(
+                modifier = Modifier
+                    .size(width = 100.dp, height = 350.dp)
+                    .background(Color.LightGray),
+            )
+            Box(
+                modifier = Modifier
+                    .size(width = 100.dp, height = 350.dp)
+                    .background(Color.LightGray),
+            )
         }
         MovieDotsIndicator(
             modifier = Modifier.padding(top = 8.dp),

@@ -10,135 +10,135 @@ internal enum class AudioBookResponse(
     val toDomain: AudioBook,
 ) {
     @SerialName("genesis")
-    GENESIS(folderName = "genesis", toDomain = AudioBook.GENESIS),
+    Genesis(folderName = "genesis", toDomain = AudioBook.Genesis),
     @SerialName("exodus")
-    EXODUS(folderName = "exodus", toDomain = AudioBook.EXODUS),
+    Exodus(folderName = "exodus", toDomain = AudioBook.Exodus),
     @SerialName("leviticus")
-    LEVITICUS(folderName = "leviticus", toDomain = AudioBook.LEVITICUS),
+    Leviticus(folderName = "leviticus", toDomain = AudioBook.Leviticus),
     @SerialName("numbers")
-    NUMBERS(folderName = "numbers", toDomain = AudioBook.NUMBERS),
+    Numbers(folderName = "numbers", toDomain = AudioBook.Numbers),
     @SerialName("deuteronomy")
-    DEUTERONOMY(folderName = "deuteronomy", toDomain = AudioBook.DEUTERONOMY),
+    Deuteronomy(folderName = "deuteronomy", toDomain = AudioBook.Deuteronomy),
     @SerialName("joshua")
-    JOSHUA(folderName = "joshua", toDomain = AudioBook.JOSHUA),
+    Joshua(folderName = "joshua", toDomain = AudioBook.Joshua),
     @SerialName("judges")
-    JUDGES(folderName = "judges", toDomain = AudioBook.JUDGES),
+    Judges(folderName = "judges", toDomain = AudioBook.Judges),
     @SerialName("ruth")
-    RUTH(folderName = "ruth", toDomain = AudioBook.RUTH),
+    Ruth(folderName = "ruth", toDomain = AudioBook.Ruth),
     @SerialName("1-samuel")
-    FIRST_SAMUEL(folderName = "1-samuel", toDomain = AudioBook.FIRST_SAMUEL),
+    FirstSamuel(folderName = "1-samuel", toDomain = AudioBook.FirstSamuel),
     @SerialName("2-samuel")
-    SECOND_SAMUEL(folderName = "2-samuel", toDomain = AudioBook.SECOND_SAMUEL),
+    SecondSamuel(folderName = "2-samuel", toDomain = AudioBook.SecondSamuel),
     @SerialName("1-kings")
-    FIRST_KINGS(folderName = "1-kings", toDomain = AudioBook.FIRST_KINGS),
+    FirstKings(folderName = "1-kings", toDomain = AudioBook.FirstKings),
     @SerialName("2-kings")
-    SECOND_KINGS(folderName = "2-kings", toDomain = AudioBook.SECOND_KINGS),
+    SecondKings(folderName = "2-kings", toDomain = AudioBook.SecondKings),
     @SerialName("1-chronicles")
-    FIRST_CHRONICLES(folderName = "1-chronicles", toDomain = AudioBook.FIRST_CHRONICLES),
+    FirstChronicles(folderName = "1-chronicles", toDomain = AudioBook.FirstChronicles),
     @SerialName("2-chronicles")
-    SECOND_CHRONICLES(folderName = "2-chronicles", toDomain = AudioBook.SECOND_CHRONICLES),
+    SecondChronicles(folderName = "2-chronicles", toDomain = AudioBook.SecondChronicles),
     @SerialName("ezra")
-    EZRA(folderName = "ezra", toDomain = AudioBook.EZRA),
+    Ezra(folderName = "ezra", toDomain = AudioBook.Ezra),
     @SerialName("nehemiah")
-    NEHEMIAH(folderName = "nehemiah", toDomain = AudioBook.NEHEMIAH),
+    Nehemiah(folderName = "nehemiah", toDomain = AudioBook.Nehemiah),
     @SerialName("esther")
-    ESTHER(folderName = "esther", toDomain = AudioBook.ESTHER),
+    Esther(folderName = "esther", toDomain = AudioBook.Esther),
     @SerialName("job")
-    JOB(folderName = "job", toDomain = AudioBook.JOB),
+    Job(folderName = "job", toDomain = AudioBook.Job),
     @SerialName("psalms")
-    PSALMS(folderName = "psalms", toDomain = AudioBook.PSALMS),
+    Psalms(folderName = "psalms", toDomain = AudioBook.Psalms),
     @SerialName("proverbs")
-    PROVERBS(folderName = "proverbs", toDomain = AudioBook.PROVERBS),
+    Proverbs(folderName = "proverbs", toDomain = AudioBook.Proverbs),
     @SerialName("ecclesiastes")
-    ECCLESIASTES(folderName = "ecclesiastes", toDomain = AudioBook.ECCLESIASTES),
+    Ecclesiastes(folderName = "ecclesiastes", toDomain = AudioBook.Ecclesiastes),
     @SerialName("song-of-solomon")
-    SONG_OF_SOLOMON(folderName = "song-of-solomon", toDomain = AudioBook.SONG_OF_SOLOMON),
+    SongOfSolomon(folderName = "song-of-solomon", toDomain = AudioBook.SongOfSolomon),
     @SerialName("isaiah")
-    ISAIAH(folderName = "isaiah", toDomain = AudioBook.ISAIAH),
+    Isaiah(folderName = "isaiah", toDomain = AudioBook.Isaiah),
     @SerialName("jeremiah")
-    JEREMIAH(folderName = "jeremiah", toDomain = AudioBook.JEREMIAH),
+    Jeremiah(folderName = "jeremiah", toDomain = AudioBook.Jeremiah),
     @SerialName("lamentations")
-    LAMENTATIONS(folderName = "lamentations", toDomain = AudioBook.LAMENTATIONS),
+    Lamentations(folderName = "lamentations", toDomain = AudioBook.Lamentations),
     @SerialName("ezekiel")
-    EZEKIEL(folderName = "ezekiel", toDomain = AudioBook.EZEKIEL),
+    Ezekiel(folderName = "ezekiel", toDomain = AudioBook.Ezekiel),
     @SerialName("daniel")
-    DANIEL(folderName = "daniel", toDomain = AudioBook.DANIEL),
+    Daniel(folderName = "daniel", toDomain = AudioBook.Daniel),
     @SerialName("hosea")
-    HOSEA(folderName = "hosea", toDomain = AudioBook.HOSEA),
+    Hosea(folderName = "hosea", toDomain = AudioBook.Hosea),
     @SerialName("joel")
-    JOEL(folderName = "joel", toDomain = AudioBook.JOEL),
+    Joel(folderName = "joel", toDomain = AudioBook.Joel),
     @SerialName("amos")
-    AMOS(folderName = "amos", toDomain = AudioBook.AMOS),
+    Amos(folderName = "amos", toDomain = AudioBook.Amos),
     @SerialName("obadiah")
-    OBADIAH(folderName = "obadiah", toDomain = AudioBook.OBADIAH),
+    Obadiah(folderName = "obadiah", toDomain = AudioBook.Obadiah),
     @SerialName("jonah")
-    JONAH(folderName = "jonah", toDomain = AudioBook.JONAH),
+    Jonah(folderName = "jonah", toDomain = AudioBook.Jonah),
     @SerialName("micah")
-    MICAH(folderName = "micah", toDomain = AudioBook.MICAH),
+    Micah(folderName = "micah", toDomain = AudioBook.Micah),
     @SerialName("nahum")
-    NAHUM(folderName = "nahum", toDomain = AudioBook.NAHUM),
+    Nahum(folderName = "nahum", toDomain = AudioBook.Nahum),
     @SerialName("habakkuk")
-    HABAKKUK(folderName = "habakkuk", toDomain = AudioBook.HABAKKUK),
+    Habakkuk(folderName = "habakkuk", toDomain = AudioBook.Habakkuk),
     @SerialName("zephaniah")
-    ZEPHANIAH(folderName = "zephaniah", toDomain = AudioBook.ZEPHANIAH),
+    Zephaniah(folderName = "zephaniah", toDomain = AudioBook.Zephaniah),
     @SerialName("haggai")
-    HAGGAI(folderName = "haggai", toDomain = AudioBook.HAGGAI),
+    Haggai(folderName = "haggai", toDomain = AudioBook.Haggai),
     @SerialName("zechariah")
-    ZECHARIAH(folderName = "zechariah", toDomain = AudioBook.ZECHARIAH),
+    Zechariah(folderName = "zechariah", toDomain = AudioBook.Zechariah),
     @SerialName("malachi")
-    MALACHI(folderName = "malachi", toDomain = AudioBook.MALACHI),
+    Malachi(folderName = "malachi", toDomain = AudioBook.Malachi),
     @SerialName("matthew")
-    MATTHEW(folderName = "matthew", toDomain = AudioBook.MATTHEW),
+    Matthew(folderName = "matthew", toDomain = AudioBook.Matthew),
     @SerialName("mark")
-    MARK(folderName = "mark", toDomain = AudioBook.MARK),
+    Mark(folderName = "mark", toDomain = AudioBook.Mark),
     @SerialName("luke")
-    LUKE(folderName = "luke", toDomain = AudioBook.LUKE),
+    Luke(folderName = "luke", toDomain = AudioBook.Luke),
     @SerialName("john")
-    JOHN(folderName = "john", toDomain = AudioBook.JOHN),
+    John(folderName = "john", toDomain = AudioBook.John),
     @SerialName("acts")
-    ACTS(folderName = "acts", toDomain = AudioBook.ACTS),
+    Acts(folderName = "acts", toDomain = AudioBook.Acts),
     @SerialName("romans")
-    ROMANS(folderName = "romans", toDomain = AudioBook.ROMANS),
+    Romans(folderName = "romans", toDomain = AudioBook.Romans),
     @SerialName("1-corinthians")
-    FIRST_CORINTHIANS(folderName = "1-corinthians", toDomain = AudioBook.FIRST_CORINTHIANS),
+    FirstCorinthians(folderName = "1-corinthians", toDomain = AudioBook.FirstCorinthians),
     @SerialName("2-corinthians")
-    SECOND_CORINTHIANS(folderName = "2-corinthians", toDomain = AudioBook.SECOND_CORINTHIANS),
+    SecondCorinthians(folderName = "2-corinthians", toDomain = AudioBook.SecondCorinthians),
     @SerialName("galatians")
-    GALATIANS(folderName = "galatians", toDomain = AudioBook.GALATIANS),
+    Galatians(folderName = "galatians", toDomain = AudioBook.Galatians),
     @SerialName("ephesians")
-    EPHESIANS(folderName = "ephesians", toDomain = AudioBook.EPHESIANS),
+    Ephesians(folderName = "ephesians", toDomain = AudioBook.Ephesians),
     @SerialName("philippians")
-    PHILIPPIANS(folderName = "philippians", toDomain = AudioBook.PHILIPPIANS),
+    Philippians(folderName = "philippians", toDomain = AudioBook.Philippians),
     @SerialName("colossians")
-    COLOSSIANS(folderName = "colossians", toDomain = AudioBook.COLOSSIANS),
+    Colossians(folderName = "colossians", toDomain = AudioBook.Colossians),
     @SerialName("1-thessalonians")
-    FIRST_THESSALONIANS(folderName = "1-thessalonians", toDomain = AudioBook.FIRST_THESSALONIANS),
+    FirstThessalonians(folderName = "1-thessalonians", toDomain = AudioBook.FirstThessalonians),
     @SerialName("2-thessalonians")
-    SECOND_THESSALONIANS(folderName = "2-thessalonians", toDomain = AudioBook.SECOND_THESSALONIANS),
+    SecondThessalonians(folderName = "2-thessalonians", toDomain = AudioBook.SecondThessalonians),
     @SerialName("1-timothy")
-    FIRST_TIMOTHY(folderName = "1-timothy", toDomain = AudioBook.FIRST_TIMOTHY),
+    FirstTimothy(folderName = "1-timothy", toDomain = AudioBook.FirstTimothy),
     @SerialName("2-timothy")
-    SECOND_TIMOTHY(folderName = "2-timothy", toDomain = AudioBook.SECOND_TIMOTHY),
+    SecondTimothy(folderName = "2-timothy", toDomain = AudioBook.SecondTimothy),
     @SerialName("titus")
-    TITUS(folderName = "titus", toDomain = AudioBook.TITUS),
+    Titus(folderName = "titus", toDomain = AudioBook.Titus),
     @SerialName("philemon")
-    PHILEMON(folderName = "philemon", toDomain = AudioBook.PHILEMON),
+    Philemon(folderName = "philemon", toDomain = AudioBook.Philemon),
     @SerialName("hebrews")
-    HEBREWS(folderName = "hebrews", toDomain = AudioBook.HEBREWS),
+    Hebrews(folderName = "hebrews", toDomain = AudioBook.Hebrews),
     @SerialName("james")
-    JAMES(folderName = "james", toDomain = AudioBook.JAMES),
+    James(folderName = "james", toDomain = AudioBook.James),
     @SerialName("1-peter")
-    FIRST_PETER(folderName = "1-peter", toDomain = AudioBook.FIRST_PETER),
+    FirstPeter(folderName = "1-peter", toDomain = AudioBook.FirstPeter),
     @SerialName("2-peter")
-    SECOND_PETER(folderName = "2-peter", toDomain = AudioBook.SECOND_PETER),
+    SecondPeter(folderName = "2-peter", toDomain = AudioBook.SecondPeter),
     @SerialName("1-john")
-    FIRST_JOHN(folderName = "1-john", toDomain = AudioBook.FIRST_JOHN),
+    FirstJohn(folderName = "1-john", toDomain = AudioBook.FirstJohn),
     @SerialName("2-john")
-    SECOND_JOHN(folderName = "2-john", toDomain = AudioBook.SECOND_JOHN),
+    SecondJohn(folderName = "2-john", toDomain = AudioBook.SecondJohn),
     @SerialName("3-john")
-    THIRD_JOHN(folderName = "3-john", toDomain = AudioBook.THIRD_JOHN),
+    ThirdJohn(folderName = "3-john", toDomain = AudioBook.ThirdJohn),
     @SerialName("jude")
-    JUDE(folderName = "jude", toDomain = AudioBook.JUDE),
+    Jude(folderName = "jude", toDomain = AudioBook.Jude),
     @SerialName("revelation")
-    REVELATION(folderName = "revelation", toDomain = AudioBook.REVELATION),
+    Revelation(folderName = "revelation", toDomain = AudioBook.Revelation),
 }

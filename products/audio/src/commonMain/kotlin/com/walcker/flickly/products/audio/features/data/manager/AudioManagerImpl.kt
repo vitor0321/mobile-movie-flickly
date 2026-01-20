@@ -1,7 +1,8 @@
 package com.walcker.flickly.products.audio.features.data.manager
 
+import androidx.compose.ui.text.toLowerCase
+import com.walcker.flickly.core.data.firebase.FirebaseStorageService
 import com.walcker.flickly.core.data.handle.withRetry
-import com.walcker.flickly.core.domain.firebase.FirebaseStorageService
 import com.walcker.flickly.products.audio.features.domain.manager.AudioManager
 import com.walcker.flickly.products.audio.features.domain.model.AudioBook
 import com.walcker.flickly.products.audio.features.domain.model.Language
@@ -30,14 +31,14 @@ internal class AudioManagerImpl(
             val foldersResult = storageService.listFolders(basePath)
             foldersResult.map { folderNames ->
                 folderNames.mapNotNull { folder ->
-                    AudioBook.entries.firstOrNull { it.folderName == folder }
+                    AudioBook.entries.firstOrNull { it.name.lowercase() == folder }
                 }.sortedBy { it.ordinal }
             }
         }
 
     override suspend fun getAvailableChapters(language: Language, book: AudioBook): Result<List<Int>> =
         withRetry(dispatcher) {
-            val path = "audio/${language.folderName}/${book.folderName}"
+            val path = "audio/${language.folderName}/${book.name.lowercase()}"
             val filesResult = storageService.listFiles(path)
             filesResult.map { fileNames ->
                 fileNames.mapNotNull { name -> name.substringBefore('.').toIntOrNull() }.sorted()
@@ -45,5 +46,5 @@ internal class AudioManagerImpl(
         }
 
     private fun buildPath(language: Language, book: AudioBook, chapter: Int): String =
-        "audio/${language.folderName}/${book.folderName}/$chapter.mp3"
+        "audio/${language.folderName}/${book.name.lowercase()}/$chapter.mp3"
 }

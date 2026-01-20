@@ -1,31 +1,37 @@
 package com.walcker.flickly.products.audio.features.ui.home
 
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.koin.koinScreenModel
 import com.walcker.flickly.cedarDS.CedarLoadingContent
 import com.walcker.flickly.cedarDS.CedarTopAppBar
 import com.walcker.flickly.core.ui.step.Step
+import com.walcker.flickly.core.ui.theme.MoviesAppTheme
 import com.walcker.flickly.products.audio.features.domain.model.AudioBook
 import com.walcker.flickly.products.audio.features.ui.home.components.AudioMediaPlayer
 import com.walcker.flickly.products.audio.features.ui.home.components.BookSelection
 import com.walcker.flickly.products.audio.features.ui.home.components.ChaptersSelection
+import com.walcker.flickly.products.audio.features.ui.preview.HomeAudioStatePreviewProvider
 import com.walcker.flickly.products.audio.strings.AudioHomeStrings
+import com.walcker.flickly.products.audio.strings.BibleBooksStrings
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.ArrowLeft
@@ -44,7 +50,7 @@ internal data object HomeAudioStep : Step() {
             content = {
                 HomeAudioStepContent(
                     state = state,
-                    strings = state.strings,
+                    bibleBooksStrings = state.bibleBooksStrings,
                     onEvent = model::onEvent,
                 )
             }
@@ -56,48 +62,38 @@ internal data object HomeAudioStep : Step() {
 @Composable
 private fun HomeAudioStepContent(
     state: HomeAudioState,
-    strings: AudioHomeStrings,
+    bibleBooksStrings: BibleBooksStrings,
     onEvent: (HomeAudioInternalRoute) -> Unit,
 ) {
     Scaffold(
         topBar = {
             CedarTopAppBar(
-                title = strings.title,
                 icon = FontAwesomeIcons.Solid.ArrowLeft,
                 onNavigationBack = { onEvent(HomeAudioInternalRoute.OnPopBackStack) },
             )
         }
     ) { paddingValues ->
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues)
+                .padding(paddingValues),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(24.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(24.dp)
-            ) {
-                if (state.loading) {
-                    CedarLoadingContent()
-                } else {
-                    BookAndChapterSelector(
-                        strings = strings,
-                        selectedBook = state.selectedBook,
-                        selectedChapter = state.selectedChapter,
-                        availableBooks = state.availableBooks,
-                        availableChapters = state.availableChapters,
-                        onSelectBook = { onEvent(HomeAudioInternalRoute.OnSelectBook(it)) },
-                        onSelectChapter = { onEvent(HomeAudioInternalRoute.OnSelectChapter(it)) }
-                    )
-
-                    Spacer(modifier = Modifier.weight(1f))
-                    state.audioUrl?.let {
-                        AudioMediaPlayer(audioUrl = state.audioUrl)
-                    }
-                }
+            if (state.loading) {
+                CedarLoadingContent()
+            } else {
+                BookAndChapterSelector(
+                    selectedBook = state.selectedBook,
+                    strings = state.strings,
+                    bibleBooksStrings = bibleBooksStrings,
+                    selectedChapter = state.selectedChapter,
+                    audioUrl = state.audioUrl,
+                    availableBooks = state.availableBooks,
+                    availableChapters = state.availableChapters,
+                    onSelectBook = { onEvent(HomeAudioInternalRoute.OnSelectBook(it)) },
+                    onSelectChapter = { onEvent(HomeAudioInternalRoute.OnSelectChapter(it)) }
+                )
             }
         }
     }
@@ -107,32 +103,61 @@ private fun HomeAudioStepContent(
 private fun BookAndChapterSelector(
     selectedBook: AudioBook,
     strings: AudioHomeStrings,
+    bibleBooksStrings: BibleBooksStrings,
+    audioUrl: String?,
     selectedChapter: Int,
     availableBooks: ImmutableList<AudioBook>,
     availableChapters: ImmutableList<Int>,
     onSelectBook: (AudioBook) -> Unit,
     onSelectChapter: (Int) -> Unit,
 ) {
-    Column(
-        modifier = Modifier.scrollable(
-            state = rememberScrollState(),
-            orientation = Orientation.Vertical
-        ),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-        horizontalAlignment = Alignment.Start
-    ) {
-        BookSelection(
-            selectedBook = selectedBook,
-            strings = strings,
-            availableBooks = availableBooks,
-            onSelectBook = onSelectBook,
-        )
-
+    Column {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp),
+        ) {
+            Text(
+                modifier = Modifier
+                    .padding(bottom = 8.dp)
+                    .fillMaxWidth(),
+                text = strings.peace,
+                style = MaterialTheme.typography.headlineMedium,
+                fontWeight = FontWeight.Bold,
+            )
+            BookSelection(
+                selectedBook = selectedBook,
+                strings = strings,
+                bibleBooksStrings = bibleBooksStrings,
+                availableBooks = availableBooks,
+                onSelectBook = onSelectBook,
+            )
+        }
+        HorizontalDivider(modifier = Modifier.padding(vertical = 16.dp))
+        AudioMediaPlayer(audioUrl = audioUrl)
+        HorizontalDivider(modifier = Modifier.padding(vertical = 16.dp))
         ChaptersSelection(
             selectedBook = selectedBook,
+            strings = strings,
+            bibleBooksStrings = bibleBooksStrings,
             selectedChapter = selectedChapter,
             availableChapters = availableChapters,
             onSelectChapter = onSelectChapter,
+        )
+        Spacer(modifier = Modifier.weight(1f))
+    }
+}
+
+@Preview
+@Composable
+private fun HomeAudioStepContentPreview(
+    @PreviewParameter(HomeAudioStatePreviewProvider::class) homeAudioState: HomeAudioState
+) {
+    MoviesAppTheme {
+        HomeAudioStepContent(
+            state = homeAudioState,
+            bibleBooksStrings = BibleBooksStrings(),
+            onEvent = {}
         )
     }
 }

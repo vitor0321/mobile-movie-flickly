@@ -1,42 +1,43 @@
 [versions]
-agp = "8.11.2"
+agp = "9.0.0"
 android-compileSdk = "36"
 android-minSdk = "24"
-android-targetSdk = "35"
-androidx-activity = "1.11.0"
-androidx-lifecycle = "2.9.3"
-androidx-navigation = "2.9.0-rc02"
+android-targetSdk = "34"
+androidx-activity = "1.12.2"
+androidx-lifecycle = "2.9.6"
+androidx-navigation = "2.9.1"
 androidx-testExt = "1.3.0"
 coil-compose = "3.3.0"
 composeIcons = "1.1.1"
-composeMultiplatform = "1.8.2"
+composeMultiplatform = "1.10.0"
 compose-shimmer = "1.3.3"
 coroutines = "1.10.2"
 datetime = "0.7.1"
 desugar_jdk_libs = "2.1.5"
 detekt = "1.23.8"
 firebaseAnalytics = "23.0.0"
-firebaseCrashlyticsNdk = "20.0.3"
+firebaseCrashlyticsNdk = "20.0.4"
 firebaseGitlive = "2.4.0"
 googleServices = "4.4.4"
 immutable = "0.4.0"
 junit = "4.13.2"
 paparazzi = "2.0.0-alpha02"
-parameter-injector = "1.19"
-mediaplayer-kmp = "2.0.9"
-kotlin = "2.2.20"
-koin = '4.1.0'
-ksp = "2.1.10-1.0.31"
-ktor = "3.3.0"
-lifecycle-version = "2.9.4"
-lyricist = "1.7.0"
+parameter-injector = "1.20"
+mediaplayer-kmp = "2.1.0"
+kotlin = "2.3.0"
+koin = '4.1.1'
+ksp = "2.3.2"
+ktor = "3.3.3"
+lifecycle-version = "2.9.6"
+lyricist = "1.8.0"
 serialization = "1.9.0"
-kotlinStdlib = "2.2.20"
-foundation = "1.9.2"
+kotlinStdlib = "2.3.0"
+foundation = "1.10.1"
 voyager = "1.1.0-beta03"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
+androidx-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "foundation" }
 androidx-lifecycle-runtimeCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
 androidx-navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
@@ -73,7 +74,6 @@ ktor-serialization-json = { module = "io.ktor:ktor-serialization-kotlinx-json", 
 lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle-version" }
 lyricist = { module = "cafe.adriel.lyricist:lyricist", version.ref = "lyricist" }
 kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlinStdlib" }
-androidx-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "foundation" }
 
 # koin
 koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }

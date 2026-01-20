@@ -9,6 +9,7 @@ import com.walcker.flickly.core.navigation.NavigatorHolder
 import com.walcker.flickly.core.platformImpl
 import com.walcker.flickly.core.strings.Locales
 import com.walcker.flickly.core.ui.theme.MoviesAppTheme
+import com.walcker.flickly.navigator.AudioEntry
 import com.walcker.flickly.navigator.MoviesEntry
 import com.walcker.flickly.products.movies.strings.LocalMoviesStrings
 import com.walcker.flickly.products.movies.strings.MoviesStringsHolder

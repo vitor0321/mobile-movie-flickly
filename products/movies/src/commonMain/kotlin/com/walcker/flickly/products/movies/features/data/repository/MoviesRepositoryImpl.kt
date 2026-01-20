@@ -98,9 +98,10 @@ internal class MoviesRepositoryImpl(
                     val creditsResponse = creditsResult.getOrNull()
                     val videosResponse = videosResult.getOrNull()
 
-                    val movieTrailerYoutubeKey = videosResponse?.results?.firstOrNull { videoItemResponse ->
-                        videoItemResponse.site == HttpConfig.YOUTUBE.value
-                    }?.key?.let { HttpConfig.YOUTUBE_BASE_URL.value + it }
+                    val movieTrailerYoutubeKey = videosResponse?.results
+                        ?.firstOrNull()
+                        ?.key
+                        ?.let { HttpConfig.YOUTUBE_BASE_URL.value + it }
 
                     movieDetailResponse?.toDomain(
                         castMembersResponse = creditsResponse?.cast.orEmpty(),

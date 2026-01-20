@@ -1,4 +1,4 @@
-#include "Secrets.xcconfig"
+#include "Configuration/Secrets.xcconfig"
 
 TEAM_ID=
 PRODUCT_NAME=Flickly

@@ -10,13 +10,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.walcker.flickly.cedarDS.MovieCastMemberItem
 import com.walcker.flickly.cedarDS.MovieRowList
 import com.walcker.flickly.core.ui.theme.MoviesAppTheme
 import com.walcker.flickly.products.movies.features.domain.models.Movie
 import com.walcker.flickly.products.movies.features.ui.preview.mockData.movieTestData
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 internal fun BottomDetail(

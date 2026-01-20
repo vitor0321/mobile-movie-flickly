@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.walcker.flickly.core.ui.theme.MoviesAppTheme
 import com.walcker.flickly.products.movies.features.domain.models.MovieSection
@@ -11,7 +12,6 @@ import com.walcker.flickly.products.movies.features.ui.preview.mockData.movieSec
 import com.walcker.flickly.products.movies.strings.MoviesListStrings
 import com.walcker.flickly.products.movies.strings.moviesListStringsPt
 import kotlinx.collections.immutable.ImmutableList
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 internal fun MoviesListSuccessContent(

@@ -7,15 +7,15 @@ internal data class MovieDetailStrings(
 
 internal val movieDetailStringsPt = MovieDetailStrings(
     title = "Detalhes",
-    buttonText = "Assistir trailer",
+    buttonText = "Assistir trailer no YouTube",
 )
 
 internal val movieDetailStringsEn = MovieDetailStrings(
     title = "Details",
-    buttonText = "Watch trailer",
+    buttonText = "Watch trailer on YouTube",
 )
 
 internal val movieDetailStringsUr = MovieDetailStrings(
     title = "تفصیلات",
-    buttonText = "ٹریلر دیکھیں",
+    buttonText = "یوٹیوب پر ٹریلر دیکھیں",
 )
