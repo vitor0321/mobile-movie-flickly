@@ -39,7 +39,6 @@ internal fun ChaptersSelection(
         modifier = Modifier
             .padding(horizontal = 16.dp)
             .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         val chapters: ImmutableList<Int> = remember(availableChapters) {
             availableChapters.ifEmpty { (1..selectedBook.totalChapters).toImmutableList() }
@@ -69,7 +68,7 @@ internal fun ChaptersSelection(
                     SelectionChip(
                         modifier = Modifier
                             .padding(bottom = 8.dp)
-                            .align(Alignment.TopCenter)
+                            .align(Alignment.TopStart)
                             .size(56.dp),
                         text = chapter.toString(),
                         textStyle = MaterialTheme.typography.bodyLarge,
