@@ -73,7 +73,7 @@ android {
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 2502
-        versionName = "26.0.1-alpha"
+        versionName = "26.0.2-alpha"
 
         buildConfigField(
             "String",
