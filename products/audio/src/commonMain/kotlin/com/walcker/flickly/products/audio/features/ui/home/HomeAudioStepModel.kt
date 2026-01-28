@@ -7,6 +7,8 @@ import com.walcker.flickly.products.audio.features.domain.manager.AudioManager
 import com.walcker.flickly.products.audio.features.domain.model.AudioBook
 import com.walcker.flickly.products.audio.features.domain.model.Language
 import com.walcker.flickly.products.audio.strings.AudioStringsHolder
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -30,11 +32,14 @@ internal class HomeAudioStepModel internal constructor(
         val booksResult = audioManager.getAvailableBooks(Language.URDU)
         booksResult.onSuccess { books ->
             val initialBook = books.firstOrNull() ?: state.value.selectedBook
+            val (oldTestament, newTestament) = splitTestaments(books)
             mutableState.update {
                 it.copy(
                     strings = stringsHolder.strings.audioHomeStrings,
                     bibleBooksStrings = stringsHolder.strings.bibleBooksStrings,
                     availableBooks = books.toImmutableList(),
+                    availableOldTestamentBooks = oldTestament,
+                    availableNewTestamentBooks = newTestament,
                     selectedBook = initialBook
                 )
             }
@@ -107,5 +112,18 @@ internal class HomeAudioStepModel internal constructor(
                     eventChannel.trySend(HomeAudioInternalEvents.OnError(error.message ?: "Unknown Error"))
                 }
         }
+    }
+
+    private fun splitTestaments(books: List<AudioBook>): Pair<ImmutableList<AudioBook>, ImmutableList<AudioBook>> {
+        if (books.isEmpty()) return persistentListOf<AudioBook>() to persistentListOf()
+
+        val all = AudioBook.entries
+        val ntStartIndex = all.indexOf(AudioBook.Matthew).takeIf { it >= 0 } ?: 0
+        val uniqueBooks = books.distinct().sortedBy { all.indexOf(it) }.toList()
+
+        val oldTestament = uniqueBooks.filter { book -> all.indexOf(book) in 0 until ntStartIndex }.toImmutableList()
+        val newTestament = uniqueBooks.filter { book -> all.indexOf(book) >= ntStartIndex }.toImmutableList()
+
+        return oldTestament to newTestament
     }
 }

@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.walcker.flickly.core.ui.theme.MoviesAppTheme
 import com.walcker.flickly.products.audio.features.domain.model.AudioBook
 import com.walcker.flickly.products.audio.strings.AudioHomeStrings
@@ -48,26 +49,25 @@ internal fun ChaptersSelection(
                 .fillMaxWidth()
                 .padding(bottom = 8.dp),
             text = strings.chapter(selectedBook.folderName(bibleBooksStrings)),
-            style = MaterialTheme.typography.titleMedium,
+            style = MaterialTheme.typography.titleMedium.copy(
+                fontWeight = FontWeight.SemiBold,
+                letterSpacing = 0.1.sp,
+            ),
             fontWeight = FontWeight.Bold,
         )
 
         FlowRow(
-            modifier = Modifier.fillMaxWidth(),
-            maxItemsInEachRow = 5,
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             chapters.forEach { chapter ->
                 val selected = chapter == selectedChapter
 
                 Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth()
+                    modifier = Modifier.padding(horizontal = 4.dp)
                 ) {
                     SelectionChip(
                         modifier = Modifier
-                            .padding(bottom = 8.dp)
                             .align(Alignment.TopStart)
                             .size(56.dp),
                         text = chapter.toString(),

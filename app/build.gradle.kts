@@ -72,8 +72,8 @@ android {
         applicationId = "com.walcker.flickly.app"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 2603
-        versionName = "26.0.3-alpha"
+        versionCode = libs.versions.android.version.code.get().toInt()
+        versionName = libs.versions.android.version.name.toString()
 
         buildConfigField(
             "String",
