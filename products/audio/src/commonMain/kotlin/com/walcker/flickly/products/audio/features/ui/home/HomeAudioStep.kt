@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.koin.koinScreenModel
 import com.walcker.flickly.cedarDS.CedarLoadingContent
 import com.walcker.flickly.cedarDS.CedarTopAppBar
@@ -89,7 +90,8 @@ private fun HomeAudioStepContent(
                     bibleBooksStrings = bibleBooksStrings,
                     selectedChapter = state.selectedChapter,
                     audioUrl = state.audioUrl,
-                    availableBooks = state.availableBooks,
+                    availableNewTestamentBooks = state.availableNewTestamentBooks,
+                    availableOldTestamentBooks = state.availableOldTestamentBooks,
                     availableChapters = state.availableChapters,
                     onSelectBook = { onEvent(HomeAudioInternalRoute.OnSelectBook(it)) },
                     onSelectChapter = { onEvent(HomeAudioInternalRoute.OnSelectChapter(it)) }
@@ -106,7 +108,8 @@ private fun BookAndChapterSelector(
     bibleBooksStrings: BibleBooksStrings,
     audioUrl: String?,
     selectedChapter: Int,
-    availableBooks: ImmutableList<AudioBook>,
+    availableNewTestamentBooks: ImmutableList<AudioBook>,
+    availableOldTestamentBooks: ImmutableList<AudioBook>,
     availableChapters: ImmutableList<Int>,
     onSelectBook: (AudioBook) -> Unit,
     onSelectChapter: (Int) -> Unit,
@@ -122,14 +125,19 @@ private fun BookAndChapterSelector(
                     .padding(bottom = 8.dp)
                     .fillMaxWidth(),
                 text = strings.peace,
-                style = MaterialTheme.typography.headlineMedium,
+                style = MaterialTheme.typography.headlineMedium.copy(
+                    fontWeight = FontWeight.Bold,
+                    letterSpacing = (-0.2).sp,
+                ),
                 fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSurface,
             )
             BookSelection(
                 selectedBook = selectedBook,
                 strings = strings,
                 bibleBooksStrings = bibleBooksStrings,
-                availableBooks = availableBooks,
+                availableNewTestamentBooks = availableNewTestamentBooks,
+                availableOldTestamentBooks = availableOldTestamentBooks,
                 onSelectBook = onSelectBook,
             )
         }

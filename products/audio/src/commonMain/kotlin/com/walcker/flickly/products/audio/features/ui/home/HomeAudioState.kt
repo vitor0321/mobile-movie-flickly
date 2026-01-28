@@ -14,5 +14,7 @@ internal data class HomeAudioState(
     val selectedBook: AudioBook = AudioBook.Matthew,
     val selectedChapter: Int = 1,
     val availableBooks: ImmutableList<AudioBook> = persistentListOf(),
+    val availableNewTestamentBooks: ImmutableList<AudioBook> = persistentListOf(),
+    val availableOldTestamentBooks: ImmutableList<AudioBook> = persistentListOf(),
     val availableChapters: ImmutableList<Int> = persistentListOf(),
 )

@@ -1,7 +1,8 @@
 package com.walcker.flickly.products.audio.features.ui.home.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.MaterialTheme
@@ -12,6 +13,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.walcker.flickly.core.ui.theme.MoviesAppTheme
 
 @Composable
@@ -25,19 +27,27 @@ internal fun SelectionChip(
     AssistChip(
         modifier = modifier,
         onClick = onClick,
-        shape = CircleShape,
+        shape = RoundedCornerShape(16.dp),
         label = {
             Text(
                 modifier = Modifier.fillMaxWidth(),
                 text = text,
                 style = textStyle,
-                fontWeight = FontWeight.SemiBold,
-                textAlign = TextAlign.Center
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.9f),
             )
         },
         colors = AssistChipDefaults.assistChipColors(
-            containerColor = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
-            labelColor = if (selected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
+            containerColor = if (selected) MaterialTheme.colorScheme.secondaryContainer
+            else MaterialTheme.colorScheme.surfaceContainer,
+            labelColor = if (selected) MaterialTheme.colorScheme.onSecondaryContainer
+            else MaterialTheme.colorScheme.onSurface,
+        ),
+        border = BorderStroke(
+            width = 1.dp,
+            color = if (selected) MaterialTheme.colorScheme.tertiary
+            else MaterialTheme.colorScheme.outline.copy(alpha = 0.5f)
         )
     )
 }

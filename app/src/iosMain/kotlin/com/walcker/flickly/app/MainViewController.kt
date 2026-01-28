@@ -4,7 +4,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.window.ComposeUIViewController
 import cafe.adriel.voyager.navigator.Navigator
 import com.walcker.flickly.core.ui.theme.MoviesAppTheme
-import com.walcker.flickly.products.movies.features.ui.features.entrypoint.MoviesEntrypoint
+import com.walcker.flickly.products.movies.entrypoint.MoviesEntrypoint
 import platform.UIKit.UIViewController
 
 private val IsDarkThemeState = mutableStateOf(false)

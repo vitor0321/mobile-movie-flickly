@@ -4,22 +4,30 @@ internal data class AudioHomeStrings(
     val chapter: (String) -> String = { "" },
     val peace: String = "",
     val books: String = "",
+    val oldTestament: String = "",
+    val newTestament: String = "",
 )
 
 internal val audioHomeStringsPt = AudioHomeStrings(
     chapter = { "Capítulo $it" },
     peace = "Paz seja convosco",
     books = "Livros",
+    oldTestament = "Antigo Testamento",
+    newTestament = "Novo Testamento",
 )
 
 internal val audioHomeStringsEn = AudioHomeStrings(
     chapter = { "Chapter $it" },
     peace = "Peace be with you",
     books = "Books",
+    oldTestament = "Old Testament",
+    newTestament = "New Testament",
 )
 
 internal val audioHomeStringsUr = AudioHomeStrings(
     chapter = { "باب $it" },
     peace = "آپ پر سلامتی ہو",
     books = "کتابیں",
+    oldTestament = "عہدِ عتیق",
+    newTestament = "عہدِ جدید",
 )

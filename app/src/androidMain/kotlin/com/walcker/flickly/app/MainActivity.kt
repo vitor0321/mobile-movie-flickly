@@ -11,7 +11,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 import cafe.adriel.voyager.navigator.Navigator
 import com.walcker.flickly.core.ui.theme.MoviesAppTheme
 import com.walcker.flickly.core.utils.media.VideoLauncherContext
-import com.walcker.flickly.products.movies.features.ui.features.entrypoint.MoviesEntrypoint
+import com.walcker.flickly.products.movies.entrypoint.MoviesEntrypoint
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
