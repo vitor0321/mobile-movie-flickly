@@ -19,5 +19,3 @@ captures
 
 # iOS Secrets
 iosApp/Configuration/Secrets.xcconfig
-iosApp/Configuration/Debug.xcconfig
-iosApp/Configuration/Release.xcconfig

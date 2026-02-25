@@ -61,6 +61,15 @@ kotlin {
     }
 }
 
+// Configure Compose Resources for iOS
+compose {
+    resources {
+        publicResClass = false
+        packageOfResClass = "flickly.core.generated.resources"
+        generateResClass = always
+    }
+}
+
 android {
     namespace = "com.walcker.flickly.core"
     compileSdk = libs.versions.android.compileSdk.get().toInt()

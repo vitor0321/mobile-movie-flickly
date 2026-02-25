@@ -1,5 +1,3 @@
-#include "Configuration/Secrets.xcconfig"
-
 #include "Config.xcconfig"
 
     // Override para Release

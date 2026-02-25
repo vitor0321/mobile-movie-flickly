@@ -13,26 +13,44 @@ import com.walcker.flickly.core.strings.Locales
 import com.walcker.flickly.core.strings.createLyricist
 
 internal data class AudioStrings(
-    val audioHomeStrings: AudioHomeStrings,
+    val homeAudioStrings: HomeAudioStrings,
     val bibleBooksStrings: BibleBooksStrings,
+    val chapterStrings: ChapterStrings,
 )
 
 @LyricistStrings(languageTag = Locales.EN, default = true)
 internal val EnAudioStrings = AudioStrings(
-    audioHomeStrings = audioHomeStringsEn,
+    homeAudioStrings = homeAudioStringsEn,
     bibleBooksStrings = bibleBooksStringsEn,
+    chapterStrings = chapterStringsEn,
 )
 
 @LyricistStrings(languageTag = Locales.PT)
 internal val PtAudioStrings = AudioStrings(
-    audioHomeStrings = audioHomeStringsPt,
+    homeAudioStrings = homeAudioStringsPt,
     bibleBooksStrings = bibleBooksStringsPt,
+    chapterStrings = chapterStringsPt,
 )
 
 @LyricistStrings(languageTag = Locales.UR)
 internal val UrAudioStrings = AudioStrings(
-    audioHomeStrings = audioHomeStringsUr,
+    homeAudioStrings = homeAudioStringsUr,
     bibleBooksStrings = bibleBooksStringsUr,
+    chapterStrings = chapterStringsUr,
+)
+
+@LyricistStrings(languageTag = Locales.PA_IN)
+internal val PaInAudioStrings = AudioStrings(
+    homeAudioStrings = homeAudioStringsPaIn,
+    bibleBooksStrings = bibleBooksStringsPaIN,
+    chapterStrings = chapterStringsPaIN,
+)
+
+@LyricistStrings(languageTag = Locales.PA_PK)
+internal val PaPKAudioStrings = AudioStrings(
+    homeAudioStrings = homeAudioStringsPaPK,
+    bibleBooksStrings = bibleBooksStringsPaPK,
+    chapterStrings = chapterStringsPaPK,
 )
 
 internal val LocalAudioStrings = staticCompositionLocalOf { EnAudioStrings }
@@ -62,6 +80,8 @@ internal fun rememberAudioStrings(
                 Locales.EN to EnAudioStrings,
                 Locales.PT to PtAudioStrings,
                 Locales.UR to UrAudioStrings,
+                Locales.PA_IN to PaInAudioStrings,
+                Locales.PA_PK to PaPKAudioStrings,
             ),
         )
     }

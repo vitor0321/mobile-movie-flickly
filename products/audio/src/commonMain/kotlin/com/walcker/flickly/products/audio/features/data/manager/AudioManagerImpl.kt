@@ -35,6 +35,17 @@ internal class AudioManagerImpl(
             }
         }
 
+    override suspend fun getLanguage(): Result<List<Language>> =
+        withRetry(dispatcher) {
+            val basePath = "audio/"
+            val foldersResult = storageService.listFolders(basePath)
+            foldersResult.map { folderNames ->
+                folderNames.mapNotNull { folder ->
+                    Language.entries.firstOrNull { it.name.lowercase() == folder }
+                }.sortedBy { it.ordinal }
+            }
+        }
+
     override suspend fun getAvailableChapters(language: Language, book: AudioBook): Result<List<Int>> =
         withRetry(dispatcher) {
             val path = "audio/${language.folderName}/${book.name.lowercase()}"

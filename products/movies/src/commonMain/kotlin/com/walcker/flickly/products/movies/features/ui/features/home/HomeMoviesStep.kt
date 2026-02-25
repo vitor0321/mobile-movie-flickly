@@ -59,8 +59,8 @@ internal fun HomeContent(
         topBar = {
             CedarTopAppBar(
                 title = strings.appName,
-                iconAudio = FontAwesomeIcons.Solid.Tree,
-                onAudio = { showPasswordDialog = true },
+                iconContent = FontAwesomeIcons.Solid.Tree,
+                onIconContentClick = { showPasswordDialog = true },
             )
         }
     ) { paddingValues ->

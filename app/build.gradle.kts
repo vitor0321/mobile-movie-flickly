@@ -24,7 +24,7 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "AppMan"
             isStatic = true
-            export(projects.core)
+            export(project(":core"))
         }
     }
     sourceSets {

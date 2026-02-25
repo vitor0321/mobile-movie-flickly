@@ -13,5 +13,7 @@ internal interface AudioManager {
 
     suspend fun getAvailableBooks(language: Language): Result<List<AudioBook>>
 
+    suspend fun getLanguage(): Result<List<Language>>
+
     suspend fun getAvailableChapters(language: Language, book: AudioBook): Result<List<Int>>
 }

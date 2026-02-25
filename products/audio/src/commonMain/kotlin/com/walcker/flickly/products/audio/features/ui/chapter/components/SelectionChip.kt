@@ -1,4 +1,4 @@
-package com.walcker.flickly.products.audio.features.ui.home.components
+package com.walcker.flickly.products.audio.features.ui.chapter.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,6 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -22,12 +23,13 @@ internal fun SelectionChip(
     text: String,
     textStyle: TextStyle,
     selected: Boolean,
-    onClick: () -> Unit
+    accentColor: Color = MaterialTheme.colorScheme.tertiaryFixed,
+    onClick: () -> Unit,
 ) {
     AssistChip(
         modifier = modifier,
         onClick = onClick,
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(12.dp),
         label = {
             Text(
                 modifier = Modifier.fillMaxWidth(),
@@ -35,20 +37,16 @@ internal fun SelectionChip(
                 style = textStyle,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.9f),
             )
         },
         colors = AssistChipDefaults.assistChipColors(
-            containerColor = if (selected) MaterialTheme.colorScheme.secondaryContainer
-            else MaterialTheme.colorScheme.surfaceContainer,
-            labelColor = if (selected) MaterialTheme.colorScheme.onSecondaryContainer
-            else MaterialTheme.colorScheme.onSurface,
+            containerColor = if (selected) accentColor else MaterialTheme.colorScheme.surfaceContainer,
+            labelColor = if (selected) Color.White else MaterialTheme.colorScheme.onSurfaceVariant,
         ),
-        border = BorderStroke(
+        border = if (selected) null else BorderStroke(
             width = 1.dp,
-            color = if (selected) MaterialTheme.colorScheme.tertiary
-            else MaterialTheme.colorScheme.outline.copy(alpha = 0.5f)
-        )
+            color = MaterialTheme.colorScheme.outline.copy(alpha = 0.4f),
+        ),
     )
 }
 
@@ -59,7 +57,8 @@ private fun SelectionChipSelectedPreview() {
         SelectionChip(
             text = "1",
             selected = true,
-            textStyle = MaterialTheme.typography.headlineSmall,
+            accentColor = Color(0xFFE07B00),
+            textStyle = MaterialTheme.typography.bodyLarge,
             onClick = {}
         )
     }
@@ -70,9 +69,9 @@ private fun SelectionChipSelectedPreview() {
 private fun SelectionChipUnselectedPreview() {
     MoviesAppTheme {
         SelectionChip(
-            text = "Gen",
+            text = "5",
             selected = false,
-            textStyle = MaterialTheme.typography.headlineLarge,
+            textStyle = MaterialTheme.typography.bodyLarge,
             onClick = {}
         )
     }

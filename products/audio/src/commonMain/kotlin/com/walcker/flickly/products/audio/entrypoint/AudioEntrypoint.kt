@@ -29,6 +29,8 @@ internal data object AudioEntrypoint : Screen {
             "pt", "pt-br", "pt_br" -> Locales.PT
             "en", "en-us", "en_us" -> Locales.EN
             "ur", "ur-pk", "ur_pk" -> Locales.UR
+            "pa-in" -> Locales.PA_IN
+            "pa", "pa-pk" -> Locales.PA_PK
             else -> Locales.EN
         }
 

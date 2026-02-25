@@ -20,6 +20,8 @@ private val TextPrimaryLight = Color(0xFF121212)
 private val ColorErrorLight = Color(0xFFD00000)
 private val Neutral60Light = Color(0xFF6E7491)
 
+private val OldTestamentColor = Color(0xFFE07B00)
+private val NewTestamentColor = Color(0xFF1565C0)
 
 internal val MoviesDarkColorScheme = darkColorScheme(
     primary = Primary80,
@@ -31,7 +33,9 @@ internal val MoviesDarkColorScheme = darkColorScheme(
     secondary = Neutral60,
     onSecondary = TextPrimaryDark,
     error = ColorError,
-    onError = Color.White
+    onError = Color.White,
+    tertiaryFixed = OldTestamentColor,
+    tertiaryFixedDim = NewTestamentColor,
 )
 
 internal val MoviesLightColorScheme = lightColorScheme(
@@ -44,5 +48,7 @@ internal val MoviesLightColorScheme = lightColorScheme(
     secondary = Neutral60Light,
     onSecondary = Color.White,
     error = ColorErrorLight,
-    onError = Color.White
+    onError = Color.White,
+    tertiaryFixed = OldTestamentColor,
+    tertiaryFixedDim = NewTestamentColor,
 )

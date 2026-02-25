@@ -1,4 +1,4 @@
-package com.walcker.flickly.products.audio.features.ui.home.components
+package com.walcker.flickly.products.audio.features.ui.chapter.components
 
 import MediaPlayer
 import androidx.compose.foundation.layout.Box
@@ -14,9 +14,10 @@ import androidx.compose.ui.unit.dp
 @Composable
 internal fun AudioMediaPlayer(
     audioUrl: String?,
+    modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 8.dp)
             .heightIn(min = 150.dp),

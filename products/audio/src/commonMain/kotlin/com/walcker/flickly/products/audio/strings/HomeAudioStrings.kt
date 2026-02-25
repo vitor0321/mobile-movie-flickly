@@ -1,0 +1,103 @@
+package com.walcker.flickly.products.audio.strings
+
+internal data class HomeAudioStrings(
+    val titleToolbar: String = "",
+    val chapter: (String) -> String = { "" },
+    val peace: String = "",
+    val books: String = "",
+    val language: String = "",
+    val oldTestament: String = "",
+    val newTestament: String = "",
+    val allBooks: String = "",
+    val ptName: String= "",
+    val enName: String= "",
+    val urName: String= "",
+    val paInName: String= "",
+    val paPkName: String= "",
+    val chaptersCount: (Int) -> String = { "" },
+)
+
+internal val homeAudioStringsPt = HomeAudioStrings(
+    titleToolbar = "Bíblia em Áudio",
+    chapter = { "Capítulo $it" },
+    peace = "Paz seja convosco",
+    books = "Livros",
+    language = "Idioma",
+    oldTestament = "AT",
+    newTestament = "NT",
+    allBooks = "Todos os Livros",
+    ptName = "Português",
+    enName = "English",
+    urName = "Urdu",
+    paInName = "Punjabi - IN",
+    paPkName = "Punjabi - PK",
+    chaptersCount = { "$it capítulos" },
+)
+
+internal val homeAudioStringsEn = HomeAudioStrings(
+    titleToolbar = "Audio Bible",
+    chapter = { "Chapter $it" },
+    peace = "Peace be with you",
+    books = "Books",
+    language = "Language",
+    oldTestament = "OT",
+    newTestament = "NT",
+    allBooks = "All Books",
+    ptName = "Português",
+    enName = "English",
+    urName = "Urdu",
+    paInName = "Punjabi - IN",
+    paPkName = "Punjabi - PK",
+    chaptersCount = { "$it chapters" },
+)
+
+internal val homeAudioStringsUr = HomeAudioStrings(
+    titleToolbar = "آڈیو بائبل",
+    chapter = { "باب $it" },
+    peace = "آپ پر سلامتی ہو",
+    books = "کتابیں",
+    language = "زبان",
+    oldTestament = "عہدِ عتیق",
+    newTestament = "عہدِ جدید",
+    allBooks = "تمام کتابیں",
+    ptName = "پرتگالی",
+    enName = "انگریزی",
+    urName = "اردو",
+    paInName = "پنجابی (بھارت)",
+    paPkName = "پنجابی (پاکستان)",
+    chaptersCount = { "$it ابواب" },
+)
+
+internal val homeAudioStringsPaIn = HomeAudioStrings(
+    titleToolbar = "ਆਡੀਓ ਬਾਈਬਲ",
+    chapter = { "ਅਧਿਆਇ $it" },
+    peace = "ਤੁਹਾਡੇ ਉੱਤੇ ਸ਼ਾਂਤੀ ਹੋਵੇ",
+    books = "ਕਿਤਾਬਾਂ",
+    language = "ਭਾਸ਼ਾ",
+    oldTestament = "ਪੁਰਾਣਾ ਨਿਯਮ",
+    newTestament = "ਨਵਾਂ ਨਿਯਮ",
+    allBooks = "ਸਾਰੀਆਂ ਕਿਤਾਬਾਂ",
+    ptName = "ਪੁਰਤਗਾਲੀ",
+    enName = "ਅੰਗਰੇਜ਼ੀ",
+    urName = "ਉਰਦੂ",
+    paInName = "ਪੰਜਾਬੀ (ਭਾਰਤ)",
+    paPkName = "ਪੰਜਾਬੀ (ਪਾਕਿਸਤਾਨ)",
+    chaptersCount = { "$it ਅਧਿਆਇ" },
+)
+
+internal val homeAudioStringsPaPK = HomeAudioStrings(
+    titleToolbar = "آڈیو بائبل",
+    chapter = { "باب $it" },
+    peace = "تہاڈے اُتے سلامتی ہووے",
+    books = "کتاباں",
+    language = "زبان",
+    oldTestament = "پرانا عہدنامہ",
+    newTestament = "نواں عہدنامہ",
+    allBooks = "ساریاں کتاباں",
+    ptName = "پرتگالی",
+    enName = "انگریزی",
+    urName = "اردو",
+    paInName = "پنجابی (بھارت)",
+    paPkName = "پنجابی (پاکستان)",
+    chaptersCount = { "$it باب" },
+)
