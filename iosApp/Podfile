@@ -7,10 +7,6 @@ target 'iosApp' do
   # Consome frameworks gerados pelos módulos KMP via cocoapods
   pod 'Core', :path => '../core'
   pod 'AppMan', :path => '../app'
-
-  # Link explícito dos pods Firebase necessários para Storage
-  pod 'FirebaseCore'
-  pod 'FirebaseStorage'
 end
 
 post_install do |installer|
@@ -24,4 +20,3 @@ post_install do |installer|
     end
   end
 end
-

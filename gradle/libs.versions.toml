@@ -1,8 +1,8 @@
 [versions]
 agp = "9.0.0"
 android-compileSdk = "36"
-android-version-code = "2605"
-android-version-name = "26.0.5-alpha"
+android-version-code = "2610"
+android-version-name = "26.1.0"
 android-minSdk = "24"
 android-targetSdk = "35"
 androidx-activity = "1.12.2"

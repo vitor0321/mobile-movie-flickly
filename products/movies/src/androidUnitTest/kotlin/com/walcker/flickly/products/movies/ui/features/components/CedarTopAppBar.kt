@@ -20,8 +20,8 @@ internal class CedarTopAppBar {
             CedarTopAppBar(
                 title = "Movie Detail",
                 icon = FontAwesomeIcons.Solid.ArrowLeft,
-                iconAudio = FontAwesomeIcons.Solid.Umbrella,
-                onAudio = {},
+                iconContent = FontAwesomeIcons.Solid.Umbrella,
+                onIconContentClick = {},
                 onNavigationBack = {}
             )
         }

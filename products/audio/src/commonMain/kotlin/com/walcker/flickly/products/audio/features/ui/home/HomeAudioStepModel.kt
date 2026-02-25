@@ -5,7 +5,9 @@ import com.walcker.flickly.core.navigation.NavigatorHolder
 import com.walcker.flickly.core.ui.stepModel.StepModel
 import com.walcker.flickly.products.audio.features.domain.manager.AudioManager
 import com.walcker.flickly.products.audio.features.domain.model.AudioBook
+import com.walcker.flickly.products.audio.features.domain.model.BookTab
 import com.walcker.flickly.products.audio.features.domain.model.Language
+import com.walcker.flickly.products.audio.features.ui.chapter.ChapterStep
 import com.walcker.flickly.products.audio.strings.AudioStringsHolder
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -29,24 +31,24 @@ internal class HomeAudioStepModel internal constructor(
     }
 
     private suspend fun loadInitial() {
-        val booksResult = audioManager.getAvailableBooks(Language.URDU)
+        val language = state.value.selectedLanguage
+        val booksResult = audioManager.getAvailableBooks(language)
+        val languages = audioManager.getLanguage()
         booksResult.onSuccess { books ->
             val initialBook = books.firstOrNull() ?: state.value.selectedBook
             val (oldTestament, newTestament) = splitTestaments(books)
             mutableState.update {
                 it.copy(
-                    strings = stringsHolder.strings.audioHomeStrings,
+                    loading = false,
+                    strings = stringsHolder.strings.homeAudioStrings,
                     bibleBooksStrings = stringsHolder.strings.bibleBooksStrings,
+                    languages = languages.getOrElse { persistentListOf() }.toImmutableList(),
                     availableBooks = books.toImmutableList(),
                     availableOldTestamentBooks = oldTestament,
                     availableNewTestamentBooks = newTestament,
-                    selectedBook = initialBook
+                    selectedBook = initialBook,
+                    tabs = buildTabs(hasOT = oldTestament.isNotEmpty(), hasNT = newTestament.isNotEmpty()).toImmutableList(),
                 )
-            }
-            loadChapters(initialBook) { chapters ->
-                val initialChapter = chapters.firstOrNull() ?: 1
-                mutableState.update { s -> s.copy(selectedChapter = initialChapter) }
-                fetchAudio(initialBook, initialChapter)
             }
         }.onFailure { e ->
             mutableState.update { it.copy(loading = false) }
@@ -56,62 +58,52 @@ internal class HomeAudioStepModel internal constructor(
 
     override fun onEvent(event: HomeAudioInternalRoute) {
         when (event) {
-            HomeAudioInternalRoute.OnRetry -> fetchAudio(state.value.selectedBook, state.value.selectedChapter, force = true)
+            HomeAudioInternalRoute.OnRetry -> screenModelScope.launch { loadInitial() }
             HomeAudioInternalRoute.OnPopBackStack -> navigatorHolder.navigator.pop()
             is HomeAudioInternalRoute.OnSelectBook -> onSelectBook(event.audioBook)
-            is HomeAudioInternalRoute.OnSelectChapter -> onSelectChapter(event.chapter)
+            is HomeAudioInternalRoute.OnSelectLanguage -> onSelectLanguage(event.language)
+            is HomeAudioInternalRoute.OnSelectTab -> mutableState.update { it.copy(selectedTab = event.tab) }
         }
     }
 
-    private fun onSelectBook(book: AudioBook) {
-        mutableState.update { it.copy(selectedBook = book, selectedChapter = 1, audioUrl = null) }
+    private fun onSelectLanguage(language: Language) {
+        mutableState.update { it.copy(selectedLanguage = language, loading = true) }
         screenModelScope.launch {
-            loadChapters(book) { chapters ->
-                val firstChapter = chapters.firstOrNull() ?: 1
-                mutableState.update { s -> s.copy(selectedChapter = firstChapter) }
-                fetchAudio(book, firstChapter, force = true)
+            val booksResult = audioManager.getAvailableBooks(language)
+            booksResult.onSuccess { books ->
+                val initialBook = books.firstOrNull() ?: state.value.selectedBook
+                val (oldTestament, newTestament) = splitTestaments(books)
+                mutableState.update {
+                    it.copy(
+                        loading = false,
+                        availableBooks = books.toImmutableList(),
+                        availableOldTestamentBooks = oldTestament,
+                        availableNewTestamentBooks = newTestament,
+                        selectedBook = initialBook,
+                        selectedTab = BookTab.All,
+                        tabs = buildTabs(hasOT = oldTestament.isNotEmpty(), hasNT = newTestament.isNotEmpty()).toImmutableList(),
+                    )
+                }
+            }.onFailure { e ->
+                mutableState.update { it.copy(loading = false) }
+                eventChannel.trySend(HomeAudioInternalEvents.OnError(e.message ?: "Erro ao carregar livros"))
             }
         }
     }
 
-    private fun onSelectChapter(chapter: Int) {
-        val current = state.value
-        if (chapter !in current.availableChapters) return
-        mutableState.update { it.copy(selectedChapter = chapter, audioUrl = null) }
-        fetchAudio(current.selectedBook, chapter)
+    private fun onSelectBook(book: AudioBook) {
+        val language = state.value.selectedLanguage
+        val ntStartIndex = AudioBook.entries.indexOf(AudioBook.Matthew).takeIf { it >= 0 } ?: 0
+        val testament = if (AudioBook.entries.indexOf(book) < ntStartIndex) BookTab.OldTestament else BookTab.NewTestament
+        mutableState.update { it.copy(selectedBook = book) }
+        navigatorHolder.navigator.push(ChapterStep(language, book, testament))
     }
 
-    private fun loadChapters(book: AudioBook, onLoaded: (List<Int>) -> Unit) {
-        screenModelScope.launch {
-            audioManager.getAvailableChapters(Language.URDU, book)
-                .onSuccess { chapters ->
-                    mutableState.update { it.copy(availableChapters = chapters.toImmutableList()) }
-                    onLoaded(chapters)
-                }
-                .onFailure { e ->
-                    mutableState.update { it.copy(loading = false) }
-                    eventChannel.trySend(HomeAudioInternalEvents.OnError(e.message ?: "Erro ao carregar capítulos"))
-                }
-        }
-    }
 
-    private fun fetchAudio(book: AudioBook, chapter: Int, force: Boolean = false) {
-        val current = state.value
-        if (!force && current.audioUrl != null && current.selectedBook == book && current.selectedChapter == chapter) return
-        screenModelScope.launch {
-            audioManager.getAudioUrl(
-                language = Language.URDU,
-                book = book,
-                chapter = chapter,
-            )
-                .onSuccess { audioUrl ->
-                    mutableState.update { s -> s.copy(audioUrl = audioUrl, loading = false) }
-                }
-                .onFailure { error ->
-                    mutableState.update { s -> s.copy(loading = false) }
-                    eventChannel.trySend(HomeAudioInternalEvents.OnError(error.message ?: "Unknown Error"))
-                }
-        }
+    private fun buildTabs(hasOT: Boolean, hasNT: Boolean): List<BookTab> = buildList {
+        add(BookTab.All)
+        if (hasOT) add(BookTab.OldTestament)
+        if (hasNT) add(BookTab.NewTestament)
     }
 
     private fun splitTestaments(books: List<AudioBook>): Pair<ImmutableList<AudioBook>, ImmutableList<AudioBook>> {

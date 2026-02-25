@@ -9,6 +9,7 @@ import com.walcker.flickly.core.navigation.NavigatorHolder
 import com.walcker.flickly.core.platformImpl
 import com.walcker.flickly.core.strings.Locales
 import com.walcker.flickly.core.ui.theme.MoviesAppTheme
+import com.walcker.flickly.navigator.AudioEntry
 import com.walcker.flickly.navigator.MoviesEntry
 import com.walcker.flickly.products.movies.strings.LocalMoviesStrings
 import com.walcker.flickly.products.movies.strings.MoviesStringsHolder
@@ -30,7 +31,11 @@ public data class MoviesEntrypoint(
             "pt", "pt-br", "pt_br" -> Locales.PT
             "en", "en-us", "en_us" -> Locales.EN
             "ur", "ur-pk", "ur_pk" -> Locales.UR
-            else -> { Locales.EN }
+            "pa-in" -> Locales.PA_IN
+            "pa", "pa-pk" -> Locales.PA_PK
+            "sd-in", "sd_in" -> Locales.SD_IN
+            "sd", "sd-pk", "sd_pk" -> Locales.SD_PK
+            else -> Locales.EN
         }
 
         val lyricist = rememberMoviesStrings(languageTag = validLanguage)

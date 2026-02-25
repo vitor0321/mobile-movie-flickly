@@ -21,4 +21,8 @@ public object Locales {
     const val EN = "en"
     const val PT = "pt"
     const val UR = "ur"
+    const val PA_IN = "pa-IN"
+    const val PA_PK = "pa-PK"
+    const val SD_PK = "pa-PK"
+    const val SD_IN = "pa-PK"
 }

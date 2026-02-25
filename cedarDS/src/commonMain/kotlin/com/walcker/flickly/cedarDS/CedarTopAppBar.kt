@@ -3,6 +3,8 @@ package com.walcker.flickly.cedarDS
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -26,29 +28,46 @@ import com.walcker.flickly.core.ui.theme.MoviesAppTheme
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.ArrowLeft
+import compose.icons.fontawesomeicons.solid.Book
+import compose.icons.fontawesomeicons.solid.BookOpen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 public fun CedarTopAppBar(
     modifier: Modifier = Modifier,
     title: String = "",
+    description: String? = null,
     icon: ImageVector? = null,
-    iconAudio: ImageVector? = null,
+    iconContent: ImageVector? = null,
     containerColor: Color = MaterialTheme.colorScheme.background,
-    onAudio: () -> Unit = {},
+    onIconContentClick: () -> Unit = {},
     onNavigationBack: () -> Unit = {},
 ) {
     CenterAlignedTopAppBar(
         modifier = modifier,
         title = {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.headlineLarge,
-                color = MaterialTheme.colorScheme.onBackground,
-                fontStyle = FontStyle.Italic,
-                fontFamily = FontFamily.Monospace,
-                fontWeight = FontWeight.Bold
-            )
+            Row {
+                Column {
+                    Text(
+                        text = title,
+                        style = MaterialTheme.typography.headlineLarge,
+                        color = MaterialTheme.colorScheme.onBackground,
+                        fontStyle = FontStyle.Normal,
+                        fontFamily = FontFamily.Monospace,
+                        fontWeight = FontWeight.Bold
+                    )
+                    description?.let {
+                        Text(
+                            text = it,
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.onBackground,
+                            fontStyle = FontStyle.Normal,
+                            fontFamily = FontFamily.Monospace,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                    }
+                }
+            }
         },
         navigationIcon = {
             Box(
@@ -71,7 +90,7 @@ public fun CedarTopAppBar(
         },
         actions = {
             val noRippleInteraction = remember { MutableInteractionSource() }
-            iconAudio?.let { icon ->
+            iconContent?.let { icon ->
                 Icon(
                     modifier = Modifier
                         .size(32.dp)
@@ -81,7 +100,7 @@ public fun CedarTopAppBar(
                             indication = null,
                             hapticFeedbackEnabled = false,
                             onClick = { },
-                            onLongClick = { onAudio() }
+                            onLongClick = { onIconContentClick() }
                         ),
                     imageVector = icon,
                     contentDescription = ""
@@ -103,9 +122,11 @@ public fun CedarTopAppBar(
 private fun Preview() {
     MoviesAppTheme(isDarkTheme = false) {
         CedarTopAppBar(
-            title = "Movie Detail",
+            title = "Bible Audio",
+            description = "Peace be with you",
             icon = FontAwesomeIcons.Solid.ArrowLeft,
-            onAudio = { },
+            iconContent = FontAwesomeIcons.Solid.BookOpen,
+            onIconContentClick = { },
             onNavigationBack = { },
         )
     }

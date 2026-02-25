@@ -18,25 +18,53 @@ internal data class MoviesStrings(
     val movieDetailStrings: MovieDetailStrings,
 )
 
-@LyricistStrings(languageTag = Locales.EN)
+@LyricistStrings(languageTag = Locales.EN, default = true)
 internal val EnMoviesStrings = MoviesStrings(
     appName = "Movies",
     moviesListStrings = moviesListStringsEn,
     movieDetailStrings = movieDetailStringsEn,
 )
 
-@LyricistStrings(languageTag = Locales.PT, default = true)
+@LyricistStrings(languageTag = Locales.PT)
 internal val PtMoviesStrings = MoviesStrings(
     appName = "Flickly",
     moviesListStrings = moviesListStringsPt,
     movieDetailStrings = movieDetailStringsPt,
 )
 
-@LyricistStrings(languageTag = Locales.UR, default = true)
+@LyricistStrings(languageTag = Locales.UR)
 internal val UrMoviesStrings = MoviesStrings(
-    appName = "Flickly",
+    appName = "فلکلی",
     moviesListStrings = moviesListStringsUr,
     movieDetailStrings = movieDetailStringsUr,
+)
+
+@LyricistStrings(languageTag = Locales.SD_PK)
+internal val SdPkMoviesStrings = MoviesStrings(
+    appName = "فلکلي",
+    moviesListStrings = moviesListStringsSdPk,
+    movieDetailStrings = movieDetailStringsSdPk,
+)
+
+@LyricistStrings(languageTag = Locales.SD_IN)
+internal val SdInMoviesStrings = MoviesStrings(
+    appName = "फ्लिकली",
+    moviesListStrings = moviesListStringsSdIn,
+    movieDetailStrings = movieDetailStringsSdIn,
+)
+
+@LyricistStrings(languageTag = Locales.PA_PK)
+internal val PaPkMoviesStrings = MoviesStrings(
+    appName = "فلکلی",
+    moviesListStrings = moviesListStringsPaPk,
+    movieDetailStrings = movieDetailStringsPaPk,
+)
+
+@LyricistStrings(languageTag = Locales.PA_IN)
+internal val PaInMoviesStrings = MoviesStrings(
+    appName = "ਫਲਿਕਲੀ",
+    moviesListStrings = moviesListStringsPaIn,
+    movieDetailStrings = movieDetailStringsPaIn,
 )
 
 internal val LocalMoviesStrings = staticCompositionLocalOf { EnMoviesStrings }
@@ -66,6 +94,10 @@ internal fun rememberMoviesStrings(
                 Locales.EN to EnMoviesStrings,
                 Locales.PT to PtMoviesStrings,
                 Locales.UR to UrMoviesStrings,
+                Locales.SD_PK to SdPkMoviesStrings,
+                Locales.SD_IN to SdInMoviesStrings,
+                Locales.PA_PK to PaPkMoviesStrings,
+                Locales.PA_IN to PaInMoviesStrings,
             ),
         )
     }
