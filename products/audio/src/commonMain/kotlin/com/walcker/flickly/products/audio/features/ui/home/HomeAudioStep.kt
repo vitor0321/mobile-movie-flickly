@@ -113,9 +113,7 @@ private fun BookAndChapterSelector(
     onSelectBook: (AudioBook) -> Unit,
     onSelectTab: (BookTab) -> Unit,
 ) {
-    Column(
-        modifier = Modifier.verticalScroll(rememberScrollState()),
-    ) {
+    Column {
         BookSelection(
             selectedBook = state.selectedBook,
             selectedTab = state.selectedTab,

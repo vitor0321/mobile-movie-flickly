@@ -10,15 +10,15 @@ internal data class ChapterStrings(
 internal val chapterStringsPt = ChapterStrings(
     selectAChapterTo = "Selecione um capítulo para ouvir",
     chaptersAvailable = { "$it capítulos disponíveis" },
-    oldTestamentLabel = "AT",
-    newTestamentLabel = "NT",
+    oldTestamentLabel = "Antigo Testamento",
+    newTestamentLabel = "Novo Testamento",
 )
 
 internal val chapterStringsEn = ChapterStrings(
     selectAChapterTo = "Select a chapter to listen",
     chaptersAvailable = { "$it chapters available" },
-    oldTestamentLabel = "OT",
-    newTestamentLabel = "NT",
+    oldTestamentLabel = "Old Testament",
+    newTestamentLabel = "New Testament",
 )
 
 internal val chapterStringsUr = ChapterStrings(
@@ -31,8 +31,8 @@ internal val chapterStringsUr = ChapterStrings(
 internal val chapterStringsPaIN = ChapterStrings(
     selectAChapterTo = "ਸੁਣਨ ਲਈ ਇੱਕ ਅਧਿਆਇ ਚੁਣੋ",
     chaptersAvailable = { "$it ਅਧਿਆਇ ਉਪਲਬਧ ਹਨ" },
-    oldTestamentLabel = "ਪੁਰਾਣਾ ਨਿਯਮ",
-    newTestamentLabel = "ਨਵਾਂ ਨਿਯਮ",
+    oldTestamentLabel = "عہدِ عتیق",
+    newTestamentLabel = "عہدِ جدید",
 )
 
 internal val chapterStringsPaPK = ChapterStrings(
@@ -40,4 +40,18 @@ internal val chapterStringsPaPK = ChapterStrings(
     chaptersAvailable = { "$it باب دستیاب نیں" },
     oldTestamentLabel = "پرانا عہدنامہ",
     newTestamentLabel = "نواں عہدنامہ",
+)
+
+internal val chapterStringsSdPk = ChapterStrings(
+    selectAChapterTo = "ٻڌڻ لاءِ هڪ باب چونڊيو",
+    chaptersAvailable = { "$it باب موجود آهن" },
+    oldTestamentLabel = "پراڻو عهد نامو",
+    newTestamentLabel = "نئون عهد نامو",
+)
+
+internal val chapterStringsSdIn = ChapterStrings(
+    selectAChapterTo = "सुनने के लिए एक अध्याय चुनें",
+    chaptersAvailable = { "$it अध्याय उपलब्ध हैं" },
+    oldTestamentLabel = "पुरानो नियम",
+    newTestamentLabel = "नवो नियम",
 )

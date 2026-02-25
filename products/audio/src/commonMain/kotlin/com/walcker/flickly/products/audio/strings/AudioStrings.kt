@@ -53,6 +53,20 @@ internal val PaPKAudioStrings = AudioStrings(
     chapterStrings = chapterStringsPaPK,
 )
 
+@LyricistStrings(languageTag = Locales.SD_PK)
+internal val SdPkAudioStrings = AudioStrings(
+    homeAudioStrings = homeAudioStringsSdPk,
+    bibleBooksStrings = bibleBooksStringsSdPk,
+    chapterStrings = chapterStringsSdPk,
+)
+
+@LyricistStrings(languageTag = Locales.SD_IN)
+internal val SdInAudioStrings = AudioStrings(
+    homeAudioStrings = homeAudioStringsSdIn,
+    bibleBooksStrings = bibleBooksStringsSdIn,
+    chapterStrings = chapterStringsSdIn,
+)
+
 internal val LocalAudioStrings = staticCompositionLocalOf { EnAudioStrings }
 
 internal class AudioStringsHolder : GenericStringsHolder<AudioStrings>()
@@ -82,6 +96,8 @@ internal fun rememberAudioStrings(
                 Locales.UR to UrAudioStrings,
                 Locales.PA_IN to PaInAudioStrings,
                 Locales.PA_PK to PaPKAudioStrings,
+                Locales.SD_PK to SdPkAudioStrings,
+                Locales.SD_IN to SdInAudioStrings,
             ),
         )
     }

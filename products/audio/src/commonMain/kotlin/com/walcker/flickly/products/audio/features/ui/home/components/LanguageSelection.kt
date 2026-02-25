@@ -54,7 +54,6 @@ internal fun LanguageSelection(
         )
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.fillMaxWidth()
         ) {
             items(languages) { languages ->
                 val selected = languages == selectedLanguage

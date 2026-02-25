@@ -18,6 +18,14 @@ internal enum class Language(
         folderName = "punjabi_pk",
         namePresentation = { it.paPkName },
     ),
+    SINDHI_PK(
+        folderName = "sindhi_pk",
+        namePresentation = { it.sdPkName },
+    ),
+    SINDHI_IN(
+        folderName = "sindhi_in",
+        namePresentation = { it.sdInName },
+    ),
     ENGLISH(
         folderName = "english",
         namePresentation = { it.enName },

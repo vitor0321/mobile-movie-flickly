@@ -10,8 +10,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -81,54 +83,58 @@ internal fun BookSelection(
             }
         }
 
-        when (selectedTab) {
-            BookTab.All -> {
-                if (hasOT) TestamentSection(
-                    title = strings.oldTestament,
-                    bookCount = availableOldTestamentBooks.size,
-                    books = availableOldTestamentBooks,
-                    selectedBook = selectedBook,
-                    bibleBooksStrings = bibleBooksStrings,
-                    accentColor = MaterialTheme.colorScheme.tertiaryFixed,
-                    strings = strings,
-                    onSelectBook = onSelectBook,
-                )
-                if (hasNT) TestamentSection(
-                    title = strings.newTestament,
-                    bookCount = availableNewTestamentBooks.size,
-                    books = availableNewTestamentBooks,
-                    selectedBook = selectedBook,
-                    bibleBooksStrings = bibleBooksStrings,
-                    accentColor = MaterialTheme.colorScheme.tertiaryFixedDim,
-                    strings = strings,
-                    onSelectBook = onSelectBook,
-                )
-            }
+        Column(
+            modifier = Modifier.verticalScroll(rememberScrollState()),
+        ) {
+            when (selectedTab) {
+                BookTab.All -> {
+                    if (hasOT) TestamentSection(
+                        title = strings.oldTestamentAll,
+                        bookCount = availableOldTestamentBooks.size,
+                        books = availableOldTestamentBooks,
+                        selectedBook = selectedBook,
+                        bibleBooksStrings = bibleBooksStrings,
+                        accentColor = MaterialTheme.colorScheme.tertiaryFixed,
+                        strings = strings,
+                        onSelectBook = onSelectBook,
+                    )
+                    if (hasNT) TestamentSection(
+                        title = strings.newTestamentAll,
+                        bookCount = availableNewTestamentBooks.size,
+                        books = availableNewTestamentBooks,
+                        selectedBook = selectedBook,
+                        bibleBooksStrings = bibleBooksStrings,
+                        accentColor = MaterialTheme.colorScheme.tertiaryFixedDim,
+                        strings = strings,
+                        onSelectBook = onSelectBook,
+                    )
+                }
 
-            BookTab.OldTestament -> {
-                if (hasOT) TestamentSection(
-                    title = strings.oldTestament,
-                    bookCount = availableOldTestamentBooks.size,
-                    books = availableOldTestamentBooks,
-                    selectedBook = selectedBook,
-                    bibleBooksStrings = bibleBooksStrings,
-                    accentColor = MaterialTheme.colorScheme.tertiaryFixed,
-                    strings = strings,
-                    onSelectBook = onSelectBook,
-                )
-            }
+                BookTab.OldTestament -> {
+                    if (hasOT) TestamentSection(
+                        title = strings.oldTestamentAll,
+                        bookCount = availableOldTestamentBooks.size,
+                        books = availableOldTestamentBooks,
+                        selectedBook = selectedBook,
+                        bibleBooksStrings = bibleBooksStrings,
+                        accentColor = MaterialTheme.colorScheme.tertiaryFixed,
+                        strings = strings,
+                        onSelectBook = onSelectBook,
+                    )
+                }
 
-            BookTab.NewTestament -> {
-                if (hasNT) TestamentSection(
-                    title = strings.newTestament,
-                    bookCount = availableNewTestamentBooks.size,
-                    books = availableNewTestamentBooks,
-                    selectedBook = selectedBook,
-                    bibleBooksStrings = bibleBooksStrings,
-                    accentColor = MaterialTheme.colorScheme.tertiaryFixedDim,
-                    strings = strings,
-                    onSelectBook = onSelectBook,
-                )
+                BookTab.NewTestament -> {
+                    if (hasNT) TestamentSection(
+                        title = strings.newTestamentAll,
+                        bookCount = availableNewTestamentBooks.size,
+                        books = availableNewTestamentBooks,
+                        selectedBook = selectedBook,
+                        bibleBooksStrings = bibleBooksStrings,
+                        accentColor = MaterialTheme.colorScheme.tertiaryFixedDim,
+                        strings = strings,
+                        onSelectBook = onSelectBook,
+                    )
+                }
             }
         }
     }

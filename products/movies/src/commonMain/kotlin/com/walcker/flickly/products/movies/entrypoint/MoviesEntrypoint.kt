@@ -33,6 +33,8 @@ public data class MoviesEntrypoint(
             "ur", "ur-pk", "ur_pk" -> Locales.UR
             "pa-in" -> Locales.PA_IN
             "pa", "pa-pk" -> Locales.PA_PK
+            "sd-in", "sd_in" -> Locales.SD_IN
+            "sd", "sd-pk", "sd_pk" -> Locales.SD_PK
             else -> Locales.EN
         }
 

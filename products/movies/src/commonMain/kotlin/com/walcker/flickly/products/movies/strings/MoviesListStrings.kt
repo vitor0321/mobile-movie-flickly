@@ -43,7 +43,7 @@ internal val moviesListStringsEn = MoviesListStrings(
 )
 
 internal val moviesListStringsUr = MoviesListStrings(
-    appName = "Flickly",
+    appName = "فلکلی",
     highlight = "نمایاں",
     popularMovies = "مشہور",
     topRatedMovies = "اعلی درجہ بندی",
@@ -54,4 +54,60 @@ internal val moviesListStringsUr = MoviesListStrings(
     passwordFieldLabel = "پاس ورڈ",
     passwordConfirmLabel = "تصدیق کریں",
     passwordDismissLabel = "منسوخ کریں",
+)
+
+internal val moviesListStringsSdPk = MoviesListStrings(
+    appName = "فلکلي",
+    highlight = "نمايان",
+    popularMovies = "مشهور",
+    topRatedMovies = "تمام کان وڌيڪ درجه بندي",
+    upcomingMovies = "ايندڙ",
+    invalidPasswordMessage = "غلط پاسورڊ",
+    passwordDialogTitle = "پاسورڊ داخل ڪريو",
+    passwordDialogSubtitle = "آڊيو مواد تائين رسائي حاصل ڪريو",
+    passwordFieldLabel = "پاسورڊ",
+    passwordConfirmLabel = "تصديق ڪريو",
+    passwordDismissLabel = "رد ڪريو",
+)
+
+internal val moviesListStringsSdIn = MoviesListStrings(
+    appName = "फ्लिकली",
+    highlight = "मुख्य",
+    popularMovies = "लोकप्रिय",
+    topRatedMovies = "सबसे अधिक रेटिंग",
+    upcomingMovies = "आने वाली",
+    invalidPasswordMessage = "गलत पासवर्ड",
+    passwordDialogTitle = "पासवर्ड दर्ज करें",
+    passwordDialogSubtitle = "ऑडियो सामग्री तक पहुंचें",
+    passwordFieldLabel = "पासवर्ड",
+    passwordConfirmLabel = "पुष्टि करें",
+    passwordDismissLabel = "रद्द करें",
+)
+
+internal val moviesListStringsPaPk = MoviesListStrings(
+    appName = "فلکلی",
+    highlight = "نمایاں",
+    popularMovies = "مقبول",
+    topRatedMovies = "اعلیٰ درجہ بندي",
+    upcomingMovies = "آنے والیاں",
+    invalidPasswordMessage = "غلط پاس ورڈ",
+    passwordDialogTitle = "پاس ورڈ درج کرو",
+    passwordDialogSubtitle = "آڈیو مواد تک رسائی حاصل کرو",
+    passwordFieldLabel = "پاس ورڈ",
+    passwordConfirmLabel = "تصدیق کرو",
+    passwordDismissLabel = "منسوخ کرو",
+)
+
+internal val moviesListStringsPaIn = MoviesListStrings(
+    appName = "ਫਲਿਕਲੀ",
+    highlight = "ਮੁੱਖ",
+    popularMovies = "ਲੋਕਪ੍ਰਿਯ",
+    topRatedMovies = "ਸਭ ਤੋਂ ਉੱਚੀ ਰੇਟਿੰਗ",
+    upcomingMovies = "ਆਉਣ ਵਾਲੀਆਂ",
+    invalidPasswordMessage = "ਗਲਤ ਪਾਸਵਰਡ",
+    passwordDialogTitle = "ਪਾਸਵਰਡ ਦਰਜ ਕਰੋ",
+    passwordDialogSubtitle = "ਆਡੀਓ ਸਮੱਗਰੀ ਤੱਕ ਪਹੁੰਚ ਕਰੋ",
+    passwordFieldLabel = "ਪਾਸਵਰਡ",
+    passwordConfirmLabel = "ਪੁਸ਼ਟੀ ਕਰੋ",
+    passwordDismissLabel = "ਰੱਦ ਕਰੋ",
 )
