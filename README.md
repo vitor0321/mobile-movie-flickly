@@ -1,4 +1,4 @@
-# 🎬 Movies – Kotlin Multiplatform App (Compose Multiplatform)
+# 🎬 Flickly – Kotlin Multiplatform App (Compose Multiplatform)
 
 A modern multiplatform movie discovery app, built using the [The Movie Database (TMDb)](https://www.themoviedb.org/) API. Developed with **Kotlin Multiplatform** and **Compose Multiplatform (CMP)**, this project showcases best practices in architecture, shared business logic, and declarative UI.
 
@@ -11,6 +11,113 @@ A modern multiplatform movie discovery app, built using the [The Movie Database 
     <img src="images/details.png" width="250" alt="details">
   </div>
 </div>
+
+---
+
+## 🚀 Getting Started
+
+### 📋 Prerequisites
+
+| Tool | Minimum version | Notes |
+|------|----------------|-------|
+| JDK | 21 | Required by Gradle |
+| Android Studio | Hedgehog+ | With KMP plugin |
+| Xcode | 16.0+ | iOS builds only |
+| CocoaPods | 1.16+ | `sudo gem install cocoapods` |
+| Kotlin | 2.3.0 | Managed by Gradle |
+| Compose Multiplatform | 1.10.0 | Managed by Gradle |
+
+---
+
+### 🔑 API Key Setup (required for both platforms)
+
+This project uses the [TMDb API](https://www.themoviedb.org/settings/api). You need a free **Read Access Token (v4 auth)**.
+
+1. Create an account at [themoviedb.org](https://www.themoviedb.org/signup)
+2. Go to **Settings → API** and generate a token
+3. Configure it per platform as described below
+
+> ⚠️ Never commit your token. All secret files are already in `.gitignore`.
+
+---
+
+### 🤖 Android Setup
+
+Add your token to `local.properties` in the **root** of the project (create the file if it doesn't exist):
+
+```properties
+# local.properties
+sdk.dir=/path/to/your/Android/sdk
+TMDB_ACCESS_TOKEN=your_token_here
+```
+
+Then open the project in **Android Studio** and run the `app` target.
+
+---
+
+### 🍎 iOS Setup
+
+iOS requires a few extra steps after cloning.
+
+#### 1. Create `Secrets.xcconfig`
+
+Create the file `iosApp/iosApp/Configuration/Secrets.xcconfig` with your token:
+
+```xcconfig
+TMDB_ACCESS_TOKEN=your_token_here
+```
+
+> This file is in `.gitignore` and will **never** be committed.
+
+#### 2. Install CocoaPods dependencies
+
+```bash
+cd iosApp
+pod install
+```
+
+`pod install` will automatically:
+- Install all pods (Firebase, YouTubePlayerKit, AppMan KMP framework, etc.)
+- Inject `TMDB_ACCESS_TOKEN` from `Secrets.xcconfig` into the generated build settings
+- Configure JAVA_HOME for the KMP Gradle sync phases
+
+#### 3. Add Firebase config
+
+Copy your `GoogleService-Info.plist` (from [Firebase Console](https://console.firebase.google.com)) to:
+
+```
+iosApp/iosApp/GoogleService-Info.plist
+```
+
+> Also in `.gitignore` — never commit this file.
+
+#### 4. Open the workspace (not the `.xcodeproj`!)
+
+```bash
+open iosApp.xcworkspace
+```
+
+> ⚠️ Always use **`iosApp.xcworkspace`**, never `iosApp.xcodeproj` directly — CocoaPods requires the workspace.
+
+#### 5. Build & Run
+
+Select a simulator or device in Xcode and press **⌘R**.
+
+The first build will take longer — Gradle needs to compile the KMP framework (`AppMan`) for iOS.
+
+---
+
+### ⚠️ Common iOS Issues
+
+| Error | Cause | Fix |
+|-------|-------|-----|
+| `401 Unauthorized` from TMDb | `Secrets.xcconfig` missing or token wrong | Check step 1 above |
+| `Unable to locate a Java Runtime` | Xcode can't find JDK | Ensure JDK 21 is installed and JAVA_HOME is set; run `pod install` again to reinject |
+| `Framework 'AppMan' not found` | KMP framework not compiled | Run `pod install` or build once from terminal: `./gradlew :app:syncFramework ...` |
+| `66 duplicate symbols` | `Core` pod added alongside `AppMan` | Remove `pod 'Core'` — it's already exported by `AppMan` |
+| Opening `.xcodeproj` instead of `.xcworkspace` | CocoaPods not integrated | Always open `iosApp.xcworkspace` |
+
+---
 
 ## ⚙️ Clean Architecture
 
@@ -201,5 +308,3 @@ Contribuições são bem-vindas! Para garantir a qualidade e consistência do pr
 ---
 
 Se você está apenas explorando o projeto ou deseja discutir uma nova feature, sinta-se à vontade para abrir uma *issue* antes do PR.
-# mobile-movie-flickly
-# mobile-movie-flickly
