@@ -1,22 +1,52 @@
-platform :ios, '14.0'
-use_frameworks!
+platform :ios, '15.0'
+use_frameworks! :linkage => :static
 
 # Workspace: iosApp.xcworkspace
 
 target 'iosApp' do
-  # Consome frameworks gerados pelos módulos KMP via cocoapods
-  pod 'Core', :path => '../core'
+  # KMP top-level module — exports Core internally via export(project(":core"))
+  # DO NOT add 'Core' pod separately — it would cause 66 duplicate Compose runtime symbols
   pod 'AppMan', :path => '../app'
+
+  # Firebase — required by AppMan/Core (dev.gitlive firebase-storage, firebase-app)
+  pod 'FirebaseCore'
+  pod 'FirebaseStorage'
+  pod 'FirebaseAnalytics'
+  pod 'FirebaseCrashlytics'
+
+  # Required by mediaplayer-kmp (iOS player component)
+  pod 'YouTubePlayerKit'
 end
 
 post_install do |installer|
+  # Resolve JAVA_HOME dynamically: prefer asdf-managed Java, fallback to /usr/libexec/java_home
+  java_home = `~/.asdf/shims/java -XshowSettings:property -version 2>&1 | grep 'java.home' | awk '{print $3}'`.strip
+  if java_home.empty?
+    java_home = `/usr/libexec/java_home 2>/dev/null`.strip
+  end
+  # If asdf shim didn't expose it, read from asdf installs directly
+  if java_home.empty? || java_home == "null"
+    asdf_java_dir = File.expand_path("~/.asdf/installs/java")
+    if Dir.exist?(asdf_java_dir)
+      candidates = Dir.glob("#{asdf_java_dir}/*/bin/java").sort.last
+      java_home = File.dirname(File.dirname(candidates)) if candidates
+    end
+  end
+
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
-      # Garante que todos os pods sejam buildados corretamente para arm64
       config.build_settings['ONLY_ACTIVE_ARCH'] = 'NO'
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '14.0'
-      # Força linkage dinâmica para evitar símbolos indefinidos
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
       config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
+    end
+
+    # Inject JAVA_HOME into the KMP syncFramework script phases
+    target.build_phases.each do |phase|
+      next unless phase.respond_to?(:shell_script)
+      next unless phase.shell_script.include?('syncFramework')
+      unless java_home.empty?
+        phase.shell_script = "export JAVA_HOME=\"#{java_home}\"\nexport PATH=\"#{java_home}/bin:$PATH\"\n" + phase.shell_script
+      end
     end
   end
 end

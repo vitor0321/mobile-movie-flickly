@@ -118,6 +118,22 @@ esac
 CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
 
 
+# Auto-detect JAVA_HOME from asdf when not set (needed when invoked from Xcode build phases)
+if [ -z "$JAVA_HOME" ]; then
+    ASDF_JAVA_DIR="$HOME/.asdf/installs/java"
+    if [ -d "$ASDF_JAVA_DIR" ]; then
+        # Pick the most recently modified java installation
+        ASDF_JAVA_HOME=$(ls -1t "$ASDF_JAVA_DIR" | head -1)
+        if [ -n "$ASDF_JAVA_HOME" ] && [ -x "$ASDF_JAVA_DIR/$ASDF_JAVA_HOME/bin/java" ]; then
+            export JAVA_HOME="$ASDF_JAVA_DIR/$ASDF_JAVA_HOME"
+        fi
+    fi
+    # Fallback: try /usr/libexec/java_home (macOS standard)
+    if [ -z "$JAVA_HOME" ] && [ -x "/usr/libexec/java_home" ]; then
+        JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null) && export JAVA_HOME
+    fi
+fi
+
 # Determine the Java command to use to start the JVM.
 if [ -n "$JAVA_HOME" ] ; then
     if [ -x "$JAVA_HOME/jre/sh/java" ] ; then
