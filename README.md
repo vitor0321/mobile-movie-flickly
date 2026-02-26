@@ -59,27 +59,28 @@ Then open the project in **Android Studio** and run the `app` target.
 
 iOS requires a few extra steps after cloning.
 
-#### 1. Create `Secrets.xcconfig`
+#### 1. Install CocoaPods (if not already installed)
+
+```bash
+sudo gem install cocoapods
+```
+
+Verify the installation:
+
+```bash
+pod --version  # should be 1.16+
+```
+
+#### 2. Create `Secrets.xcconfig`
 
 Create the file `iosApp/iosApp/Configuration/Secrets.xcconfig` with your token:
 
-```xcconfig
-TMDB_ACCESS_TOKEN=your_token_here
+```bash
+mkdir -p iosApp/iosApp/Configuration
+echo "TMDB_ACCESS_TOKEN=your_token_here" > iosApp/iosApp/Configuration/Secrets.xcconfig
 ```
 
 > This file is in `.gitignore` and will **never** be committed.
-
-#### 2. Install CocoaPods dependencies
-
-```bash
-cd iosApp
-pod install
-```
-
-`pod install` will automatically:
-- Install all pods (Firebase, YouTubePlayerKit, AppMan KMP framework, etc.)
-- Inject `TMDB_ACCESS_TOKEN` from `Secrets.xcconfig` into the generated build settings
-- Configure JAVA_HOME for the KMP Gradle sync phases
 
 #### 3. Add Firebase config
 
@@ -91,19 +92,68 @@ iosApp/iosApp/GoogleService-Info.plist
 
 > Also in `.gitignore` — never commit this file.
 
-#### 4. Open the workspace (not the `.xcodeproj`!)
+> ⚠️ Make sure the `GoogleService-Info.plist` contains the `STORAGE_BUCKET` key. If it is missing, download a fresh copy from the Firebase Console (Project Settings → Your Apps → iOS) or add it manually:
+> ```xml
+> <key>STORAGE_BUCKET</key>
+> <string>your-project-id.firebasestorage.app</string>
+> ```
+
+#### 4. Install CocoaPods dependencies
 
 ```bash
+cd iosApp
+pod install
+```
+
+`pod install` will automatically:
+- Install all pods (Firebase, YouTubePlayerKit, AppMan KMP framework, etc.)
+- Inject `TMDB_ACCESS_TOKEN` from `Secrets.xcconfig` into the generated build settings
+- Configure `JAVA_HOME` for the KMP Gradle sync phases
+
+> ⚠️ If you see `Unable to locate a Java Runtime` during `pod install`, make sure JDK 21 is installed:
+> ```bash
+> # Using Homebrew
+> brew install --cask temurin@21
+>
+> # Or using SDKMAN
+> sdk install java 21-tem
+> ```
+> Then run `pod install` again.
+
+#### 5. Open the workspace (not the `.xcodeproj`!)
+
+```bash
+# From the iosApp/ directory
 open iosApp.xcworkspace
 ```
 
 > ⚠️ Always use **`iosApp.xcworkspace`**, never `iosApp.xcodeproj` directly — CocoaPods requires the workspace.
 
-#### 5. Build & Run
+#### 6. Build & Run
 
 Select a simulator or device in Xcode and press **⌘R**.
 
 The first build will take longer — Gradle needs to compile the KMP framework (`AppMan`) for iOS.
+
+---
+
+#### 🔁 Full iOS setup from scratch (copy & paste)
+
+```bash
+# 1. From project root — create Secrets.xcconfig
+mkdir -p iosApp/iosApp/Configuration
+echo "TMDB_ACCESS_TOKEN=your_token_here" > iosApp/iosApp/Configuration/Secrets.xcconfig
+
+# 2. Copy GoogleService-Info.plist to:
+#    iosApp/iosApp/GoogleService-Info.plist  (do this manually from Firebase Console)
+
+# 3. Install pods
+cd iosApp
+pod install
+
+# 4. Open workspace
+open iosApp.xcworkspace
+```
 
 ---
 
@@ -112,6 +162,8 @@ The first build will take longer — Gradle needs to compile the KMP framework (
 | Error | Cause | Fix |
 |-------|-------|-----|
 | `401 Unauthorized` from TMDb | `Secrets.xcconfig` missing or token wrong | Check step 1 above |
+| `Unexpectedly found nil` on `FirebaseApp.app()` | `FirebaseApp.configure()` not called | Ensure `iOSApp.swift` calls `FirebaseApp.configure()` before `startKoinIfNeeded()` |
+| `No default Storage bucket found` | `STORAGE_BUCKET` missing in `GoogleService-Info.plist` | Add `STORAGE_BUCKET` key (check step 3 above) or re-download plist from Firebase Console |
 | `Unable to locate a Java Runtime` | Xcode can't find JDK | Ensure JDK 21 is installed and JAVA_HOME is set; run `pod install` again to reinject |
 | `Framework 'AppMan' not found` | KMP framework not compiled | Run `pod install` or build once from terminal: `./gradlew :app:syncFramework ...` |
 | `66 duplicate symbols` | `Core` pod added alongside `AppMan` | Remove `pod 'Core'` — it's already exported by `AppMan` |

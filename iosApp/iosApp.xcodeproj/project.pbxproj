@@ -38,8 +38,6 @@
 		};
 		B9DA98002DC14AA900A4DA20 /* Configuration */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
 			path = Configuration;
 			sourceTree = "<group>";
 		};
@@ -63,7 +61,6 @@
 				181B4083ED426A502B48D0B4 /* Pods-iosApp.debug.xcconfig */,
 				ECA8E497B4BA7D86A006FF50 /* Pods-iosApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -220,7 +217,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Copy Compose Multiplatform resources to the app bundle\n\nPROJECT_DIR=\"${SRCROOT}\"\n\n# Determine the correct architecture folder\nif [ \"${PLATFORM_NAME}\" = \"iphonesimulator\" ]; then\n    ARCH_FOLDER=\"iosSimulatorArm64\"\nelse\n    ARCH_FOLDER=\"iosArm64\"\nfi\n\n# Create the compose-resources/composeResources directory (must preserve the composeResources folder)\nCOMPOSE_RESOURCES_DIR=\"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/compose-resources/composeResources\"\nmkdir -p \"${COMPOSE_RESOURCES_DIR}\"\n\n# Copy from assembled resources (core module)\nCORE_RESOURCES=\"${PROJECT_DIR}/../core/build/generated/compose/resourceGenerator/assembledResources/${ARCH_FOLDER}Main/composeResources\"\nif [ -d \"${CORE_RESOURCES}\" ]; then\n    cp -R \"${CORE_RESOURCES}/\"* \"${COMPOSE_RESOURCES_DIR}/\" 2>/dev/null || true\n    echo \"Copied core resources from: ${CORE_RESOURCES} to ${COMPOSE_RESOURCES_DIR}\"\nfi\n\n# Copy from aggregated resources (app module)\nAGG_RESOURCES=\"${PROJECT_DIR}/../app/build/kotlin-multiplatform-resources/aggregated-resources/${ARCH_FOLDER}/composeResources\"\nif [ -d \"${AGG_RESOURCES}\" ]; then\n    cp -R \"${AGG_RESOURCES}/\"* \"${COMPOSE_RESOURCES_DIR}/\" 2>/dev/null || true\n    echo \"Copied aggregated resources from: ${AGG_RESOURCES} to ${COMPOSE_RESOURCES_DIR}\"\nfi\n\necho \"Compose resources copied to: ${COMPOSE_RESOURCES_DIR}\"\n";
-			showEnvVarsInLog = 1;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -357,8 +353,6 @@
 		B9DA97C02DC1472D00A4DA20 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 181B4083ED426A502B48D0B4 /* Pods-iosApp.debug.xcconfig */;
-			baseConfigurationReferenceAnchor = B9DA98002DC14AA900A4DA20 /* Configuration */;
-			baseConfigurationReferenceRelativePath = Config.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -366,11 +360,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
-				DEVELOPMENT_TEAM = "${TEAM_ID}";
+				DEVELOPMENT_TEAM = JBCX8H36VY;
 				ENABLE_PREVIEWS = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iosApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -395,8 +387,6 @@
 		B9DA97C12DC1472D00A4DA20 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = ECA8E497B4BA7D86A006FF50 /* Pods-iosApp.release.xcconfig */;
-			baseConfigurationReferenceAnchor = B9DA98002DC14AA900A4DA20 /* Configuration */;
-			baseConfigurationReferenceRelativePath = Release.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -404,11 +394,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
-				DEVELOPMENT_TEAM = "${TEAM_ID}";
+				DEVELOPMENT_TEAM = JBCX8H36VY;
 				ENABLE_PREVIEWS = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iosApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
