@@ -30,7 +30,6 @@ internal fun AudioMediaPlayer(
                 modifier = modifier
                     .fillMaxWidth()
                     .height(PLAYER_HEIGHT)
-                    .padding(horizontal = 16.dp),
             )
         }
     }

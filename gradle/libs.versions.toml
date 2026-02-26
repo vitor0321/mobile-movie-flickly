@@ -25,7 +25,6 @@ immutable = "0.4.0"
 junit = "4.13.2"
 paparazzi = "2.0.0-alpha04"
 parameter-injector = "1.20"
-mediaplayer-kmp = "2.1.0"
 kotlin = "2.3.0"
 koin = '4.1.1'
 ksp = "2.3.2"
@@ -58,7 +57,6 @@ junit = { module = "junit:junit", version.ref = "junit" }
 kotlinx-coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "coroutines" }
 paparazzi = { module = "app.cash.paparazzi:paparazzi", version.ref = "paparazzi" }
 parameter-injector = { module = "com.google.testparameterinjector:test-parameter-injector", version.ref = "parameter-injector" }
-mediaplayer-kmp = { module = "io.github.khubaibkhan4:mediaplayer-kmp", version.ref = "mediaplayer-kmp" }
 kotlin-testJunit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
