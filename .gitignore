@@ -17,5 +17,29 @@ captures
 !*.xcworkspace/contents.xcworkspacedata
 **/xcshareddata/WorkspaceSettings.xcsettings
 
-# iOS Secrets
+# ─── Android Secrets ──────────────────────────────────────────────────────────
+# Keystore e certificados — NUNCA versionar
+*.jks
+*.keystore
+*.pem
+*.p12
+
+# ─── Firebase ─────────────────────────────────────────────────────────────────
+# Contêm API keys e project IDs do Firebase
+app/google-services.json
+iosApp/iosApp/GoogleService-Info.plist
+
+# ─── iOS Secrets ──────────────────────────────────────────────────────────────
+# Arquivo de segredos local — nunca versionar
 iosApp/Configuration/Secrets.xcconfig
+iosApp/iosApp/Configuration/Secrets.xcconfig
+
+# ─── CocoaPods ────────────────────────────────────────────────────────────────
+# Pasta gerada pelo `pod install` (contém tokens injetados pelo post_install)
+iosApp/Pods/
+iosApp/Podfile.lock
+
+# ─── KMP Kotlin/Native Cocoapods ──────────────────────────────────────────────
+# Podspecs gerados automaticamente pelo plugin kotlin("native.cocoapods")
+app/AppMan.podspec
+core/core.podspec

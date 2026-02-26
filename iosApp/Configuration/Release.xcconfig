@@ -1,5 +1,5 @@
 #include "Config.xcconfig"
 
-    // Override para Release
+// Override para Release
 DEBUG_INFORMATION_FORMAT = dwarf-with-dsym
 SWIFT_OPTIMIZATION_LEVEL = -O

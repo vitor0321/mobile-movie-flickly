@@ -19,12 +19,35 @@ target 'iosApp' do
 end
 
 post_install do |installer|
+  # Read TMDB_ACCESS_TOKEN from Secrets.xcconfig
+  secrets_path = File.join(File.dirname(__FILE__), 'Configuration/Secrets.xcconfig')
+  tmdb_token = ''
+  if File.exist?(secrets_path)
+    File.readlines(secrets_path).each do |line|
+      match = line.strip.match(/^TMDB_ACCESS_TOKEN\s*=\s*(.+)$/)
+      tmdb_token = match[1].strip if match
+    end
+  end
+  puts "[Podfile] TMDB_ACCESS_TOKEN found: #{!tmdb_token.empty?}"
+
+  # Inject TMDB_ACCESS_TOKEN into the aggregate target xcconfig files
+  # (The Pods-iosApp.debug/release.xcconfig is the baseConfigurationReference — it does
+  #  NOT include Config.xcconfig, so the token must be injected directly here)
+  installer.aggregate_targets.each do |aggregate_target|
+    aggregate_target.xcconfigs.each do |config_name, config_file|
+      unless tmdb_token.empty?
+        config_file.attributes['TMDB_ACCESS_TOKEN'] = tmdb_token
+      end
+      xcconfig_path = aggregate_target.xcconfig_path(config_name)
+      config_file.save_as(Pathname.new(xcconfig_path))
+    end
+  end
+
   # Resolve JAVA_HOME dynamically: prefer asdf-managed Java, fallback to /usr/libexec/java_home
   java_home = `~/.asdf/shims/java -XshowSettings:property -version 2>&1 | grep 'java.home' | awk '{print $3}'`.strip
   if java_home.empty?
     java_home = `/usr/libexec/java_home 2>/dev/null`.strip
   end
-  # If asdf shim didn't expose it, read from asdf installs directly
   if java_home.empty? || java_home == "null"
     asdf_java_dir = File.expand_path("~/.asdf/installs/java")
     if Dir.exist?(asdf_java_dir)

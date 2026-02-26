@@ -1,7 +1,5 @@
-#include "Configuration/Secrets.xcconfig"
-
 #include "Config.xcconfig"
 
-    // Override para Debug
+// Override para Debug
 SWIFT_OPTIMIZATION_LEVEL = -Onone
 DEBUG_INFORMATION_FORMAT = dwarf
