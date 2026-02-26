@@ -58,6 +58,7 @@ kotlin {
             implementation(compose.runtime)
             implementation(compose.ui)
             implementation(libs.lyricist)
+            implementation(libs.composeIcons.fontAwesome)
 
             implementation(libs.kotlin.stdlib)
             implementation(libs.kotlinx.datetime)

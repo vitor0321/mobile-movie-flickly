@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.walcker.flickly.products.audio.native.PlatformMediaPlayer
+import com.walcker.flickly.core.utils.media.PlatformMediaPlayer
 
 private val PLAYER_HEIGHT = 150.dp
 

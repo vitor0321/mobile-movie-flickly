@@ -1,5 +1,6 @@
-package com.walcker.flickly.products.audio.native
+package com.walcker.flickly.core.utils.media
 
+import android.media.MediaPlayer
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -27,64 +29,44 @@ import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.Pause
 import compose.icons.fontawesomeicons.solid.Play
-import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.coroutines.delay
-import platform.AVFoundation.AVPlayer
-import platform.AVFoundation.AVPlayerItem
-import platform.AVFoundation.AVPlayerItemStatusReadyToPlay
-import platform.AVFoundation.currentTime
-import platform.AVFoundation.duration
-import platform.AVFoundation.pause
-import platform.AVFoundation.play
-import platform.AVFoundation.seekToTime
-import platform.CoreMedia.CMTimeGetSeconds
-import platform.CoreMedia.CMTimeMakeWithSeconds
-import platform.Foundation.NSURL
 
-@OptIn(ExperimentalForeignApi::class)
 @Composable
-internal actual fun PlatformMediaPlayer(
+actual fun PlatformMediaPlayer(
     url: String,
     modifier: Modifier,
 ) {
-    val nsUrl = remember(url) { NSURL.URLWithString(url) } ?: return
-    val playerItem = remember(nsUrl) { AVPlayerItem.playerItemWithURL(nsUrl) }
-    val player = remember(playerItem) { AVPlayer.playerWithPlayerItem(playerItem) }
-
-    var isReady by remember { mutableStateOf(false) }
-    var isPlaying by remember { mutableStateOf(false) }
-    var currentMs by remember { mutableStateOf(0f) }
-    var durationMs by remember { mutableStateOf(0f) }
-    var isSeeking by remember { mutableStateOf(false) }
-
-    DisposableEffect(player) {
-        onDispose { player.pause() }
-    }
-
-    // Wait for player item to be ready and extract duration
-    LaunchedEffect(playerItem) {
-        while (!isReady) {
-            if (playerItem.status == AVPlayerItemStatusReadyToPlay) {
-                isReady = true
-                val secs = CMTimeGetSeconds(playerItem.duration)
-                if (!secs.isNaN() && secs > 0) durationMs = (secs * 1000).toFloat()
-            }
-            delay(100)
+    val player = remember(url) {
+        MediaPlayer().apply {
+            setDataSource(url)
+            prepareAsync()
         }
     }
 
-    // Poll current position while playing
+    var isReady by remember { mutableStateOf(false) }
+    var isPlaying by remember { mutableStateOf(false) }
+    var currentMs by remember { mutableFloatStateOf(0f) }
+    var durationMs by remember { mutableFloatStateOf(0f) }
+    var isSeeking by remember { mutableStateOf(false) }
+
+    DisposableEffect(player) {
+        player.setOnPreparedListener { mp ->
+            isReady = true
+            durationMs = mp.duration.toFloat()
+        }
+        player.setOnCompletionListener {
+            isPlaying = false
+            currentMs = 0f
+        }
+        onDispose {
+            player.stop()
+            player.release()
+        }
+    }
+
     LaunchedEffect(isPlaying, isReady) {
         while (isPlaying && isReady) {
-            if (!isSeeking) {
-                val secs = CMTimeGetSeconds(player.currentTime())
-                if (!secs.isNaN()) currentMs = (secs * 1000).toFloat()
-            }
-            // Detect natural end of audio
-            if (durationMs > 0f && currentMs >= durationMs) {
-                isPlaying = false
-                currentMs = 0f
-            }
+            if (!isSeeking) currentMs = player.currentPosition.toFloat()
             delay(500)
         }
     }
@@ -110,7 +92,7 @@ internal actual fun PlatformMediaPlayer(
                                 player.pause()
                                 isPlaying = false
                             } else {
-                                player.play()
+                                player.start()
                                 isPlaying = true
                             }
                         },
@@ -132,8 +114,7 @@ internal actual fun PlatformMediaPlayer(
                             currentMs = value
                         },
                         onValueChangeFinished = {
-                            val seekTime = CMTimeMakeWithSeconds(currentMs / 1000.0, 1000)
-                            player.seekToTime(seekTime)
+                            player.seekTo(currentMs.toInt())
                             isSeeking = false
                         },
                         valueRange = 0f..durationMs,
@@ -172,3 +153,4 @@ private fun Int.msToTimeLabel(): String {
     val sec = totalSec % 60
     return "$min:${if (sec < 10) "0$sec" else "$sec"}"
 }
+

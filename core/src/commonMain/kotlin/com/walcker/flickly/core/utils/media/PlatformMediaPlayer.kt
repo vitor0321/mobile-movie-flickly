@@ -1,10 +1,10 @@
-package com.walcker.flickly.products.audio.native
+package com.walcker.flickly.core.utils.media
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-internal expect fun PlatformMediaPlayer(
+expect fun PlatformMediaPlayer(
     url: String,
     modifier: Modifier,
 )
