@@ -12,6 +12,7 @@ plugins {
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
     kotlin("plugin.serialization") version libs.versions.kotlin.get()
+    kotlin("native.cocoapods")
 }
 
 kotlin {
@@ -20,8 +21,17 @@ kotlin {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions { jvmTarget.set(JvmTarget.JVM_21) }
     }
-    listOf(iosArm64(), iosSimulatorArm64()).forEach { iosTarget ->
-        iosTarget.binaries.framework {
+
+    iosArm64()
+    iosSimulatorArm64()
+
+    cocoapods {
+        name = "AppMan"
+        version = "1.0"
+        summary = "AppMan KMP module for Flickly"
+        homepage = "https://github.com/walcker/flickly"
+        ios.deploymentTarget = "14.0"
+        framework {
             baseName = "AppMan"
             isStatic = true
             export(project(":core"))
@@ -135,3 +145,11 @@ dependencies {
     debugImplementation(compose.uiTooling)
     coreLibraryDesugaring(libs.desugar.jdk.libs)
 }
+
+// Compose resources for iOS are handled by the "Copy Compose Resources" Xcode build phase
+afterEvaluate {
+    tasks.matching { it.name.contains("syncPodComposeResources") }.configureEach {
+        enabled = false
+    }
+}
+
