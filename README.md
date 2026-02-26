@@ -51,6 +51,13 @@ sdk.dir=/path/to/your/Android/sdk
 TMDB_ACCESS_TOKEN=your_token_here
 ```
 
+Make sure `app/google-services.json` (from [Firebase Console](https://console.firebase.google.com)) is present. It is in `.gitignore` and must be added manually.
+
+> 📌 **Firebase on Android**
+>
+> This project uses `com.google.firebase:firebase-storage` **21.x+** directly (no `-ktx` wrapper needed — KTX was merged into the main module in Firebase BOM 33+).
+> The correct import is `com.google.firebase.Firebase` (not `com.google.firebase.ktx.Firebase`).
+
 Then open the project in **Android Studio** and run the `app` target.
 
 ---
@@ -106,7 +113,7 @@ pod install
 ```
 
 `pod install` will automatically:
-- Install all pods (Firebase, YouTubePlayerKit, AppMan KMP framework, etc.)
+- Install all pods (`FirebaseCore`, `FirebaseStorage`, `FirebaseAnalytics`, `FirebaseCrashlytics`, `YouTubePlayerKit`, `AppMan` KMP framework, etc.)
 - Inject `TMDB_ACCESS_TOKEN` from `Secrets.xcconfig` into the generated build settings
 - Configure `JAVA_HOME` for the KMP Gradle sync phases
 
@@ -119,6 +126,25 @@ pod install
 > sdk install java 21-tem
 > ```
 > Then run `pod install` again.
+
+> 📌 **Firebase Storage — native KMP cinterop**
+>
+> This project uses **native Firebase SDKs** (no third-party wrappers):
+> - **Android**: `com.google.firebase:firebase-storage:21.x` with `com.google.firebase.Firebase.storage`
+> - **iOS**: Kotlin/Native cinterop bindings generated from the `FirebaseStorage` CocoaPod (`cocoapods.FirebaseStorage.*`)
+>
+> The `FirebaseCore` and `FirebaseStorage` pods are declared in **two places**:
+> 1. `iosApp/Podfile` — so Xcode can link them into the final app
+> 2. `core/build.gradle.kts` (in the `cocoapods { }` block) — so Gradle generates the Kotlin/Native cinterop bindings
+>
+> If you ever change or add a Firebase pod, run both:
+> ```bash
+> # From project root — regenerates cinterop .def files
+> ./gradlew :core:podInstall
+>
+> # From iosApp/ — updates the Xcode project
+> cd iosApp && pod install
+> ```
 
 #### 5. Open the workspace (not the `.xcodeproj`!)
 
@@ -147,11 +173,15 @@ echo "TMDB_ACCESS_TOKEN=your_token_here" > iosApp/iosApp/Configuration/Secrets.x
 # 2. Copy GoogleService-Info.plist to:
 #    iosApp/iosApp/GoogleService-Info.plist  (do this manually from Firebase Console)
 
-# 3. Install pods
+# 3. (Optional — only needed if Firebase pods changed or first time after clone)
+#    Regenerate Kotlin/Native cinterop bindings for FirebaseStorage
+./gradlew :core:podInstall
+
+# 4. Install pods (also runs :core:podInstall internally via Podfile)
 cd iosApp
 pod install
 
-# 4. Open workspace
+# 5. Open workspace
 open iosApp.xcworkspace
 ```
 
@@ -166,7 +196,9 @@ open iosApp.xcworkspace
 | `No default Storage bucket found` | `STORAGE_BUCKET` missing in `GoogleService-Info.plist` | Add `STORAGE_BUCKET` key (check step 3 above) or re-download plist from Firebase Console |
 | `Unable to locate a Java Runtime` | Xcode can't find JDK | Ensure JDK 21 is installed and JAVA_HOME is set; run `pod install` again to reinject |
 | `Framework 'AppMan' not found` | KMP framework not compiled | Run `pod install` or build once from terminal: `./gradlew :app:syncFramework ...` |
-| `66 duplicate symbols` | `Core` pod added alongside `AppMan` | Remove `pod 'Core'` — it's already exported by `AppMan` |
+| `66 duplicate symbols` | `Core` pod added alongside `AppMan` | Remove `pod 'Core'` from `Podfile` — it is already exported by `AppMan` |
+| `Unresolved reference: cocoapods` in iosMain | FirebaseStorage cinterop not generated | Run `./gradlew :core:podInstall` then `cd iosApp && pod install` |
+| `import platform.FirebaseStorage.*` not found | Wrong import prefix for CocoaPods bindings | Use `import cocoapods.FirebaseStorage.*` — pods declared via `pod()` in the KMP `cocoapods {}` block live under the `cocoapods.*` package, not `platform.*` |
 | Opening `.xcodeproj` instead of `.xcworkspace` | CocoaPods not integrated | Always open `iosApp.xcworkspace` |
 
 ---
@@ -201,7 +233,7 @@ The project follows **Clean Architecture** principles, enabling low coupling, hi
 
 ---
 
-## 🔌 Libraries Used
+### 🔌 Libraries Used
 
 ### 📡 Networking
 
@@ -210,6 +242,13 @@ The project follows **Clean Architecture** principles, enabling low coupling, hi
 - `ktor-client-darwin`
 - `ktor-content-negotiation`
 - `ktor-serialization-json`
+
+### 🔥 Firebase (Native — no third-party wrappers)
+
+- **Android**: `com.google.firebase:firebase-storage` · `com.google.firebase:firebase-analytics` · `com.google.firebase:firebase-crashlytics-ndk`
+  - Uses `com.google.firebase.Firebase` (BOM 33+ merged KTX API)
+- **iOS**: Kotlin/Native cinterop bindings via `pod("FirebaseCore")` / `pod("FirebaseStorage")` in `core/build.gradle.kts`
+  - Import prefix: `cocoapods.FirebaseStorage.*`
 
 ### 🧪 Dependency Injection
 

@@ -31,11 +31,14 @@ kotlin {
         summary = "AppMan KMP module for Flickly"
         homepage = "https://github.com/walcker/flickly"
         ios.deploymentTarget = "14.0"
+        podfile = project.file("../iosApp/Podfile")
         framework {
             baseName = "AppMan"
             isStatic = true
             export(project(":core"))
         }
+        pod("FirebaseCore")
+        pod("FirebaseStorage")
     }
     sourceSets {
         androidMain.dependencies {
@@ -51,8 +54,6 @@ kotlin {
 
             implementation(libs.firebase.analytics)
             implementation(libs.firebase.crashlytics.ndk)
-            implementation(libs.firebase.gitlive.app)
-            implementation(libs.firebase.gitlive.storage)
         }
         commonMain.dependencies {
             implementation(projects.core)

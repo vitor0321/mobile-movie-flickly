@@ -8,7 +8,9 @@ target 'iosApp' do
   # DO NOT add 'Core' pod separately — it would cause 66 duplicate Compose runtime symbols
   pod 'AppMan', :path => '../app'
 
-  # Firebase — required by AppMan/Core (dev.gitlive firebase-storage, firebase-app)
+  # Firebase — native SDKs (used directly via KMP cinterop in Core/AppMan)
+  # FirebaseCore and FirebaseStorage are also declared in core/build.gradle.kts cocoapods block
+  # to generate Kotlin/Native cinterop bindings (cocoapods.FirebaseStorage.*)
   pod 'FirebaseCore'
   pod 'FirebaseStorage'
   pod 'FirebaseAnalytics'
