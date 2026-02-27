@@ -9,8 +9,7 @@ import com.walcker.flickly.core.navigation.NavigatorHolder
 import com.walcker.flickly.core.platformImpl
 import com.walcker.flickly.core.strings.Locales
 import com.walcker.flickly.core.ui.theme.MoviesAppTheme
-import com.walcker.flickly.navigator.AudioEntry
-import com.walcker.flickly.navigator.MoviesEntry
+import com.walcker.flickly.navigator.MoviesDestination
 import com.walcker.flickly.products.movies.strings.LocalMoviesStrings
 import com.walcker.flickly.products.movies.strings.MoviesStringsHolder
 import com.walcker.flickly.products.movies.strings.ProvideMoviesStrings
@@ -39,7 +38,7 @@ public data class MoviesEntrypoint(
         }
 
         val lyricist = rememberMoviesStrings(languageTag = validLanguage)
-        val moviesEntry = koinInject<MoviesEntry>()
+        val moviesDestination = koinInject<MoviesDestination>()
 
         val stringsHolder: MoviesStringsHolder = koinInject()
         val navigatorHolder: NavigatorHolder = koinInject()
@@ -53,7 +52,7 @@ public data class MoviesEntrypoint(
             }
 
             MoviesAppTheme(isDarkTheme = isDarkTheme) {
-                navigator.replaceAll(moviesEntry.moviesHome())
+                navigator.replaceAll(moviesDestination.moviesHome())
             }
         }
     }

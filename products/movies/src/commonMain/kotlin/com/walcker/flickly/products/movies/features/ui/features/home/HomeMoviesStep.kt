@@ -36,6 +36,7 @@ internal data object HomeMoviesStep : Step() {
 
         HomeMoviesStepEvents(
             model = model,
+            strings = state.string,
             onEvent = model::onEvent,
             content = {
                 HomeContent(

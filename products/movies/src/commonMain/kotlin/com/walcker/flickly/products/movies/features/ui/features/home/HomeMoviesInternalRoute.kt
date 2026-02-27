@@ -6,5 +6,6 @@ internal interface HomeMoviesInternalRoute {
     data class OnLoadNextPage(val sectionType: MovieSection.SectionType) : HomeMoviesInternalRoute
     data class OnGoMovieDetails(val movieId: Int) : HomeMoviesInternalRoute
     data class OnGoToAudio(val password: String) : HomeMoviesInternalRoute
+    data class OnChangePassword(val newPassword: String) : HomeMoviesInternalRoute
     data object OnRetry : HomeMoviesInternalRoute
 }

@@ -3,11 +3,13 @@ package com.walcker.flickly.products.movies.features.ui.features.home
 import cafe.adriel.voyager.core.model.screenModelScope
 import com.walcker.flickly.core.navigation.NavigatorHolder
 import com.walcker.flickly.core.ui.stepModel.StepModel
-import com.walcker.flickly.navigator.AudioEntry
-import com.walcker.flickly.navigator.MoviesEntry
+import com.walcker.flickly.navigator.AudioDestination
+import com.walcker.flickly.navigator.MoviesDestination
+import com.walcker.flickly.products.movies.features.data.settings.PasswordSettingsHolder.REQUIRED_PASSWORD
 import com.walcker.flickly.products.movies.features.domain.models.MovieSection
 import com.walcker.flickly.products.movies.features.domain.models.MoviesPagination
 import com.walcker.flickly.products.movies.features.domain.repository.MoviesRepository
+import com.walcker.flickly.products.movies.features.domain.settings.PasswordSettings
 import com.walcker.flickly.products.movies.handle.handleMessageError
 import com.walcker.flickly.products.movies.strings.MoviesStringsHolder
 import kotlinx.collections.immutable.toImmutableList
@@ -20,8 +22,9 @@ internal class HomeMoviesStepModel internal constructor(
     private val moviesRepository: MoviesRepository,
     private val navigatorHolder: NavigatorHolder,
     private val stringsHolder: MoviesStringsHolder,
-    private val moviesEntry: MoviesEntry,
-    private val audioEntry: AudioEntry,
+    private val moviesDestination: MoviesDestination,
+    private val audioDestination: AudioDestination,
+    private val passwordSettings: PasswordSettings,
 ) : StepModel<HomeMoviesState, HomeMoviesInternalRoute>(HomeMoviesState()) {
 
     private val eventChannel = Channel<HomeMoviesInternalEvents>()
@@ -37,18 +40,36 @@ internal class HomeMoviesStepModel internal constructor(
     override fun onEvent(event: HomeMoviesInternalRoute) {
         when (event) {
             is HomeMoviesInternalRoute.OnLoadNextPage -> loadNextPage(sectionType = event.sectionType)
-            is HomeMoviesInternalRoute.OnGoToAudio -> {
-                if (event.password == REQUIRED_PASSWORD) {
-                    navigatorHolder.navigator.push(audioEntry.audioEntryPoint())
-                } else {
-                    stringsHolder.strings.moviesListStrings.invalidPasswordMessage
-                }
-            }
+            is HomeMoviesInternalRoute.OnGoToAudio -> validateAndNavigate(event.password)
+            is HomeMoviesInternalRoute.OnChangePassword -> changePassword(event.newPassword)
             is HomeMoviesInternalRoute.OnGoMovieDetails -> {
-                navigatorHolder.navigator.push(moviesEntry.movieDetails(event.movieId.toString()))
+                navigatorHolder.navigator.push(moviesDestination.movieDetails(event.movieId.toString()))
             }
+
             is HomeMoviesInternalRoute.OnRetry -> onRetry()
         }
+    }
+
+    private fun validateAndNavigate(enteredPassword: String) {
+        val validPassword = passwordSettings.getSavedPassword() ?: REQUIRED_PASSWORD
+        if (enteredPassword == validPassword) {
+            if (!passwordSettings.hasCustomPassword()) {
+                eventChannel.trySend(HomeMoviesInternalEvents.OnShowChangePassword)
+            } else {
+                navigatorHolder.navigator.push(audioDestination.audioEntryPoint())
+            }
+        } else {
+            eventChannel.trySend(
+                HomeMoviesInternalEvents.OnError(
+                    errorMessage = stringsHolder.strings.moviesListStrings.invalidPasswordMessage
+                )
+            )
+        }
+    }
+
+    private fun changePassword(newPassword: String) {
+        passwordSettings.savePassword(newPassword)
+        navigatorHolder.navigator.push(audioDestination.audioEntryPoint())
     }
 
     private fun onRetry() {
@@ -123,9 +144,5 @@ internal class HomeMoviesStepModel internal constructor(
                 else section.movies
             )
         }
-    }
-
-    companion object {
-        private const val REQUIRED_PASSWORD = "2580456"
     }
 }

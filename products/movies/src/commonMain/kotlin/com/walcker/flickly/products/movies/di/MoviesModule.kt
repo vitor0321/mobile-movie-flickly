@@ -2,6 +2,7 @@ package com.walcker.flickly.products.movies.di
 
 import com.walcker.flickly.products.movies.features.data.di.networkModule
 import com.walcker.flickly.products.movies.features.data.di.repositoryModule
+import com.walcker.flickly.products.movies.features.data.di.settingsModule
 import com.walcker.flickly.products.movies.features.ui.di.stepModelModule
 import com.walcker.flickly.products.movies.navigation.navigationModule
 import com.walcker.flickly.products.movies.strings.di.moviesStringsModule
@@ -11,6 +12,7 @@ public val moviesModule = listOf<Module>(
     // Data
     networkModule,
     repositoryModule,
+    settingsModule,
 
     // UI
     stepModelModule,

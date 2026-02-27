@@ -1,11 +1,10 @@
 package com.walcker.flickly.products.movies.features.ui.features.home
 
 import com.walcker.flickly.core.navigation.NavigatorHolder
-import com.walcker.flickly.navigator.fakeNavigation.FakeAudioEntry
-import com.walcker.flickly.navigator.fakeNavigation.FakeMoviesEntry
+import com.walcker.flickly.navigator.fakeNavigation.FakeAudioDestination
+import com.walcker.flickly.navigator.fakeNavigation.FakeMoviesDestination
 import com.walcker.flickly.products.movies.features.domain.models.MovieSection
 import com.walcker.flickly.products.movies.features.domain.repository.MoviesRepository
-import com.walcker.flickly.products.movies.features.ui.features.movieDetails.MovieDetailsInternalEvents
 import com.walcker.flickly.products.movies.mockFakes.FakeMoviesRepository
 import com.walcker.flickly.products.movies.strings.EnMoviesStrings
 import com.walcker.flickly.products.movies.strings.MoviesStringsHolder
@@ -31,8 +30,8 @@ internal class HomeStepModelTest : CoroutineMainDispatcherTestRule() {
             moviesRepository,
             navigatorHolder = NavigatorHolder(),
             stringsHolder = stringsHolder,
-            moviesEntry = FakeMoviesEntry(),
-            audioEntry = FakeAudioEntry(),
+            moviesDestination = FakeMoviesDestination(),
+            audioDestination = FakeAudioDestination(),
         )
     }
 

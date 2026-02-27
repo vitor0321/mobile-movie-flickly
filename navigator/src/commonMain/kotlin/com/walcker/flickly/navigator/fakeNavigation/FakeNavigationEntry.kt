@@ -1,10 +1,10 @@
 package com.walcker.flickly.navigator.fakeNavigation
 
 import cafe.adriel.voyager.core.screen.Screen
-import com.walcker.flickly.navigator.AudioEntry
-import com.walcker.flickly.navigator.MoviesEntry
+import com.walcker.flickly.navigator.AudioDestination
+import com.walcker.flickly.navigator.MoviesDestination
 
-public class FakeMoviesEntry : MoviesEntry {
+public class FakeMoviesDestination : MoviesDestination {
     override fun moviesHome(): Screen {
         TODO("Not yet implemented")
     }
@@ -14,7 +14,7 @@ public class FakeMoviesEntry : MoviesEntry {
     }
 }
 
-public class FakeAudioEntry : AudioEntry {
+public class FakeAudioDestination : AudioDestination {
     override fun audioEntryPoint(): Screen {
         TODO("Not yet implemented")
     }
