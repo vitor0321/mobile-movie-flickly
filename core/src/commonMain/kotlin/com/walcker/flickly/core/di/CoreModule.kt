@@ -7,4 +7,5 @@ public val coreModule = listOf<Module>(
     dispatcherModule,
     firebaseModule,
     navigationModule,
+    settingsModule,
 )

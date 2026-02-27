@@ -1,6 +1,6 @@
-package com.walcker.flickly.products.movies.features.domain.settings
+package com.walcker.flickly.core.domain.setting
 
-internal interface PasswordSettings {
+public interface PasswordSettings {
     fun getSavedPassword(): String?
     fun savePassword(password: String)
     fun hasCustomPassword(): Boolean

@@ -19,6 +19,14 @@ internal data class HomeAudioStrings(
     val sdPkName: String = "",
     val sdInName: String = "",
     val chaptersCount: (Int) -> String = { "" },
+    val changePasswordDialogTitle: String = "",
+    val changePasswordNewPasswordHint: String = "",
+    val changePasswordConfirmButton: String = "",
+    val changePasswordCancelButton: String = "",
+    val changePasswordMinMaxError: String = "",
+    val changePasswordMismatchError: String = "",
+    val samePasswordToast: String = "",
+    val passwordChangedToast: String = "",
 )
 
 internal val homeAudioStringsPt = HomeAudioStrings(
@@ -40,6 +48,14 @@ internal val homeAudioStringsPt = HomeAudioStrings(
     sdPkName = "Sindi (PK)",
     sdInName = "Sindi (IN)",
     chaptersCount = { "$it capítulos" },
+    changePasswordDialogTitle = "Alterar senha",
+    changePasswordNewPasswordHint = "Nova senha (5 a 10 dígitos)",
+    changePasswordConfirmButton = "Confirmar",
+    changePasswordCancelButton = "Cancelar",
+    changePasswordMinMaxError = "A senha deve ter entre 5 e 10 dígitos numéricos",
+    changePasswordMismatchError = "As senhas não coincidem",
+    samePasswordToast = "A senha é a mesma que a atual",
+    passwordChangedToast = "Senha alterada com sucesso",
 )
 
 internal val homeAudioStringsEn = HomeAudioStrings(
@@ -61,6 +77,14 @@ internal val homeAudioStringsEn = HomeAudioStrings(
     sdPkName = "Sindi (PK)",
     sdInName = "Sindi (IN)",
     chaptersCount = { "$it chapters" },
+    changePasswordDialogTitle = "Change Password",
+    changePasswordNewPasswordHint = "New password (5 to 10 digits)",
+    changePasswordConfirmButton = "Confirm",
+    changePasswordCancelButton = "Cancel",
+    changePasswordMinMaxError = "Password must be between 5 and 10 numeric digits",
+    changePasswordMismatchError = "Passwords do not match",
+    samePasswordToast = "The password is the same as the current one",
+    passwordChangedToast = "Password changed successfully",
 )
 
 internal val homeAudioStringsUr = HomeAudioStrings(
@@ -82,12 +106,18 @@ internal val homeAudioStringsUr = HomeAudioStrings(
     sdPkName = "سندھی (پاکستان)",
     sdInName = "سندھی (بھارت)",
     chaptersCount = { "$it ابواب" },
+    changePasswordDialogTitle = "پاس ورڈ تبدیل کریں",
+    changePasswordNewPasswordHint = "نیا پاس ورڈ (5 سے 10 ہندسے)",
+    changePasswordConfirmButton = "تصدیق کریں",
+    changePasswordCancelButton = "منسوخ کریں",
+    changePasswordMinMaxError = "پاس ورڈ 5 سے 10 عددی ہندسوں پر مشتمل ہونا چاہیے",
+    changePasswordMismatchError = "پاس ورڈ میل نہیں کھاتے",
 )
 
 internal val homeAudioStringsPaIn = HomeAudioStrings(
     titleToolbar = "ਆਡੀਓ ਬਾਈਬਲ",
     chapter = { "ਅਧਿਆਇ $it" },
-    peace = "ਤੁਹਾਡੇ ਉੱਤੇ ਸ਼ਾਂਤੀ ਹੋਵੇ",
+    peace = "ਤੁਹਾਡੇ ਉੱਤੇ ਸ਼ਾਂਤੀ ਹੋਵੇ",
     books = "ਕਿਤਾਬਾਂ",
     language = "ਭਾਸ਼ਾ",
     oldTestament = "ਪੁਰਾਣਾ ਨਿਯਮ",
@@ -103,6 +133,12 @@ internal val homeAudioStringsPaIn = HomeAudioStrings(
     sdPkName = "ਸਿੰਧੀ (ਪਾਕਿਸਤਾਨ)",
     sdInName = "ਸਿੰਧੀ (ਭਾਰਤ)",
     chaptersCount = { "$it ਅਧਿਆਇ" },
+    changePasswordDialogTitle = "ਪਾਸਵਰਡ ਬਦਲੋ",
+    changePasswordNewPasswordHint = "ਨਵਾਂ ਪਾਸਵਰਡ (5 ਤੋਂ 10 ਅੰਕ)",
+    changePasswordConfirmButton = "ਪੁਸ਼ਟੀ ਕਰੋ",
+    changePasswordCancelButton = "ਰੱਦ ਕਰੋ",
+    changePasswordMinMaxError = "ਪਾਸਵਰਡ 5 ਤੋਂ 10 ਅੰਕਾਂ ਵਾਲਾ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ",
+    changePasswordMismatchError = "ਪਾਸਵਰਡ ਮੇਲ ਨਹੀਂ ਖਾਂਦੇ",
 )
 
 internal val homeAudioStringsPaPK = HomeAudioStrings(

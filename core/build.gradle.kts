@@ -42,7 +42,7 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.kotlinx.coroutines.play.services)
             implementation(libs.firebase.storage)
-            implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:13.0.0")
+            implementation(libs.androidyoutubeplayer.core)
         }
         androidUnitTest.dependencies {
             implementation(libs.bundles.androidTestEcosystem)
@@ -63,6 +63,7 @@ kotlin {
 
             implementation(libs.kotlin.stdlib)
             implementation(libs.kotlinx.datetime)
+            implementation(libs.multiplatform.settings.no.arg)
         }
         commonTest.dependencies {
             implementation(kotlin("test"))

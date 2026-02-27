@@ -41,6 +41,7 @@ public fun CedarTopAppBar(
     iconContent: ImageVector? = null,
     containerColor: Color = MaterialTheme.colorScheme.background,
     onIconContentClick: () -> Unit = {},
+    onIconContentLongClick: (() -> Unit)? = null,
     onNavigationBack: () -> Unit = {},
 ) {
     CenterAlignedTopAppBar(
@@ -99,8 +100,8 @@ public fun CedarTopAppBar(
                             interactionSource = noRippleInteraction,
                             indication = null,
                             hapticFeedbackEnabled = false,
-                            onClick = { },
-                            onLongClick = { onIconContentClick() }
+                            onClick = { onIconContentClick() },
+                            onLongClick = { (onIconContentLongClick ?: onIconContentClick)() }
                         ),
                     imageVector = icon,
                     contentDescription = ""

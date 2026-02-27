@@ -1,4 +1,4 @@
-package com.walcker.flickly.products.movies.features.ui.features.home.components
+package com.walcker.flickly.products.audio.features.ui.home.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -12,6 +12,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,9 +28,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.walcker.flickly.core.domain.setting.model.PasswordSettingsHolder.MAX_SIZE_PASSWORD
 import com.walcker.flickly.core.domain.setting.model.PasswordSettingsHolder.MIN_SIZE_PASSWORD
-import com.walcker.flickly.products.movies.features.ui.features.home.HomeMoviesInternalRoute
-import com.walcker.flickly.products.movies.strings.MoviesListStrings
-import com.walcker.flickly.products.movies.strings.moviesListStringsPt
+import com.walcker.flickly.core.ui.theme.MoviesAppTheme
+import com.walcker.flickly.products.audio.features.ui.home.HomeAudioInternalRoute
+import com.walcker.flickly.products.audio.strings.HomeAudioStrings
+import com.walcker.flickly.products.audio.strings.homeAudioStringsPt
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.Eye
@@ -37,9 +39,9 @@ import compose.icons.fontawesomeicons.solid.EyeSlash
 
 @Composable
 internal fun AlertChangePassword(
-    strings: MoviesListStrings,
+    strings: HomeAudioStrings,
     onDismiss: () -> Unit,
-    onEvent: (HomeMoviesInternalRoute) -> Unit,
+    onEvent: (HomeAudioInternalRoute) -> Unit,
 ) {
     var newPassword by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
@@ -55,7 +57,7 @@ internal fun AlertChangePassword(
         text = {
             Column {
                 Text(
-                    text = strings.changePasswordAlertInfo,
+                    text = strings.changePasswordMinMaxError,
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -63,10 +65,10 @@ internal fun AlertChangePassword(
                 OutlinedTextField(
                     value = newPassword,
                     onValueChange = { input ->
-                        newPassword = input.filter(Char::isDigit).take(10)
+                        newPassword = input.filter(Char::isDigit).take(MAX_SIZE_PASSWORD)
                         mismatchError = false
                     },
-                    label = { Text(strings.changePasswordNewLabel) },
+                    label = { Text(strings.changePasswordNewPasswordHint) },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
                     visualTransformation = if (newPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                     maxLines = 1,
@@ -82,17 +84,17 @@ internal fun AlertChangePassword(
                         }
                     },
                     supportingText = if (newPassword.isNotEmpty() && !isLengthValid) {
-                        { Text(strings.changePasswordLengthMessage) }
+                        { Text(strings.changePasswordMinMaxError) }
                     } else null,
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 OutlinedTextField(
                     value = confirmPassword,
                     onValueChange = { input ->
-                        confirmPassword = input.filter(Char::isDigit).take(10)
+                        confirmPassword = input.filter(Char::isDigit).take(MAX_SIZE_PASSWORD)
                         mismatchError = false
                     },
-                    label = { Text(strings.changePasswordConfirmLabel) },
+                    label = { Text(strings.changePasswordNewPasswordHint) },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
                     visualTransformation = if (confirmPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                     maxLines = 1,
@@ -110,7 +112,14 @@ internal fun AlertChangePassword(
                     supportingText = if (mismatchError) {
                         {
                             Text(
-                                text = strings.changePasswordMismatchMessage,
+                                text = strings.changePasswordMismatchError,
+                                color = MaterialTheme.colorScheme.error,
+                            )
+                        }
+                    } else if (confirmPassword.isNotEmpty() && confirmPassword.length !in MIN_SIZE_PASSWORD..MAX_SIZE_PASSWORD) {
+                        {
+                            Text(
+                                text = strings.changePasswordMinMaxError,
                                 color = MaterialTheme.colorScheme.error,
                             )
                         }
@@ -122,25 +131,31 @@ internal fun AlertChangePassword(
             Button(
                 onClick = {
                     if (newPassword == confirmPassword) {
-                        onEvent(HomeMoviesInternalRoute.OnChangePassword(newPassword = newPassword))
+                        onEvent(HomeAudioInternalRoute.OnChangePassword(newPassword = newPassword))
                         onDismiss()
                     } else {
                         mismatchError = true
                     }
                 },
                 enabled = isLengthValid && confirmPassword.length in MIN_SIZE_PASSWORD..MAX_SIZE_PASSWORD
-            ) { Text(strings.changePasswordConfirmButtonLabel) }
+            ) { Text(strings.changePasswordConfirmButton) }
         },
-        dismissButton = null,
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text(strings.changePasswordCancelButton)
+            }
+        },
     )
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun AlertChangePasswordPreview() {
-    AlertChangePassword(
-        strings = moviesListStringsPt,
-        onDismiss = {},
-        onEvent = {},
-    )
+    MoviesAppTheme {
+        AlertChangePassword(
+            strings = homeAudioStringsPt,
+            onDismiss = {},
+            onEvent = {},
+        )
+    }
 }

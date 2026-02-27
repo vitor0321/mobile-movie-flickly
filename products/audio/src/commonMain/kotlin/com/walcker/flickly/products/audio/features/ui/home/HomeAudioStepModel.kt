@@ -1,6 +1,7 @@
 package com.walcker.flickly.products.audio.features.ui.home
 
 import cafe.adriel.voyager.core.model.screenModelScope
+import com.walcker.flickly.core.domain.setting.PasswordSettings
 import com.walcker.flickly.core.navigation.NavigatorHolder
 import com.walcker.flickly.core.ui.stepModel.StepModel
 import com.walcker.flickly.products.audio.features.domain.manager.AudioManager
@@ -21,6 +22,7 @@ internal class HomeAudioStepModel internal constructor(
     private val audioManager: AudioManager,
     private val stringsHolder: AudioStringsHolder,
     private val navigatorHolder: NavigatorHolder,
+    private val passwordSettings: PasswordSettings,
 ) : StepModel<HomeAudioState, HomeAudioInternalRoute>(HomeAudioState(loading = true)) {
 
     private val eventChannel = Channel<HomeAudioInternalEvents>()
@@ -60,9 +62,21 @@ internal class HomeAudioStepModel internal constructor(
         when (event) {
             HomeAudioInternalRoute.OnRetry -> screenModelScope.launch { loadInitial() }
             HomeAudioInternalRoute.OnPopBackStack -> navigatorHolder.navigator.pop()
+            HomeAudioInternalRoute.OnShowChangePassword -> eventChannel.trySend(HomeAudioInternalEvents.OnShowChangePassword)
+            is HomeAudioInternalRoute.OnChangePassword -> changePassword(event.newPassword)
             is HomeAudioInternalRoute.OnSelectBook -> onSelectBook(event.audioBook)
             is HomeAudioInternalRoute.OnSelectLanguage -> onSelectLanguage(event.language)
             is HomeAudioInternalRoute.OnSelectTab -> mutableState.update { it.copy(selectedTab = event.tab) }
+        }
+    }
+
+    private fun changePassword(newPassword: String) {
+        val currentPassword = passwordSettings.getSavedPassword()
+        if (newPassword == currentPassword) {
+            eventChannel.trySend(HomeAudioInternalEvents.OnSamePassword)
+        } else {
+            passwordSettings.savePassword(newPassword)
+            eventChannel.trySend(HomeAudioInternalEvents.OnPasswordChangedSuccess)
         }
     }
 

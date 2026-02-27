@@ -74,7 +74,6 @@ kotlin {
             implementation(libs.kotlinx.serialization)
             implementation(libs.lifecycle.viewmodel.compose)
             implementation(libs.lyricist)
-            implementation(libs.multiplatform.settings.no.arg)
         }
         commonTest.dependencies {
             implementation(kotlin("test"))

@@ -21,7 +21,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.walcker.flickly.products.movies.features.data.settings.PasswordSettingsHolder.MIN_SIZE
+import com.walcker.flickly.core.domain.setting.model.PasswordSettingsHolder.MIN_SIZE_PASSWORD
 import com.walcker.flickly.products.movies.features.ui.features.home.HomeMoviesInternalRoute
 import com.walcker.flickly.products.movies.strings.MoviesListStrings
 import compose.icons.FontAwesomeIcons
@@ -73,7 +73,7 @@ internal fun AlertPassword(
                     password = ""
                     passwordVisible = false
                 },
-                enabled = password.length >= MIN_SIZE
+                enabled = password.length >= MIN_SIZE_PASSWORD
             ) { Text(strings.passwordConfirmLabel) }
         },
         dismissButton = {
