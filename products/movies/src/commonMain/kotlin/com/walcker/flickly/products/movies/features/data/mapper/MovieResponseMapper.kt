@@ -32,7 +32,7 @@ internal object MovieResponseMapper {
                 ?.filter { it.department == DEPARTMENT }
                 ?.take(n = MAX_CAST_MEMBERS)
                 ?.map { it.toDomain() }?.toImmutableList(),
-            moviesTrailerYouTubeKey = moviesTrailerYouTubeKey,
+            movieUrl = moviesTrailerYouTubeKey,
         )
 
     private fun MovieResponse.getDurationInHoursAndMinutes(): String? =

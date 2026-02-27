@@ -15,21 +15,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import cafe.adriel.voyager.koin.koinScreenModel
 import com.walcker.flickly.cedarDS.CedarLoadingContent
 import com.walcker.flickly.cedarDS.CedarTopAppBar
 import com.walcker.flickly.core.ui.step.Step
 import com.walcker.flickly.core.ui.theme.MoviesAppTheme
-import com.walcker.flickly.core.utils.media.OpenVideo
+import com.walcker.flickly.core.utils.media.extractYouTubeKey
 import com.walcker.flickly.products.movies.features.ui.features.movieDetails.components.MovieDetailSuccessContent
+import com.walcker.flickly.products.movies.features.ui.features.movieDetails.components.VideoPlayerBottomSheet
 import com.walcker.flickly.products.movies.features.ui.preview.movieDetails.MovieDetailsStateProvider
 import com.walcker.flickly.products.movies.strings.MovieDetailStrings
 import com.walcker.flickly.products.movies.strings.movieDetailStringsPt
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.ArrowLeft
-import kotlin.reflect.KClass
 
 internal class MovieDetailStep(
     private val movieId: Int,
@@ -76,10 +75,10 @@ internal fun MovieDetailContent(
         var videoUrlToOpen by remember { mutableStateOf<String?>(null) }
 
         videoUrlToOpen?.let { url ->
-            OpenVideo(url = url)
-            LaunchedEffect(Unit) {
-                videoUrlToOpen = null
-            }
+            VideoPlayerBottomSheet(
+                youtubeKey = extractYouTubeKey(url),
+                onDismiss = { videoUrlToOpen = null },
+            )
         }
 
         Box(

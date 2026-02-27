@@ -14,5 +14,5 @@ internal val movieTestData = Movie(
     duration = "1h 55m",
     rating = "8.5",
     castMembers = persistentListOf(castMember1TestData, castMember2TestData),
-    moviesTrailerYouTubeKey = "vasdfOUBFKkaasdf2"
+    movieUrl = "vasdfOUBFKkaasdf2"
 )
