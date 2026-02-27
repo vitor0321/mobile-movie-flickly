@@ -36,6 +36,7 @@ internal data object HomeMoviesStep : Step() {
 
         HomeMoviesStepEvents(
             model = model,
+            strings = state.string,
             onEvent = model::onEvent,
             content = {
                 HomeContent(
@@ -60,7 +61,8 @@ internal fun HomeContent(
             CedarTopAppBar(
                 title = strings.appName,
                 iconContent = FontAwesomeIcons.Solid.Tree,
-                onIconContentClick = { showPasswordDialog = true },
+                onIconContentClick = { },
+                onIconContentLongClick = { showPasswordDialog = true },
             )
         }
     ) { paddingValues ->

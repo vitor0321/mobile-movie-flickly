@@ -8,7 +8,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import com.walcker.flickly.core.navigation.NavigatorHolder
 import com.walcker.flickly.core.platformImpl
 import com.walcker.flickly.core.strings.Locales
-import com.walcker.flickly.navigator.AudioEntry
+import com.walcker.flickly.navigator.AudioDestination
 import com.walcker.flickly.products.audio.strings.AudioStringsHolder
 import com.walcker.flickly.products.audio.strings.LocalAudioStrings
 import com.walcker.flickly.products.audio.strings.ProvideAudioStrings
@@ -20,7 +20,7 @@ internal data object AudioEntrypoint : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
-        val audioEntry = koinInject<AudioEntry>()
+        val audioDestination = koinInject<AudioDestination>()
 
         val platform = platformImpl()
         val systemLanguage = platform.languageSystem
@@ -50,7 +50,7 @@ internal data object AudioEntrypoint : Screen {
             }
 
             LaunchedEffect(Unit) {
-                navigator.replace(audioEntry.audioHome())
+                navigator.replace(audioDestination.audioHome())
             }
         }
     }

@@ -22,7 +22,7 @@ internal class MovieDetailsStateProvider : PreviewParameterProvider<MovieDetails
                     title = "Detalhes",
                     buttonText = "Assistir trailer",
                 ),
-                movie = movieTestData.copy(moviesTrailerYouTubeKey = null),
+                movie = movieTestData.copy(movieUrl = null),
             ),
             MovieDetailsState(loading = true),
         )

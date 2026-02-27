@@ -69,7 +69,6 @@ kotlin {
             implementation(libs.collections.immutable)
             implementation(libs.composeIcons.fontAwesome)
             implementation(libs.compose.shimmer)
-            implementation(libs.mediaplayer.kmp)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.serialization)

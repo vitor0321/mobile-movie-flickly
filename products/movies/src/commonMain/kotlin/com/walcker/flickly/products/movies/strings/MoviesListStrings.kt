@@ -12,6 +12,13 @@ internal data class MoviesListStrings(
     val passwordFieldLabel: String = "",
     val passwordConfirmLabel: String = "",
     val passwordDismissLabel: String = "",
+    val changePasswordDialogTitle: String = "",
+    val changePasswordNewLabel: String = "",
+    val changePasswordConfirmLabel: String = "",
+    val changePasswordConfirmButtonLabel: String = "",
+    val changePasswordMismatchMessage: String = "",
+    val changePasswordAlertInfo: String = "",
+    val changePasswordLengthMessage: String = "",
 )
 
 internal val moviesListStringsPt = MoviesListStrings(
@@ -26,6 +33,13 @@ internal val moviesListStringsPt = MoviesListStrings(
     passwordFieldLabel = "Senha",
     passwordConfirmLabel = "Confirmar",
     passwordDismissLabel = "Cancelar",
+    changePasswordDialogTitle = "Crie uma nova senha",
+    changePasswordNewLabel = "Nova senha",
+    changePasswordConfirmLabel = "Confirmar nova senha",
+    changePasswordConfirmButtonLabel = "Salvar",
+    changePasswordMismatchMessage = "As senhas não coincidem",
+    changePasswordAlertInfo = "A senha deve ter entre 5 e 10 dígitos numéricos.",
+    changePasswordLengthMessage = "A senha deve ter entre 5 e 10 dígitos",
 )
 
 internal val moviesListStringsEn = MoviesListStrings(
@@ -40,6 +54,13 @@ internal val moviesListStringsEn = MoviesListStrings(
     passwordFieldLabel = "Password",
     passwordConfirmLabel = "Confirm",
     passwordDismissLabel = "Cancel",
+    changePasswordDialogTitle = "Create a new password",
+    changePasswordNewLabel = "New password",
+    changePasswordConfirmLabel = "Confirm new password",
+    changePasswordConfirmButtonLabel = "Save",
+    changePasswordMismatchMessage = "Passwords do not match",
+    changePasswordAlertInfo = "The password must be between 5 and 10 numeric digits.",
+    changePasswordLengthMessage = "Password must be between 5 and 10 digits",
 )
 
 internal val moviesListStringsUr = MoviesListStrings(
@@ -54,6 +75,13 @@ internal val moviesListStringsUr = MoviesListStrings(
     passwordFieldLabel = "پاس ورڈ",
     passwordConfirmLabel = "تصدیق کریں",
     passwordDismissLabel = "منسوخ کریں",
+    changePasswordDialogTitle = "نئی پاس ورڈ بنائیں",
+    changePasswordNewLabel = "نئی پاس ورڈ",
+    changePasswordConfirmLabel = "نئی پاس ورڈ کی تصدیق کریں",
+    changePasswordConfirmButtonLabel = "محفوظ کریں",
+    changePasswordMismatchMessage = "پاس ورڈ مماثل نہیں ہیں",
+    changePasswordAlertInfo = "پاس ورڈ 5 سے 10 عددی ہندسوں کے درمیان ہونا چاہیے۔",
+    changePasswordLengthMessage = "پاس ورڈ 5 سے 10 ہندسوں کے درمیان ہونا چاہیے",
 )
 
 internal val moviesListStringsSdPk = MoviesListStrings(
@@ -68,6 +96,13 @@ internal val moviesListStringsSdPk = MoviesListStrings(
     passwordFieldLabel = "پاسورڊ",
     passwordConfirmLabel = "تصديق ڪريو",
     passwordDismissLabel = "رد ڪريو",
+    changePasswordDialogTitle = "نئون پاسورڊ ٺاهيو",
+    changePasswordNewLabel = "نئون پاسورڊ",
+    changePasswordConfirmLabel = "نئون پاسورڊ جي تصديق ڪريو",
+    changePasswordConfirmButtonLabel = "محفوظ ڪريو",
+    changePasswordMismatchMessage = "پاسورڊ ملن نٿا",
+    changePasswordAlertInfo = "پاسورڊ 5 کان 10 انگن جي وچ ۾ هجڻ گهرجي.",
+    changePasswordLengthMessage = "پاسورڊ 5 کان 10 انگن جي وچ ۾ هجڻ گهرجي",
 )
 
 internal val moviesListStringsSdIn = MoviesListStrings(
@@ -82,6 +117,13 @@ internal val moviesListStringsSdIn = MoviesListStrings(
     passwordFieldLabel = "पासवर्ड",
     passwordConfirmLabel = "पुष्टि करें",
     passwordDismissLabel = "रद्द करें",
+    changePasswordDialogTitle = "नया पासवर्ड बनाएं",
+    changePasswordNewLabel = "नया पासवर्ड",
+    changePasswordConfirmLabel = "नया पासवर्ड की पुष्टि करें",
+    changePasswordConfirmButtonLabel = "सहेजें",
+    changePasswordMismatchMessage = "पासवर्ड मेल नहीं खाते",
+    changePasswordAlertInfo = "पासवर्ड 5 से 10 अंकों के बीच होना चाहिए।",
+    changePasswordLengthMessage = "पासवर्ड 5 से 10 अंकों के बीच होना चाहिए",
 )
 
 internal val moviesListStringsPaPk = MoviesListStrings(
@@ -96,6 +138,13 @@ internal val moviesListStringsPaPk = MoviesListStrings(
     passwordFieldLabel = "پاس ورڈ",
     passwordConfirmLabel = "تصدیق کرو",
     passwordDismissLabel = "منسوخ کرو",
+    changePasswordDialogTitle = "نئی پاس ورڈ بناؤ",
+    changePasswordNewLabel = "نئی پاس ورڈ",
+    changePasswordConfirmLabel = "نئی پاس ورڈ دی تصدیق کرو",
+    changePasswordConfirmButtonLabel = "محفوظ کرو",
+    changePasswordMismatchMessage = "پاس ورڈ میل نہیں کھاندے",
+    changePasswordAlertInfo = "پاس ورڈ 5 توں 10 ہندسیاں دے وچکار ہونا چاہیدا اے۔",
+    changePasswordLengthMessage = "پاس ورڈ 5 توں 10 ہندسیاں دے وچکار ہونا چاہیدا اے",
 )
 
 internal val moviesListStringsPaIn = MoviesListStrings(
@@ -110,4 +159,11 @@ internal val moviesListStringsPaIn = MoviesListStrings(
     passwordFieldLabel = "ਪਾਸਵਰਡ",
     passwordConfirmLabel = "ਪੁਸ਼ਟੀ ਕਰੋ",
     passwordDismissLabel = "ਰੱਦ ਕਰੋ",
+    changePasswordDialogTitle = "ਨਵਾਂ ਪਾਸਵਰਡ ਬਣਾਓ",
+    changePasswordNewLabel = "ਨਵਾਂ ਪਾਸਵਰਡ",
+    changePasswordConfirmLabel = "ਨਵੇਂ ਪਾਸਵਰਡ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ",
+    changePasswordConfirmButtonLabel = "ਸੁਰੱਖਿਅਤ ਕਰੋ",
+    changePasswordMismatchMessage = "ਪਾਸਵਰਡ ਮੇਲ ਨਹੀਂ ਖਾਂਦੇ",
+    changePasswordAlertInfo = "ਪਾਸਵਰਡ 5 ਤੋਂ 10 ਅੰਕਾਂ ਦੇ ਵਿਚਕਾਰ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।",
+    changePasswordLengthMessage = "ਪਾਸਵਰਡ 5 ਤੋਂ 10 ਅੰਕਾਂ ਦੇ ਵਿਚਕਾਰ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ",
 )

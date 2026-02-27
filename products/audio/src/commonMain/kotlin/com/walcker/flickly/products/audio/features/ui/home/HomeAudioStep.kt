@@ -4,8 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
@@ -34,7 +32,7 @@ import com.walcker.flickly.products.audio.strings.BibleBooksStrings
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.ArrowLeft
-import compose.icons.fontawesomeicons.solid.BookOpen
+import compose.icons.fontawesomeicons.solid.UserLock
 
 internal data object HomeAudioStep : Step() {
 
@@ -46,6 +44,7 @@ internal data object HomeAudioStep : Step() {
 
         HomeMoviesStepEvents(
             model = model,
+            strings = state.strings,
             onEvent = model::onEvent,
             content = {
                 HomeAudioStepContent(
@@ -71,8 +70,9 @@ private fun HomeAudioStepContent(
                 title = state.strings.titleToolbar,
                 description = state.strings.peace,
                 icon = FontAwesomeIcons.Solid.ArrowLeft,
-                iconContent = FontAwesomeIcons.Solid.BookOpen,
+                iconContent = FontAwesomeIcons.Solid.UserLock,
                 onNavigationBack = { onEvent(HomeAudioInternalRoute.OnPopBackStack) },
+                onIconContentClick = { onEvent(HomeAudioInternalRoute.OnShowChangePassword) },
             )
         }
     ) { paddingValues ->

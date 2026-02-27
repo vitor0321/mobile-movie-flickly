@@ -10,18 +10,23 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.walcker.flickly.cedarDS.CedarErrorContent
 import com.walcker.flickly.core.navigation.EventEffect
+import com.walcker.flickly.products.movies.features.ui.features.home.components.AlertChangePassword
+import com.walcker.flickly.products.movies.strings.MoviesListStrings
 
 @Composable
 internal fun HomeMoviesStepEvents(
     model: HomeMoviesStepModel,
+    strings: MoviesListStrings,
     onEvent: (HomeMoviesInternalRoute) -> Unit,
     content: @Composable () -> Unit,
 ) {
     var errorMessage by remember { mutableStateOf<String?>(null) }
+    var showChangePasswordDialog by remember { mutableStateOf(false) }
 
     EventEffect(flow = model.events) { event ->
         when (event) {
             is HomeMoviesInternalEvents.OnError -> errorMessage = event.errorMessage
+            is HomeMoviesInternalEvents.OnShowChangePassword -> showChangePasswordDialog = true
         }
     }
 
@@ -34,6 +39,13 @@ internal fun HomeMoviesStepEvents(
                     errorMessage = null
                     onEvent(HomeMoviesInternalRoute.OnRetry)
                 },
+            )
+        }
+        if (showChangePasswordDialog) {
+            AlertChangePassword(
+                strings = strings,
+                onDismiss = { showChangePasswordDialog = false },
+                onEvent = onEvent,
             )
         }
     }

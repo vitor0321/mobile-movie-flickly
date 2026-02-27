@@ -88,7 +88,7 @@ internal fun BodyDetail(
             }
         }
         Spacer(modifier = Modifier.height(16.dp))
-        movie.moviesTrailerYouTubeKey?.let {
+        movie.movieUrl?.let {
             ElevatedButton(
                 modifier = Modifier
                     .fillMaxWidth()

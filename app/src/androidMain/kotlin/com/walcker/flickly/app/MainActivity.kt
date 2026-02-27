@@ -10,16 +10,12 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowInsetsControllerCompat
 import cafe.adriel.voyager.navigator.Navigator
 import com.walcker.flickly.core.ui.theme.MoviesAppTheme
-import com.walcker.flickly.core.utils.media.VideoLauncherContext
 import com.walcker.flickly.products.movies.entrypoint.MoviesEntrypoint
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-
-        // Inicializa o contexto para o launcher de vídeos
-        VideoLauncherContext.init(this)
 
         setContent {
             val view = LocalView.current

@@ -33,13 +33,6 @@ internal fun LanguageSelection(
     languages: ImmutableList<Language>,
     onSelectLanguage: (Language) -> Unit,
 ) {
-    val typography = MaterialTheme.typography
-    val headerStyle = remember(typography) {
-        typography.headlineSmall.copy(
-            fontWeight = FontWeight.SemiBold,
-            letterSpacing = (-0.2).sp,
-        )
-    }
 
     Column(
         modifier = Modifier.padding(horizontal = 16.dp)
@@ -48,8 +41,8 @@ internal fun LanguageSelection(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 8.dp),
-            text = strings.books,
-            style = headerStyle,
+            text = strings.language,
+            style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onSurface,
         )
         LazyRow(

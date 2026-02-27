@@ -1,7 +1,8 @@
 package com.walcker.flickly.products.movies.features.ui.di
 
-import com.walcker.flickly.navigator.AudioEntry
-import com.walcker.flickly.navigator.MoviesEntry
+import com.walcker.flickly.navigator.AudioDestination
+import com.walcker.flickly.navigator.MoviesDestination
+import com.walcker.flickly.core.domain.setting.PasswordSettings
 import com.walcker.flickly.products.movies.features.ui.features.home.HomeMoviesStepModel
 import com.walcker.flickly.products.movies.features.ui.features.movieDetails.MovieDetailsStepModel
 import org.koin.dsl.module
@@ -12,8 +13,9 @@ internal val stepModelModule = module {
             moviesRepository = get(),
             navigatorHolder = get(),
             stringsHolder = get(),
-            moviesEntry = get<MoviesEntry>(),
-            audioEntry = get<AudioEntry>(),
+            moviesDestination = get<MoviesDestination>(),
+            audioDestination = get<AudioDestination>(),
+            passwordSettings = get<PasswordSettings>(),
         )
     }
     factory {

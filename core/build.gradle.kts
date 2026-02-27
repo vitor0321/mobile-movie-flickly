@@ -29,15 +29,20 @@ kotlin {
         summary = "Core KMP module for Flickly"
         homepage = "https://github.com/walcker/flickly"
         ios.deploymentTarget = "14.0"
+        podfile = project.file("../iosApp/Podfile")
         framework {
             baseName = "Core"
             isStatic = true
         }
+        pod("FirebaseCore")
+        pod("FirebaseStorage")
     }
 
     sourceSets {
         androidMain.dependencies {
             implementation(libs.kotlinx.coroutines.play.services)
+            implementation(libs.firebase.storage)
+            implementation(libs.androidyoutubeplayer.core)
         }
         androidUnitTest.dependencies {
             implementation(libs.bundles.androidTestEcosystem)
@@ -54,18 +59,17 @@ kotlin {
             implementation(compose.runtime)
             implementation(compose.ui)
             implementation(libs.lyricist)
+            implementation(libs.composeIcons.fontAwesome)
 
             implementation(libs.kotlin.stdlib)
             implementation(libs.kotlinx.datetime)
-            implementation(libs.firebase.gitlive.app)
-            implementation(libs.firebase.gitlive.storage)
+            implementation(libs.multiplatform.settings.no.arg)
         }
         commonTest.dependencies {
             implementation(kotlin("test"))
             implementation(libs.kotlinx.coroutines.test)
         }
         iosMain.dependencies {
-
         }
     }
 }
