@@ -10,21 +10,13 @@ internal enum class Language(
         folderName = "urdu",
         namePresentation = { it.urName },
     ),
-    PUNJABI_IN(
-        folderName = "punjabi_in",
-        namePresentation = { it.paInName },
+    PUNJABI(
+        folderName = "punjabi",
+        namePresentation = { it.paName },
     ),
-    PUNJABI_PK(
-        folderName = "punjabi_pk",
-        namePresentation = { it.paPkName },
-    ),
-    SINDHI_PK(
-        folderName = "sindhi_pk",
-        namePresentation = { it.sdPkName },
-    ),
-    SINDHI_IN(
-        folderName = "sindhi_in",
-        namePresentation = { it.sdInName },
+    SINDHI(
+        folderName = "sindhi",
+        namePresentation = { it.sdName },
     ),
     ENGLISH(
         folderName = "english",

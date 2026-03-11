@@ -71,8 +71,7 @@ internal class HomeAudioStepModel internal constructor(
     }
 
     private fun changePassword(newPassword: String) {
-        val currentPassword = passwordSettings.getSavedPassword()
-        if (newPassword == currentPassword) {
+        if (passwordSettings.verifyPassword(newPassword)) {
             eventChannel.trySend(HomeAudioInternalEvents.OnSamePassword)
         } else {
             passwordSettings.savePassword(newPassword)
