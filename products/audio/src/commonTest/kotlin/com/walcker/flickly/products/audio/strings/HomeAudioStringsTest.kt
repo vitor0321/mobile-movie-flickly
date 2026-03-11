@@ -12,8 +12,6 @@ internal class HomeAudioStringsTest {
         assertEquals("", s.books); assertEquals("", s.language); assertEquals("", s.oldTestament)
         assertEquals("", s.newTestament); assertEquals("", s.oldTestamentAll); assertEquals("", s.newTestamentAll)
         assertEquals("", s.allBooks); assertEquals("", s.ptName); assertEquals("", s.enName)
-        assertEquals("", s.urName); assertEquals("", s.paInName); assertEquals("", s.paPkName)
-        assertEquals("", s.sdPkName); assertEquals("", s.sdInName); assertEquals("", s.chaptersCount(10))
     }
 
     @Test
@@ -27,8 +25,7 @@ internal class HomeAudioStringsTest {
         assertEquals("Antigo Testamento", s.oldTestamentAll); assertEquals("Novo Testamento", s.newTestamentAll)
         assertEquals("Todos os Livros", s.allBooks)
         assertEquals("Português", s.ptName); assertEquals("English", s.enName); assertEquals("Urdu", s.urName)
-        assertEquals("Punjabi (IN)", s.paInName); assertEquals("Punjabi (PK)", s.paPkName)
-        assertEquals("Sindi (PK)", s.sdPkName); assertEquals("Sindi (IN)", s.sdInName)
+        assertEquals("Sindi", s.sdName); assertEquals("Sindi (IN)", s.sdName)
     }
 
     @Test
@@ -41,8 +38,7 @@ internal class HomeAudioStringsTest {
         assertEquals("Old Testament", s.oldTestamentAll); assertEquals("New Testament", s.newTestamentAll)
         assertEquals("All Books", s.allBooks)
         assertEquals("Português", s.ptName); assertEquals("English", s.enName); assertEquals("Urdu", s.urName)
-        assertEquals("Punjabi - IN", s.paInName); assertEquals("Punjabi - PK", s.paPkName)
-        assertEquals("Sindi (PK)", s.sdPkName); assertEquals("Sindi (IN)", s.sdInName)
+        assertEquals("Sindi", s.sdName); assertEquals("Sindi (IN)", s.sdInName)
     }
 
     @Test

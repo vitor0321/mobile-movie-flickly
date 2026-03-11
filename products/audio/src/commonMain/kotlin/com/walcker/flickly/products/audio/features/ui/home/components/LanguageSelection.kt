@@ -95,7 +95,7 @@ private fun Preview() {
     MoviesAppTheme {
         LanguageSelection(
             selectedLanguage = Language.URDU,
-            languages = persistentListOf(Language.URDU, Language.PUNJABI_IN, Language.ENGLISH),
+            languages = persistentListOf(Language.URDU, Language.PUNJABI, Language.ENGLISH),
             strings = HomeAudioStrings(),
             onSelectLanguage = {},
         )

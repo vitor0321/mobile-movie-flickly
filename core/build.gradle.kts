@@ -64,6 +64,7 @@ kotlin {
             implementation(libs.kotlin.stdlib)
             implementation(libs.kotlinx.datetime)
             implementation(libs.multiplatform.settings.no.arg)
+            implementation(libs.kotlincrypto.sha2)
         }
         commonTest.dependencies {
             implementation(kotlin("test"))

@@ -2,7 +2,6 @@ package com.walcker.flickly.products.movies.features.ui.features.home
 
 import cafe.adriel.voyager.core.model.screenModelScope
 import com.walcker.flickly.core.domain.setting.PasswordSettings
-import com.walcker.flickly.core.domain.setting.model.PasswordSettingsHolder.REQUIRED_PASSWORD
 import com.walcker.flickly.core.navigation.NavigatorHolder
 import com.walcker.flickly.core.ui.stepModel.StepModel
 import com.walcker.flickly.navigator.AudioDestination
@@ -51,8 +50,7 @@ internal class HomeMoviesStepModel internal constructor(
     }
 
     private fun validateAndNavigate(enteredPassword: String) {
-        val validPassword = passwordSettings.getSavedPassword() ?: REQUIRED_PASSWORD
-        if (enteredPassword == validPassword) {
+        if (passwordSettings.verifyPassword(enteredPassword)) {
             if (!passwordSettings.hasCustomPassword()) {
                 eventChannel.trySend(HomeMoviesInternalEvents.OnShowChangePassword)
             } else {

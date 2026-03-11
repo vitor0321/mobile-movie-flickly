@@ -4,4 +4,5 @@ public interface PasswordSettings {
     fun getSavedPassword(): String?
     fun savePassword(password: String)
     fun hasCustomPassword(): Boolean
+    fun verifyPassword(password: String): Boolean
 }
